@@ -1,1 +1,78 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+
+.global-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.global-center-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.global-center-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.global-center-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+.global-top-between {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.global-top-start {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.global-top-end {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.global-button-between {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.global-button-start {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.global-button-end {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.global-end-between {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.global-end-center {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
