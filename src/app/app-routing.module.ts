@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { NavarComponent } from './pages/navar/navar.component';
 import { RepresentantesComponent } from './pages/modules/representantes/representantes.component';
+import { AddRepresentanteComponent } from './pages/modules/representantes/add-representante/add-representante.component';
 
 const routes: Routes = [
   {
@@ -18,8 +19,16 @@ const routes: Routes = [
     component: NavarComponent,
     children: [
       {
-        path: 'representantes',
-        component: RepresentantesComponent,        
+        path: 'all-rep',
+        component: RepresentantesComponent,  
+      },
+      {
+        path: 'add-rep',
+        component: AddRepresentanteComponent,  
+      },
+      {
+        path: 'view-rep/:id',
+        component: RepresentantesComponent,  
       },
     ]
   },

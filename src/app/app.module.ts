@@ -8,13 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RepresentantesComponent } from './pages/modules/representantes/representantes.component';
 import { NavarComponent } from './pages/navar/navar.component';
+import { AddRepresentanteComponent } from './pages/modules/representantes/add-representante/add-representante.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RepresentantesComponent,
-    NavarComponent
+    NavarComponent,
+    AddRepresentanteComponent
   ],
   imports: [
     BrowserModule,

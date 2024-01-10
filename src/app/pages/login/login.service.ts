@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { API_ENDPOINT_SEGURIDAD } from 'src/environments/environment.prod';
+import { API_SERVER } from 'src/environments/environment.prod';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private SERVER = API_ENDPOINT_SEGURIDAD ;
+  private SERVER = API_SERVER ;
   private user = this.SERVER + '/users';
  
   constructor(

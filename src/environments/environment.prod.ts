@@ -1,6 +1,5 @@
 export const environment = {
-    production: true
-  };
-  
- export const API_ENDPOINT_SEGURIDAD = "https://repaglas-backend.onrender.com";
- 
+  production: true
+};
+
+export const API_SERVER = "http://localhost:3000";

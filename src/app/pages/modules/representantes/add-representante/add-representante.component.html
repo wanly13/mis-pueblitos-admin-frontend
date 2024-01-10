@@ -1,0 +1,78 @@
+<div class="global-center h-[100%]">
+
+    <a class="block max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow ">
+
+
+
+        <form [formGroup]="addValueForm" (ngSubmit)="save_representante(addValueForm.value)" class="max-w-md mx-auto">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" [class]="input_class" placeholder=" " formControlName="nombreRepresentante" required
+                    autocomplete="nope" />
+                <label [class]="label_class">
+                    Nombre y Apellidos
+                </label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" [class]="input_class" placeholder=" " formControlName="documentoIdentidad" required
+                    autocomplete="nope" />
+                <label for="floating_password" [class]="label_class">Documento </label>
+            </div>
+            <!-- <div class="relative z-0 w-full mb-5 group">
+                <input type="text" [class]="input_class" placeholder=" " required autocomplete="nope" />
+                <label for="floating_repeat_password" [class]="label_class"> Celular</label>
+            </div> -->
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" [class]="input_class" placeholder=" " required autocomplete="nope" />
+                    <label for="floating_first_name" [class]="label_class"> Correo Electrónico</label>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" [class]="input_class" placeholder=" " required autocomplete="nope" />
+                    <label for="floating_last_name" [class]="label_class"> Celular </label>
+                </div>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <label [class]="label_class">Estado laboral</label>
+                <select [class]="input_class">
+                    <option *ngIf="list_estado_laboral.length > 0"></option>
+                    <option *ngFor="let item of list_estado_laboral" [value]="item.idEstadoLaboral"> {{item.estado}}
+                    </option>
+
+                </select>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <label [class]="label_class">Área</label>
+                <select [class]="input_class">
+                    <option *ngIf="list_areas.length > 0"></option>
+                    <option *ngFor="let item of list_areas" [value]="item.idArea"> {{item.nombreArea}}
+                    </option>
+                </select>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <label [class]="label_class">País</label>
+                <select [class]="input_class">
+                    <option *ngIf="list_paises.length > 0"></option>
+                    <option *ngFor="let item of list_paises" [value]="item.idPais"> {{item.nombrePais}}
+                    </option>
+                </select>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <label [class]="label_class">Empresa</label>
+                <select [class]="input_class">
+                    <option *ngIf="list_empresas.length > 0"></option>
+                    <option *ngFor="let item of list_empresas" [value]="item.taxId"> {{item.razonSocial}}
+                    </option>
+                </select>
+            </div>
+            <div class="global-center-end">
+
+                <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Agregar
+                </button>
+            </div>
+        </form>
+
+    </a>
+
+</div>
