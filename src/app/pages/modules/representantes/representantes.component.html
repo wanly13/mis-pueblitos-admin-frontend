@@ -1,15 +1,88 @@
 <div class="relative overflow-x-auto sm:rounded-lg">
-    <div class="px-5">
-        <h1>Listado de Representantes</h1>
-        <button type="button" routerLink="/home/add-rep" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Agregar</button>
+    <div class="px-3">
+
     </div>
 
-    
+    <!-- // -------- FILTERS OF SEARCH -------- \\  -->
+    <div class="px-3 m-0">
+        <a class=" block w-full p-6 m-0 bg-white border border-gray-200 rounded-lg shadow ">
+            <form [formGroup]="searchValueForm" class="grid grid-cols-5 gap-4 ">
 
+                <div class="relative z-0 mb-5 group">
+                    <label [class]="label_class">Banco </label>
+                    <select [class]="input_class" formControlName="banco">
+                        <option *ngIf="list_entidades.length > 0"></option>
+                        <option *ngFor="let item of list_entidades" [value]="item.taxId"> {{item.razonSocial}}
+                        </option>
 
-    <div class="px-5">
+                    </select>
+                </div>
+                <div class="relative z-0 mb-5 group">
+                    <label [class]="label_class">Empresa</label>
+                    <select [class]="input_class" formControlName="empresa">
+                        <option *ngIf="list_empresas.length > 0"></option>
+                        <option *ngFor="let item of list_empresas" [value]="item.taxId"> {{item.razonSocial}}
+                        </option>
+                    </select>
+                </div>
 
+                <div class="relative  z-0 mb-5 group">
+                    <label [class]="label_class">Poder</label>
+                    <select [class]="input_class" formControlName="poder">
+                        <option *ngIf="list_poder.length > 0"></option>
+                        <option *ngFor="let item of list_poder" [value]="item.idPoder"> {{item.poder}}
+                        </option>
+                    </select>
+                </div>
+                <div class="relative z-0 mb-5 group">
+                    <label [class]="label_class">Tipo Firmante</label>
+                    <select [class]="input_class" formControlName="tipoFirmante">
+                        <option *ngIf="list_tipo_firmantes.length > 0"></option>
+                        <option *ngFor="let item of list_tipo_firmantes" [value]="item.idTipoRepresentante">
+                            {{item.tipoRepresentante}}
+                        </option>
+                    </select>
+                </div>
+                <div class="relative z-0 mb-5 group">
+                    <label [class]="label_class">Estado Poder</label>
+                    <select [class]="input_class" formControlName="estadoPoder">
+                        <option *ngIf="list_estado_poder.length > 0"></option>
+                        <option *ngFor="let item of list_estado_poder" [value]="item.idEstadoPoder">
+                            {{item.estadoPermiso}}
+                        </option>
+                    </select>
+                </div>
 
+            </form>
+            <div class="global-center-end">
+                <button type="submit" routerLink="/home/add-rep"
+                    class="mx-2 inline-flex  items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="h-5 w-5 text-white mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    </svg>
+
+                    Agregar
+                </button>
+                <button type="submit" (click)="search_representante(searchValueForm.value)"
+                    class="inline-flex  items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="h-5 w-5 text-white mx-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    Buscar
+                </button>
+            </div>
+
+        </a>
+    </div>
+
+    <br>
+    <br>
+
+    <!-- // -------- LIST OF FIRMANTES -------- \\  -->
+    <div class="px-3">
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
             <div>
                 <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
@@ -163,9 +236,9 @@
                             </svg></a>
                     </div>
                 </th> -->
-                    <!--  <th scope="col" class="px-6 py-3">
-                    <span class="sr-only">Edit</span>
-                </th> -->
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Acción</span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -174,16 +247,16 @@
                         {{item.documentoIdentidad}}
                     </th>
                     <td class="px-6 py-4">
-                        Marco Wanly Obregón Casique
+                        {{item.nombres}} {{item.apellidoPaterno}}
                     </td>
                     <td class="px-6 py-4">
                         {{item.correoElectronico}}
                     </td>
                     <td class="px-6 py-4">
-                        {{item.idEstadoLaboral}}
+                        {{item.estadoLaboralDesc}}
                     </td>
                     <td class="px-6 py-4">
-                        {{item.idArea}}
+                        {{item.areaDesc}}
                     </td>
                     <!-- <td class="px-6 py-4">
                     {{item.idPais}}
@@ -193,9 +266,10 @@
                 </td> -->
 
 
-                    <!-- <td class="px-6 py-4 text-right">
-                    <a class="font-medium text-blue-600 hover:underline">Edit</a>
-                </td> -->
+                    <td class="px-6 py-4 text-right">
+                        <a class="font-medium text-blue-600 hover:underline">Editar </a>
+                        <a class="font-medium text-blue-600 hover:underline">/ Eliminar</a>
+                    </td>
                 </tr>
 
             </tbody>
@@ -222,4 +296,5 @@
             </a>
         </div>
     </div>
+
 </div>

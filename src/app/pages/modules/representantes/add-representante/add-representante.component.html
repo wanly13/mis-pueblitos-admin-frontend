@@ -1,26 +1,78 @@
-<div class="global-center h-[100%]">
+<div class="lg:flex lg:items-start lg:justify-between   px-3">
 
-    <a class="block max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow ">
+    <a class="block w-full mt-1 lg:w-[35%] p-6 bg-white border border-gray-200 rounded-lg shadow ">
+        <form [formGroup]="addValueForm" class="max-w-md mx-auto">
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-5 group">
+                    <label [class]="label_class">Tipo Documento</label>
+                    <select [class]="input_class" formControlName="tipoDocumento">
+                        <option *ngIf="list_documentos.length > 0"></option>
+                        <option *ngFor="let item of list_documentos" [value]="item.value"> {{item.name}}
+                        </option>
 
+                    </select>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" [class]="input_class" placeholder=" " formControlName="documentoIdentidad"
+                        required autocomplete="nope" />
+                    <label for="floating_last_name" [class]="label_class"> Documento </label>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="date" [class]="input_class" placeholder=" " formControlName="fechaNacimiento" required
+                        autocomplete="nope" />
+                    <label for="floating_last_name" [class]="label_class"> Fecha Nacimiento </label>
+                </div>
 
+                <div class="relative z-0 w-full mb-5 group">
+                    <button *ngIf="bool_search_api" disabled type="button"
+                        class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
+                        <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
+                            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="#E5E7EB" />
+                            <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentColor" />
+                        </svg>
+                        Buscando ...
+                    </button>
+                    <button *ngIf="!bool_search_api" type="button" (click)="search_api_reniec()"
+                        class="text-white global-center w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
 
-        <form [formGroup]="addValueForm" (ngSubmit)="save_representante(addValueForm.value)" class="max-w-md mx-auto">
+                        BUSCAR
+                    </button>
+                    <label for="floating_last_name" [class]="label_class"> </label>
+                </div>
+            </div>
+
             <div class="relative z-0 w-full mb-5 group">
-                <input type="text" [class]="input_class" placeholder=" " formControlName="nombreRepresentante" required
+                <input type="text" [class]="input_class" placeholder=" " formControlName="nombres" required
                     autocomplete="nope" />
                 <label [class]="label_class">
-                    Nombre y Apellidos
+                    Nombres
                 </label>
             </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <input type="text" [class]="input_class" placeholder=" " formControlName="documentoIdentidad" required
-                    autocomplete="nope" />
-                <label for="floating_password" [class]="label_class">Documento </label>
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" [class]="input_class" placeholder=" " formControlName="apellidoPaterno" required
+                        autocomplete="nope" />
+                    <label [class]="label_class">
+                        Apellido Paterno
+                    </label>
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" [class]="input_class" placeholder=" " formControlName="apellidoMaterno" required
+                        autocomplete="nope" />
+                    <label [class]="label_class">
+                        Apellido Materno
+                    </label>
+                </div>
             </div>
-            <!-- <div class="relative z-0 w-full mb-5 group">
-                <input type="text" [class]="input_class" placeholder=" " required autocomplete="nope" />
-                <label for="floating_repeat_password" [class]="label_class"> Celular</label>
-            </div> -->
+
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" [class]="input_class" placeholder=" " required autocomplete="nope" />
@@ -31,48 +83,77 @@
                     <label for="floating_last_name" [class]="label_class"> Celular </label>
                 </div>
             </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <label [class]="label_class">Estado laboral</label>
-                <select [class]="input_class">
-                    <option *ngIf="list_estado_laboral.length > 0"></option>
-                    <option *ngFor="let item of list_estado_laboral" [value]="item.idEstadoLaboral"> {{item.estado}}
-                    </option>
 
-                </select>
-            </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <label [class]="label_class">Área</label>
-                <select [class]="input_class">
-                    <option *ngIf="list_areas.length > 0"></option>
-                    <option *ngFor="let item of list_areas" [value]="item.idArea"> {{item.nombreArea}}
-                    </option>
-                </select>
-            </div>
             <div class="relative z-0 w-full mb-5 group">
                 <label [class]="label_class">País</label>
                 <select [class]="input_class">
                     <option *ngIf="list_paises.length > 0"></option>
                     <option *ngFor="let item of list_paises" [value]="item.idPais"> {{item.nombrePais}}
                     </option>
+
                 </select>
             </div>
             <div class="relative z-0 w-full mb-5 group">
-                <label [class]="label_class">Empresa</label>
+                <label [class]="label_class">Cargo</label>
                 <select [class]="input_class">
-                    <option *ngIf="list_empresas.length > 0"></option>
-                    <option *ngFor="let item of list_empresas" [value]="item.taxId"> {{item.razonSocial}}
+                    <option *ngIf="list_cargos.length > 0"></option>
+                    <option *ngFor="let item of list_cargos" [value]="item.idCargo"> {{item.nombreCargo}}
+                    </option>
+                </select>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <label [class]="label_class">Estado Laboral</label>
+                <select [class]="input_class">
+                    <option *ngIf="list_estado_laboral.length > 0"></option>
+                    <option *ngFor="let item of list_estado_laboral" [value]="item.idEstadoLaboral"> {{item.estado}}
                     </option>
                 </select>
             </div>
             <div class="global-center-end">
 
-                <button type="submit"
+                <button (click)="openAddRelacion(true)"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Agregar
+                    Añadir Poderes
                 </button>
             </div>
         </form>
 
     </a>
+    <div class="block w-full mt-1 lg:w-[63%] ">
 
+        <a class="block w-full mt-1 p-6 bg-white border border-gray-200 rounded-lg shadow ">
+            asdfasd
+
+        </a>
+        <a class="block w-full mt-1 p-6 bg-white border border-gray-200 rounded-lg shadow ">
+            asdfasd
+
+        </a>
+        <a class="block w-full mt-1 p-6 bg-white border border-gray-200 rounded-lg shadow ">
+            asdfasd
+
+        </a>
+        <a class="block w-full mt-1 p-6 bg-white border border-gray-200 rounded-lg shadow ">
+            asdfasd
+
+        </a><a class="block w-full mt-1 p-6 bg-white border border-gray-200 rounded-lg shadow ">
+            asdfasd
+
+        </a>
+        <a class="block w-full mt-1 p-6 bg-white border border-gray-200 rounded-lg shadow ">
+            asdfasd
+        </a>
+
+    </div>
+</div>
+
+
+
+<!-- Modal toggle -->
+<div *ngIf="!boolRelacionPoder">
+    <button #ActivateRelacionPoder data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button">
+    </button>
+    <app-add-relacion-poder></app-add-relacion-poder>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
@@ -26,14 +26,17 @@ export class AddRepresentanteComponent {
   ) {
 
     this.addValueForm = this.fb.group({
-      nombreRepresentante: [{ value: null, disabled: false }],
+      tipoDocumento: [{ value: null, disabled: false }],
       documentoIdentidad: [{ value: null, disabled: false }],
+      fechaNacimiento: [{ value: null, disabled: false }],
+      nombres: [{ value: null, disabled: false }],
+      apellidoPaterno: [{ value: null, disabled: false }],
+      apellidoMaterno: [{ value: null, disabled: false }],
       celular: [{ value: null, disabled: false }],
       correoElectronico: [{ value: null, disabled: false }],
-      idEstadoLaboral: [{ value: null, disabled: false }],
-      idArea: [{ value: null, disabled: false }],
+      idCargo: [{ value: null, disabled: false }],
       idPais: [{ value: null, disabled: false }],
-      taxId: [{ value: null, disabled: false }],
+      idEstadoLaboral: [{ value: null, disabled: false }],
     });
   }
 
@@ -44,11 +47,59 @@ export class AddRepresentanteComponent {
   // --------------- Loads Values --------------- \\
   general_loads() {
     this.load_estados_laborales()
-    this.load_areas()
+    this.tipo_documentos()
+    this.load_cargos()
     this.load_paises()
     this.load_empresas()
 
   }
+
+  bool_search_api: boolean = false
+  search_api_reniec() {
+    this.bool_search_api = true;
+    this.loadingService.show();
+    const data = {
+
+    }
+    this.representantesService.get_listado_estados_laborales().subscribe(
+      (response: any) => {
+        this.bool_search_api = false;
+        this.loadingService.hide();
+      },
+      (err) => {
+        this.bool_search_api = false;
+        this.loadingService.hide();
+      }
+    );
+  }
+
+
+  boolRelacionPoder: boolean = false
+  openAddRelacion(value: any) {
+    
+
+    if (value == true) {
+      this.boolRelacionPoder = true
+      var activateButton = document.getElementById('ActivateRelacionPoder');
+      console.log(activateButton);
+      
+      activateButton.click()
+    } else if (value == false) {
+      this.boolRelacionPoder = false;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   list_estado_laboral: any[] = [];
   load_estados_laborales() {
@@ -64,14 +115,30 @@ export class AddRepresentanteComponent {
       }
     );
   }
-
-  list_areas: any[] = [];
-  load_areas() {
+  list_documentos: any[] = [];
+  tipo_documentos() {
+    this.list_documentos = [
+      {
+        name: 'DNI',
+        value: 'D'
+      },
+      {
+        name: 'C. EXTRANGERIA',
+        value: 'D'
+      },
+      {
+        name: 'PASAPORTE',
+        value: 'D'
+      },
+    ]
+  }
+  list_cargos: any[] = [];
+  load_cargos() {
     this.loadingService.show();
-    this.list_areas = []
-    this.representantesService.get_listado_area().subscribe(
+    this.list_cargos = []
+    this.representantesService.get_listado_cargos().subscribe(
       (response: any) => {
-        this.list_areas = response.response;
+        this.list_cargos = response.response;
         this.loadingService.hide();
       },
       (err) => {

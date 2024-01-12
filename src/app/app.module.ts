@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RepresentantesComponent } from './pages/modules/representantes/representantes.component';
 import { NavarComponent } from './pages/navar/navar.component';
 import { AddRepresentanteComponent } from './pages/modules/representantes/add-representante/add-representante.component';
+import { DateUserComponent } from './pages/navar/date-user/date-user.component';
+import { AddRelacionPoderComponent } from './pages/modules/representantes/add-relacion-poder/add-relacion-poder.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { AddRepresentanteComponent } from './pages/modules/representantes/add-re
     LoginComponent,
     RepresentantesComponent,
     NavarComponent,
-    AddRepresentanteComponent
+    AddRepresentanteComponent,
+    DateUserComponent,
+    AddRelacionPoderComponent
   ],
   imports: [
     BrowserModule,
