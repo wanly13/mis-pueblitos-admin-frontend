@@ -9,6 +9,7 @@ import { DtoRepresenante } from '../pages/modules/representantes/estructure/dtoR
 })
 export class RepresentantesService {
   private API_SERVER_REPRESENTANTE = API_SERVER + '/representante'
+  private API_SERVER_REPRESENTANTE_PODER = API_SERVER + '/poder-representante'
   private API_SERVER_ESTADO_LABORAL = API_SERVER + '/estadolaboral'
   private API_SERVER_AREA = API_SERVER + '/area'
   private API_SERVER_PAIS = API_SERVER + '/pais'
@@ -81,6 +82,35 @@ export class RepresentantesService {
   }
   get_listado_estado_poder(): Observable<any> {
     return this.http.get<any>(this.API_SERVER_ESTADO_PODER).pipe(
+      map((response) => { return response })
+    );
+  }
+
+
+  // --------- REPRESENTANTE ------ \\
+  create_representante(data : any): Observable<any> {
+    return this.http.post<any>(this.API_SERVER_REPRESENTANTE , data).pipe(
+      map((response) => { return response })
+    );
+  }
+  get_representante(id : any): Observable<any> {
+    return this.http.get<any>(this.API_SERVER_REPRESENTANTE + '/' + id).pipe(
+      map((response) => { return response })
+    );
+  }
+  update_representante(id: any , data : any): Observable<any> {
+    return this.http.put<any>(this.API_SERVER_REPRESENTANTE + '/' + id , data).pipe(
+      map((response) => { return response })
+    );
+  }
+
+  create_relacion_poder(data : any): Observable<any> {
+    return this.http.post<any>(this.API_SERVER_REPRESENTANTE_PODER , data).pipe(
+      map((response) => { return response })
+    );
+  }
+  update_relacion_poder(id: any , data : any): Observable<any> {
+    return this.http.put<any>(this.API_SERVER_REPRESENTANTE_PODER + '/' + id, data).pipe(
       map((response) => { return response })
     );
   }

@@ -23,7 +23,7 @@ export class RepresentantesComponent {
     poder: [{ value: null, disabled: false }],
     tipoFirmante: [{ value: null, disabled: false }],
     estadoPoder: [{ value: null, disabled: false }],
-    
+
   });;
 
   constructor(
@@ -40,7 +40,7 @@ export class RepresentantesComponent {
   }
 
   // ---------- LOADS FILTERS EN LIST ---------- \\
-  general_loads (){
+  general_loads() {
     this.load_empresas();
     this.load_entidades();
     this.load_tipo_firmantes();
@@ -48,6 +48,63 @@ export class RepresentantesComponent {
     this.load_estado_poder();
   }
 
+
+  // ---------- SEARCH ---------- \\
+  search_representante(form: any) {
+    this.loadingService.show();
+    this.list_representantes = []
+    this.representantesService.search_listado_representantes(form).subscribe(
+      (response: DtoRepresenante[]) => {
+        this.list_representantes = response;
+        this.loadingService.hide();
+      },
+      err => {
+        this.loadingService.hide()
+      }
+    )
+  }
+
+  // ----------- ACTIONS EDIT AND DELETE ------- \\ 
+
+  goToEdit(item: any) {
+    item.tipoDocumento = 'D'
+    item.fechaNacimiento = '2003-04-13'
+    const data = {
+      option: 'EDIT',
+      data: item
+    }
+    localStorage.setItem('itemSelected', JSON.stringify(data));
+    this.router.navigate(['/home/add-rep'])
+  }
+
+  goToCreate(){
+    
+    const data = {
+      option: 'CREATE',
+      data: {}
+    }
+    localStorage.setItem('itemSelected', JSON.stringify(data));
+    this.router.navigate(['/home/add-rep'])
+  }
+
+  deleteItem(item: any) {
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // ----------- CALL LOADS ------ \\
   list_representantes: DtoRepresenante[] = []
   load_list_representantes() {
     this.loadingService.show();
@@ -69,7 +126,7 @@ export class RepresentantesComponent {
     this.list_empresas = []
     this.representantesService.get_listado_empresas().subscribe(
       (response: any) => {
-        this.list_empresas = response.response;
+        this.list_empresas = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -83,7 +140,7 @@ export class RepresentantesComponent {
     this.list_entidades = []
     this.representantesService.get_listado_entidades().subscribe(
       (response: any) => {
-        this.list_entidades = response.response;
+        this.list_entidades = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -97,7 +154,7 @@ export class RepresentantesComponent {
     this.list_tipo_firmantes = []
     this.representantesService.get_listado_tipo_firmantes().subscribe(
       (response: any) => {
-        this.list_tipo_firmantes = response.response;
+        this.list_tipo_firmantes = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -111,7 +168,7 @@ export class RepresentantesComponent {
     this.list_poder = []
     this.representantesService.get_listado_poder().subscribe(
       (response: any) => {
-        this.list_poder = response.response;
+        this.list_poder = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -125,7 +182,7 @@ export class RepresentantesComponent {
     this.list_estado_poder = []
     this.representantesService.get_listado_estado_poder().subscribe(
       (response: any) => {
-        this.list_estado_poder = response.response;
+        this.list_estado_poder = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -133,18 +190,5 @@ export class RepresentantesComponent {
       }
     );
   }
-  // ---------- SEARCH ---------- \\
-  search_representante(form: any) {
-    this.loadingService.show();
-    this.list_representantes = []
-    this.representantesService.search_listado_representantes(form).subscribe(
-      (response: DtoRepresenante[]) => {
-        this.list_representantes = response;
-        this.loadingService.hide();
-      },
-      err => {
-        this.loadingService.hide()
-      }
-    )
-  }
+
 }

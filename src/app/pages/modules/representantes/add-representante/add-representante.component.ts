@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
+import { InputModal } from '../add-relacion-poder/add-relacion-poder.component';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class AddRepresentanteComponent {
   }
 
   ngOnInit() {
+    this.loadLocalStorageData()
     this.general_loads()
   }
 
@@ -58,35 +60,144 @@ export class AddRepresentanteComponent {
   search_api_reniec() {
     this.bool_search_api = true;
     this.loadingService.show();
-    const data = {
-
-    }
-    this.representantesService.get_listado_estados_laborales().subscribe(
+    
+    this.representantesService.get_representante(this.addValueForm.value.documentoIdentidad).subscribe(
       (response: any) => {
-        this.bool_search_api = false;
+        this.addValueForm.patchValue(response)
+        this.Listado_poderes = response.relacionPoderRepresentante
+
+        const data = {
+          option: 'EDIT',
+          data: this.addValueForm.value
+        }
+        localStorage.setItem('itemSelected', JSON.stringify(data));
+        this.loadLocalStorageData()
         this.loadingService.hide();
       },
       (err) => {
-        this.bool_search_api = false;
+        alert('Error al Buscar')
+        this.loadingService.hide();
+      }
+    );
+  }
+  ngOnDestroy() {
+    localStorage.removeItem('itemSelected')
+  }
+
+  dataLocalStorage: any;
+  loadLocalStorageData() {
+   
+    this.dataLocalStorage = JSON.parse(localStorage.getItem('itemSelected'));
+    console.log("this.dataLocalStorage", this.dataLocalStorage);
+    if (this.dataLocalStorage.option == 'EDIT') {
+      /* this.addValueForm.patchValue(this.dataLocalStorage.data)
+      this.Listado_poderes = this.dataLocalStorage.data.relacionPoderRepresentante */
+      this.bool_search_api = true
+      this.getDateRepresentante(this.dataLocalStorage.data)
+    } else if (this.dataLocalStorage.option == 'CREATE') {
+      this.addValueForm.patchValue({})
+      this.Listado_poderes = []
+    }
+  }
+
+  getDateRepresentante(value : any){
+    this.representantesService.get_representante(value.documentoIdentidad).subscribe(
+      (response: any) => {
+        this.addValueForm.patchValue(response)
+        this.Listado_poderes = response.relacionPoderRepresentante
+        this.loadingService.hide();
+      },
+      (err) => {
+        alert('Error al Buscar')
         this.loadingService.hide();
       }
     );
   }
 
 
-  boolRelacionPoder: boolean = false
-  openAddRelacion(value: any) {
-    
+  // --------- FUNCIONALIDAD TABS------------- \\
+  tab_selected: any = 'Profile';
+  DesignTabClassSelected: any = 'inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group'
+  DesignIconClassSelected: any = 'w-4 h-4 me-2 text-blue-600 dark:text-blue-500'
+  DesignTabClassNotSelected: any = 'inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group'
+  DesignIconClassNotSelected: any = 'w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'
+  change_tabs(type: any) {
+    this.tab_selected = type;
+  }
 
-    if (value == true) {
-      this.boolRelacionPoder = true
-      var activateButton = document.getElementById('ActivateRelacionPoder');
-      console.log(activateButton);
-      
-      activateButton.click()
-    } else if (value == false) {
-      this.boolRelacionPoder = false;
+  showSelectedTab(value: any, tabSelected: any) {
+    if (tabSelected == value) {
+      return [this.DesignTabClassSelected, this.DesignIconClassSelected]
+    } else {
+      return [this.DesignTabClassNotSelected, this.DesignIconClassNotSelected]
     }
+  }
+
+  Listado_poderes: any[] = []
+
+
+  // --------- FUNCIONALIDAD MODAL RELACION - PODER------------- \\
+  boolRelacionPoder: boolean = false;
+  sentMOdal: InputModal = new InputModal();
+  activateRelacionPoder(value: any) {
+    if (value.action == true) {
+      this.sentMOdal.type = value.option;
+      this.sentMOdal.data = value.obj
+      this.boolRelacionPoder = true;
+    } else {
+      this.boolRelacionPoder = false;
+      this.loadLocalStorageData()
+      /* if (value.data) {
+        console.log("this.sentMOdal.data", value);
+
+        this.Listado_poderes.push(value.data)
+      } */
+    }
+
+  }
+
+
+  nextPage() {
+    this.loadingService.show();
+    var representante = this.addValueForm.value;
+    if (this.dataLocalStorage.option == 'CREATE') {
+      
+      representante.relacionPoderRepresentante = []
+      this.representantesService.create_representante(representante).subscribe(
+        (response: any) => {
+          alert('Agregado Correctamente')
+          const data = {
+            option: 'EDIT',
+            data: representante
+          }
+          localStorage.setItem('itemSelected', JSON.stringify(data));
+          this.loadLocalStorageData()
+          this.change_tabs('Poderes')
+          this.loadingService.hide();
+        },
+        (err) => {
+          alert('Error al agregar')
+          this.loadingService.hide();
+        }
+      );
+    } else if(this.dataLocalStorage.option == 'EDIT'){
+      representante.relacionPoderRepresentante = this.Listado_poderes
+      this.representantesService.update_representante(representante.documentoIdentidad,  representante).subscribe(
+        (response: any) => {
+          alert('Actualizado Correctamente')
+          this.loadLocalStorageData()
+          this.loadingService.hide();
+        },
+        (err) => {
+          alert('Error al Actualizar')
+          this.loadingService.hide();
+        }
+      );
+    }
+  }
+
+  deleteRelacion(value: any) {
+
   }
 
 
@@ -94,20 +205,14 @@ export class AddRepresentanteComponent {
 
 
 
-
-
-
-
-
-
-
+  // ------------- CALL LOADS --------- \\
   list_estado_laboral: any[] = [];
   load_estados_laborales() {
     this.loadingService.show();
     this.list_estado_laboral = []
     this.representantesService.get_listado_estados_laborales().subscribe(
       (response: any) => {
-        this.list_estado_laboral = response.response;
+        this.list_estado_laboral = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -115,6 +220,7 @@ export class AddRepresentanteComponent {
       }
     );
   }
+
   list_documentos: any[] = [];
   tipo_documentos() {
     this.list_documentos = [
@@ -132,13 +238,14 @@ export class AddRepresentanteComponent {
       },
     ]
   }
+
   list_cargos: any[] = [];
   load_cargos() {
     this.loadingService.show();
     this.list_cargos = []
     this.representantesService.get_listado_cargos().subscribe(
       (response: any) => {
-        this.list_cargos = response.response;
+        this.list_cargos = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -153,7 +260,7 @@ export class AddRepresentanteComponent {
     this.list_paises = []
     this.representantesService.get_listado_paises().subscribe(
       (response: any) => {
-        this.list_paises = response.response;
+        this.list_paises = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -168,7 +275,7 @@ export class AddRepresentanteComponent {
     this.list_empresas = []
     this.representantesService.get_listado_empresas().subscribe(
       (response: any) => {
-        this.list_empresas = response.response;
+        this.list_empresas = response;
         this.loadingService.hide();
       },
       (err) => {
@@ -179,6 +286,15 @@ export class AddRepresentanteComponent {
 
 
   save_representante(value: any) {
+    console.log(this.addValueForm.value);
+    console.log(this.Listado_poderes);
 
+    if (this.dataLocalStorage.option == 'CREATE') {
+      console.log("agregamos");
+
+    } else {
+      console.log("actualizamos");
+
+    }
   }
 }

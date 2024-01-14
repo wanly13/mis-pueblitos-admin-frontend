@@ -76,3 +76,26 @@
     align-items: flex-end;
     justify-content: center;
 }
+
+.animation-rigth {
+    opacity: 0;
+    /* Establece la opacidad inicial en 0 */
+    animation: entrada-derecha 0.5s forwards;
+    /* Aplica la animación 'entrada-derecha' durante 1 segundo y mantiene el estado final */
+  }
+  
+  @keyframes entrada-derecha {
+    from {
+      opacity: 0;
+      /* Estado inicial de la animación */
+      transform: translateX(100%);
+      /* Desplazamiento inicial hacia la derecha */
+    }
+  
+    to {
+      opacity: 1;
+      /* Estado final de la animación */
+      transform: translateX(0);
+      /* Desplazamiento final (sin desplazamiento) */
+    }
+  }

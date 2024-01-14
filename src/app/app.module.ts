@@ -11,10 +11,12 @@ import { NavarComponent } from './pages/navar/navar.component';
 import { AddRepresentanteComponent } from './pages/modules/representantes/add-representante/add-representante.component';
 import { DateUserComponent } from './pages/navar/date-user/date-user.component';
 import { AddRelacionPoderComponent } from './pages/modules/representantes/add-relacion-poder/add-relacion-poder.component';
+import { LoadingsComponent } from './general-functions/loading/loadings/loadings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoadingsComponent,
     LoginComponent,
     RepresentantesComponent,
     NavarComponent,
