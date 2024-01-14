@@ -4,6 +4,7 @@ import { LoadingService } from 'src/app/general-functions/loading/loadings/loadi
 import { RepresentantesService } from 'src/app/services/representantes.service';
 import { DtoRepresenante } from './estructure/dtoRepresentante';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-representantes',
@@ -77,8 +78,8 @@ export class RepresentantesComponent {
     this.router.navigate(['/home/add-rep'])
   }
 
-  goToCreate(){
-    
+  goToCreate() {
+
     const data = {
       option: 'CREATE',
       data: {}
@@ -89,8 +90,57 @@ export class RepresentantesComponent {
 
   deleteItem(item: any) {
 
-  }
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800",
+        cancelButton: "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+      },
+      buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+      title: "Está seguro?",
+      text: "Se eliminarán todos los datos del representante!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, borrar!",
+      cancelButtonText: "No, cancelar!",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loadingService.show()
+        this.representantesService.delete_representante(item.documentoIdentidad).subscribe(
+          (response: any) => {
+            swalWithBootstrapButtons.fire({
+              title: "Borrado!",
+              text: "El representante se elimino correctamente.",
+              icon: "success"
+            });
 
+
+            this.search_representante(this.searchValueForm.value)
+            this.loadingService.hide();
+          },
+          (err) => {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'Error al eliminar',
+              icon: 'error'
+            });
+
+            this.loadingService.hide();
+          }
+        );
+
+
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+
+      }
+    });
+  }
 
 
 

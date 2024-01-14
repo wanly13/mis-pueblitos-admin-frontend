@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-relacion-poder',
@@ -16,7 +17,7 @@ export class AddRelacionPoderComponent {
 
 
   addValueForm: FormGroup
-  constructor(    
+  constructor(
     private loadingService: LoadingService,
     private fb: FormBuilder,
     private representantesService: RepresentantesService,
@@ -42,38 +43,55 @@ export class AddRelacionPoderComponent {
 
   CloseModal(value) {
     console.log(value);
-    
-    
+
+
     this.messageEvent.emit(value);
   }
 
 
-  saveFormulario(forms : any){
-    if(this.TypeModal.type == 'CREATE')  {
+  saveFormulario(forms: any) {
+    this.loadingService.show()
+    if (this.TypeModal.type == 'CREATE') {
       console.log();
-      
+
       this.representantesService.create_relacion_poder(this.addValueForm.value).subscribe(
         (response: any) => {
-          alert('Agregado Correctamente')
-          this.CloseModal({action : false})
+          Swal.fire({
+            title: '¡Agregado!',
+            text: 'Se agrego exitosamente',
+            icon: 'success'
+          });
+          this.CloseModal({ action: false })
           this.loadingService.hide();
         },
         (err) => {
-          alert('Error al agregar')
+          Swal.fire({
+            title: '¡Error!',
+            text: 'Error al agregar',
+            icon: 'error'
+          });
           this.loadingService.hide();
         }
       );
 
 
-    } else if(this.TypeModal.type == 'EDIT'){
+    } else if (this.TypeModal.type == 'EDIT') {
       this.representantesService.update_relacion_poder(this.addValueForm.value.idRelacionPoder, this.addValueForm.value).subscribe(
         (response: any) => {
-          alert('Agregado Correctamente')
-          this.CloseModal({action : false})
+          Swal.fire({
+            title: '¡Editado!',
+            text: 'Se editó exitosamente',
+            icon: 'success'
+          });
+          this.CloseModal({ action: false })
           this.loadingService.hide();
         },
         (err) => {
-          alert('Error al agregar')
+          Swal.fire({
+            title: '¡Error!',
+            text: 'Error al editar',
+            icon: 'error'
+          });
           this.loadingService.hide();
         }
       );

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
 import { InputModal } from '../add-relacion-poder/add-relacion-poder.component';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-add-representante',
@@ -60,7 +60,7 @@ export class AddRepresentanteComponent {
   search_api_reniec() {
     this.bool_search_api = true;
     this.loadingService.show();
-    
+
     this.representantesService.get_representante(this.addValueForm.value.documentoIdentidad).subscribe(
       (response: any) => {
         this.addValueForm.patchValue(response)
@@ -86,7 +86,7 @@ export class AddRepresentanteComponent {
 
   dataLocalStorage: any;
   loadLocalStorageData() {
-   
+
     this.dataLocalStorage = JSON.parse(localStorage.getItem('itemSelected'));
     console.log("this.dataLocalStorage", this.dataLocalStorage);
     if (this.dataLocalStorage.option == 'EDIT') {
@@ -100,7 +100,7 @@ export class AddRepresentanteComponent {
     }
   }
 
-  getDateRepresentante(value : any){
+  getDateRepresentante(value: any) {
     this.representantesService.get_representante(value.documentoIdentidad).subscribe(
       (response: any) => {
         this.addValueForm.patchValue(response)
@@ -161,7 +161,7 @@ export class AddRepresentanteComponent {
     this.loadingService.show();
     var representante = this.addValueForm.value;
     if (this.dataLocalStorage.option == 'CREATE') {
-      
+
       representante.relacionPoderRepresentante = []
       this.representantesService.create_representante(representante).subscribe(
         (response: any) => {
@@ -180,9 +180,9 @@ export class AddRepresentanteComponent {
           this.loadingService.hide();
         }
       );
-    } else if(this.dataLocalStorage.option == 'EDIT'){
+    } else if (this.dataLocalStorage.option == 'EDIT') {
       representante.relacionPoderRepresentante = this.Listado_poderes
-      this.representantesService.update_representante(representante.documentoIdentidad,  representante).subscribe(
+      this.representantesService.update_representante(representante.documentoIdentidad, representante).subscribe(
         (response: any) => {
           alert('Actualizado Correctamente')
           this.loadLocalStorageData()
@@ -197,12 +197,54 @@ export class AddRepresentanteComponent {
   }
 
   deleteRelacion(value: any) {
+    this.loadingService.show()
+    this.representantesService.delete_relacion_poder(value.idRelacionPoder).subscribe(
+      (response: any) => {
 
+        Swal.fire({
+          title: '¡Borrado!',
+          text: 'Se eliminó exitosamente',
+          icon: 'success'
+        });
+
+        this.loadLocalStorageData()
+        this.loadingService.hide();
+      },
+      (err) => {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'Error al eliminar',
+          icon: 'error'
+        });
+
+        this.loadingService.hide();
+      }
+    );
+  }
+
+
+  save_representante(value: any) {
+    console.log(this.addValueForm.value);
+    console.log(this.Listado_poderes);
+
+    if (this.dataLocalStorage.option == 'CREATE') {
+      console.log("agregamos");
+
+    } else {
+      console.log("actualizamos");
+
+    }
   }
 
 
 
-
+  show_error(obj: any) {
+    Swal.fire({
+      title: obj.title,
+      text: obj.message,
+      icon: obj.icon
+    });
+  }
 
 
   // ------------- CALL LOADS --------- \\
@@ -285,16 +327,8 @@ export class AddRepresentanteComponent {
   }
 
 
-  save_representante(value: any) {
-    console.log(this.addValueForm.value);
-    console.log(this.Listado_poderes);
 
-    if (this.dataLocalStorage.option == 'CREATE') {
-      console.log("agregamos");
 
-    } else {
-      console.log("actualizamos");
 
-    }
-  }
+
 }

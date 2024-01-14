@@ -88,29 +88,40 @@ export class RepresentantesService {
 
 
   // --------- REPRESENTANTE ------ \\
-  create_representante(data : any): Observable<any> {
-    return this.http.post<any>(this.API_SERVER_REPRESENTANTE , data).pipe(
+  create_representante(data: any): Observable<any> {
+    return this.http.post<any>(this.API_SERVER_REPRESENTANTE, data).pipe(
       map((response) => { return response })
     );
   }
-  get_representante(id : any): Observable<any> {
+  get_representante(id: any): Observable<any> {
     return this.http.get<any>(this.API_SERVER_REPRESENTANTE + '/' + id).pipe(
       map((response) => { return response })
     );
   }
-  update_representante(id: any , data : any): Observable<any> {
-    return this.http.put<any>(this.API_SERVER_REPRESENTANTE + '/' + id , data).pipe(
+  update_representante(id: any, data: any): Observable<any> {
+    return this.http.put<any>(this.API_SERVER_REPRESENTANTE + '/' + id, data).pipe(
+      map((response) => { return response })
+    );
+  }
+  delete_representante(id: any): Observable<any> {
+    return this.http.delete<any>(this.API_SERVER_REPRESENTANTE + '/' + id).pipe(
       map((response) => { return response })
     );
   }
 
-  create_relacion_poder(data : any): Observable<any> {
-    return this.http.post<any>(this.API_SERVER_REPRESENTANTE_PODER , data).pipe(
+
+  create_relacion_poder(data: any): Observable<any> {
+    return this.http.post<any>(this.API_SERVER_REPRESENTANTE_PODER, data).pipe(
       map((response) => { return response })
     );
   }
-  update_relacion_poder(id: any , data : any): Observable<any> {
+  update_relacion_poder(id: any, data: any): Observable<any> {
     return this.http.put<any>(this.API_SERVER_REPRESENTANTE_PODER + '/' + id, data).pipe(
+      map((response) => { return response })
+    );
+  }
+  delete_relacion_poder(id: any): Observable<any> {
+    return this.http.delete<any>(this.API_SERVER_REPRESENTANTE_PODER + '/' + id).pipe(
       map((response) => { return response })
     );
   }
