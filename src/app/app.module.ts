@@ -12,6 +12,9 @@ import { AddRepresentanteComponent } from './pages/modules/representantes/add-re
 import { DateUserComponent } from './pages/navar/date-user/date-user.component';
 import { AddRelacionPoderComponent } from './pages/modules/representantes/add-relacion-poder/add-relacion-poder.component';
 import { LoadingsComponent } from './general-functions/loading/loadings/loadings.component';
+import { EntidadesComponent } from './pages/modules/entidades/entidades.component';
+import { EditEntitiesComponent } from './pages/modules/entidades/edit-entities/edit-entities.component';
+import { HomeComponent } from './pages/modules/home/home.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { LoadingsComponent } from './general-functions/loading/loadings/loadings
     NavarComponent,
     AddRepresentanteComponent,
     DateUserComponent,
-    AddRelacionPoderComponent
+    AddRelacionPoderComponent,
+    EntidadesComponent,
+    EditEntitiesComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

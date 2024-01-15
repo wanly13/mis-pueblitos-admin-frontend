@@ -1,17 +1,19 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
+import Swal from 'sweetalert2';
+import { InputModal } from '../../representantes/add-relacion-poder/add-relacion-poder.component';
 import { RepresentantesService } from 'src/app/services/representantes.service';
-import { InputModal } from '../add-relacion-poder/add-relacion-poder.component';
-import Swal from 'sweetalert2'
+import { EntidadesService } from 'src/app/services/entidades.service';
 
 @Component({
-  selector: 'app-add-representante',
-  templateUrl: './add-representante.component.html',
-  styleUrls: ['./add-representante.component.scss']
+  selector: 'app-edit-entities',
+  templateUrl: './edit-entities.component.html',
+  styleUrls: ['./edit-entities.component.scss']
 })
-export class AddRepresentanteComponent {
+export class EditEntitiesComponent {
+
   // --------------- Diseño Formulario --------------- \\
   input_class: any = 'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none border-gray-600  focus:outline-none focus:ring-0 focus:border-blue-600 peer'
   label_class: any = 'peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
@@ -23,21 +25,15 @@ export class AddRepresentanteComponent {
     private router: Router,
     private loadingService: LoadingService,
     private fb: FormBuilder,
-    private representantesService: RepresentantesService,
+    private entidadesService: EntidadesService,
+    private representantesService : RepresentantesService
   ) {
 
     this.addValueForm = this.fb.group({
-      tipoDocumento: [{ value: null, disabled: false }],
-      documentoIdentidad: [{ value: null, disabled: false }],
-      fechaNacimiento: [{ value: null, disabled: false }],
-      nombres: [{ value: null, disabled: false }],
-      apellidoPaterno: [{ value: null, disabled: false }],
-      apellidoMaterno: [{ value: null, disabled: false }],
-      celular: [{ value: null, disabled: false }],
-      correoElectronico: [{ value: null, disabled: false }],
-      idCargo: [{ value: null, disabled: false }],
+      taxId: [{ value: null, disabled: false }],
       idPais: [{ value: null, disabled: false }],
-      idEstadoLaboral: [{ value: null, disabled: false }],
+      razonSocial: [{ value: null, disabled: false }],
+      tipoIdentificación: [{ value: null, disabled: false }],      
     });
   }
 
@@ -48,21 +44,22 @@ export class AddRepresentanteComponent {
 
   // --------------- Loads Values --------------- \\
   general_loads() {
-    this.load_estados_laborales()
-    this.tipo_documentos()
-    this.load_cargos()
+    //this.load_estados_laborales()
+    this.tipo_documentos_entidad()
+    //this.load_cargos()
     this.load_paises()
-    this.load_empresas()
+    //this.load_empresas()
 
   }
 
   bool_search_api: boolean = false
   search_api_reniec() {
-    this.bool_search_api = true;
+    
     this.loadingService.show();
 
-    this.representantesService.get_representante(this.addValueForm.value.documentoIdentidad).subscribe(
+    this.entidadesService.get_entidad(this.addValueForm.value.taxId).subscribe(
       (response: any) => {
+        this.bool_search_api = true;
         this.addValueForm.patchValue(response)
         this.Listado_poderes = response.relacionPoderRepresentante
 
@@ -74,12 +71,8 @@ export class AddRepresentanteComponent {
         this.loadLocalStorageData()
         this.loadingService.hide();
       },
-      (err) => {
-        Swal.fire({
-          
-          text: 'Complete todos los campos',
-          
-        });
+      (err) => {      
+        this.bool_search_api = true; 
         this.loadingService.hide();
       }
     );
@@ -105,7 +98,7 @@ export class AddRepresentanteComponent {
   }
 
   getDateRepresentante(value: any) {
-    this.representantesService.get_representante(value.documentoIdentidad).subscribe(
+    this.entidadesService.get_entidad(value.taxId).subscribe(
       (response: any) => {
         this.addValueForm.patchValue(response)
         this.Listado_poderes = response.relacionPoderRepresentante
@@ -170,8 +163,8 @@ export class AddRepresentanteComponent {
     var representante = this.addValueForm.value;
     if (this.dataLocalStorage.option == 'CREATE') {
 
-      representante.relacionPoderRepresentante = []
-      this.representantesService.create_representante(representante).subscribe(
+      //representante.relacionPoderRepresentante = []
+      this.entidadesService.create_entidad(representante).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Creado!',
@@ -184,27 +177,28 @@ export class AddRepresentanteComponent {
           }
           localStorage.setItem('itemSelected', JSON.stringify(data));
           this.loadLocalStorageData()
-          this.change_tabs('Poderes')
+          this.change_tabs('Profile')
           this.loadingService.hide();
         },
         (err) => {
           Swal.fire({
             title: '¡Error!',
-            text: 'Error al actualizar',
+            text: 'Error al agregar',
             icon: 'error'
           });
           this.loadingService.hide();
         }
       );
     } else if (this.dataLocalStorage.option == 'EDIT') {
-      representante.relacionPoderRepresentante = this.Listado_poderes
-      this.representantesService.update_representante(representante.documentoIdentidad, representante).subscribe(
+      //representante.relacionPoderRepresentante = this.Listado_poderes
+      this.entidadesService.update_entidad(representante.taxId, representante).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Actualizado!',
             text: 'Se actualizó exitosamente',
             icon: 'success'
           });
+  
           this.loadLocalStorageData()
           this.loadingService.hide();
         },
@@ -222,7 +216,7 @@ export class AddRepresentanteComponent {
 
   deleteRelacion(value: any) {
     this.loadingService.show()
-    this.representantesService.delete_relacion_poder(value.idRelacionPoder).subscribe(
+    this.entidadesService.delete_relacion_sectorista(value.idRelacionPoder).subscribe(
       (response: any) => {
 
         Swal.fire({
@@ -245,38 +239,29 @@ export class AddRepresentanteComponent {
       }
     );
   }
-
-
-  save_representante(value: any) {
-    console.log(this.addValueForm.value);
-    console.log(this.Listado_poderes);
-
-    if (this.dataLocalStorage.option == 'CREATE') {
-      console.log("agregamos");
-
-    } else {
-      console.log("actualizamos");
-
-    }
-  }
-
-
-
-  show_error(obj: any) {
-    Swal.fire({
-      title: obj.title,
-      text: obj.message,
-      icon: obj.icon
-    });
-  }
-
+ 
 
   // ------------- CALL LOADS --------- \\
-  list_estado_laboral: any[] = [];
+  list_documentos: any[] = [];
+  tipo_documentos_entidad() {
+    this.list_documentos = [
+      {
+        name: 'NIT',
+        value: 'NIT'
+      },
+      {
+        name: 'RUC',
+        value: 'RUC'
+      },
+      
+    ]
+  }
+
+  /* list_estado_laboral: any[] = [];
   load_estados_laborales() {
     this.loadingService.show();
     this.list_estado_laboral = []
-    this.representantesService.get_listado_estados_laborales().subscribe(
+    this.ent.get_listado_estados_laborales().subscribe(
       (response: any) => {
         this.list_estado_laboral = response;
         this.loadingService.hide();
@@ -285,27 +270,10 @@ export class AddRepresentanteComponent {
         this.loadingService.hide();
       }
     );
-  }
+  } */
 
-  list_documentos: any[] = [];
-  tipo_documentos() {
-    this.list_documentos = [
-      {
-        name: 'DNI',
-        value: 'D'
-      },
-      {
-        name: 'C. EXTRANGERIA',
-        value: 'D'
-      },
-      {
-        name: 'PASAPORTE',
-        value: 'D'
-      },
-    ]
-  }
-
-  list_cargos: any[] = [];
+  
+  /* list_cargos: any[] = [];
   load_cargos() {
     this.loadingService.show();
     this.list_cargos = []
@@ -318,7 +286,7 @@ export class AddRepresentanteComponent {
         this.loadingService.hide();
       }
     );
-  }
+  } */
 
   list_paises: any[] = [];
   load_paises() {
@@ -335,7 +303,7 @@ export class AddRepresentanteComponent {
     );
   }
 
-  list_empresas: any[] = [];
+ /*  list_empresas: any[] = [];
   load_empresas() {
     this.loadingService.show();
     this.list_empresas = []
@@ -348,11 +316,6 @@ export class AddRepresentanteComponent {
         this.loadingService.hide();
       }
     );
-  }
-
-
-
-
-
+  } */
 
 }

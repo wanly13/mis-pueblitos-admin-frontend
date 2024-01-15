@@ -40,8 +40,8 @@ export class LoginComponent {
   }
 
   login() {
-    this.loadingService.show();
-    /*  if (this.isEmpty(this.usuario, this.password)) {
+     /*this.loadingService.show();
+     if (this.isEmpty(this.usuario, this.password)) {
        this.error_function("Debe completar todos los campos");
        this.loadingService.hide();
        return;

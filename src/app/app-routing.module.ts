@@ -4,6 +4,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { NavarComponent } from './pages/navar/navar.component';
 import { RepresentantesComponent } from './pages/modules/representantes/representantes.component';
 import { AddRepresentanteComponent } from './pages/modules/representantes/add-representante/add-representante.component';
+import { EntidadesComponent } from './pages/modules/entidades/entidades.component';
+import { HomeComponent } from './pages/modules/home/home.component';
+import { EditEntitiesComponent } from './pages/modules/entidades/edit-entities/edit-entities.component';
 
 const routes: Routes = [
   {
@@ -19,6 +22,10 @@ const routes: Routes = [
     component: NavarComponent,
     children: [
       {
+        path: '',
+        component: HomeComponent,  
+      },
+      {
         path: 'all-rep',
         component: RepresentantesComponent,  
       },
@@ -26,10 +33,16 @@ const routes: Routes = [
         path: 'add-rep',
         component: AddRepresentanteComponent,  
       },
+      
       {
-        path: 'view-rep/:id',
-        component: RepresentantesComponent,  
+        path: 'all-entity',
+        component: EntidadesComponent,  
       },
+      {
+        path: 'add-entity',
+        component: EditEntitiesComponent,  
+      },
+     
     ]
   },
 ];
