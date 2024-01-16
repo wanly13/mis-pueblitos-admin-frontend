@@ -7,6 +7,10 @@ import { AddRepresentanteComponent } from './pages/modules/representantes/add-re
 import { EntidadesComponent } from './pages/modules/entidades/entidades.component';
 import { HomeComponent } from './pages/modules/home/home.component';
 import { EditEntitiesComponent } from './pages/modules/entidades/edit-entities/edit-entities.component';
+import { BusinessComponent } from './pages/modules/business/business.component';
+import { EditBusinessComponent } from './pages/modules/business/edit-business/edit-business.component';
+import { PoderesComponent } from './pages/modules/poderes/poderes.component';
+import { EditPoderesComponent } from './pages/modules/poderes/edit-poderes/edit-poderes.component';
 
 const routes: Routes = [
   {
@@ -23,32 +27,46 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent,  
+        component: HomeComponent,
       },
       {
         path: 'all-rep',
-        component: RepresentantesComponent,  
+        component: RepresentantesComponent,
       },
       {
         path: 'add-rep',
-        component: AddRepresentanteComponent,  
+        component: AddRepresentanteComponent,
       },
-      
       {
         path: 'all-entity',
-        component: EntidadesComponent,  
+        component: EntidadesComponent,
       },
       {
         path: 'add-entity',
-        component: EditEntitiesComponent,  
+        component: EditEntitiesComponent,
       },
-     
+      {
+        path: 'all-business',
+        component: BusinessComponent,
+      },
+      {
+        path: 'add-business',
+        component: EditBusinessComponent,
+      },
+      {
+        path: 'all-poderes',
+        component: PoderesComponent,
+      },
+      {
+        path: 'add-poderes',
+        component: EditPoderesComponent,
+      },
     ]
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash:true})],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

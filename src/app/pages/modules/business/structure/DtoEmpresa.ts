@@ -1,4 +1,4 @@
-export class DtoEntidades {
+export class DtoEmpresa {
     taxId: string
     idPais: string
     razonSocial: string

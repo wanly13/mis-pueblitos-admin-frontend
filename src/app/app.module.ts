@@ -15,6 +15,10 @@ import { LoadingsComponent } from './general-functions/loading/loadings/loadings
 import { EntidadesComponent } from './pages/modules/entidades/entidades.component';
 import { EditEntitiesComponent } from './pages/modules/entidades/edit-entities/edit-entities.component';
 import { HomeComponent } from './pages/modules/home/home.component';
+import { BusinessComponent } from './pages/modules/business/business.component';
+import { EditBusinessComponent } from './pages/modules/business/edit-business/edit-business.component';
+import { PoderesComponent } from './pages/modules/poderes/poderes.component';
+import { EditPoderesComponent } from './pages/modules/poderes/edit-poderes/edit-poderes.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { HomeComponent } from './pages/modules/home/home.component';
     AddRelacionPoderComponent,
     EntidadesComponent,
     EditEntitiesComponent,
-    HomeComponent
+    HomeComponent,
+    BusinessComponent,
+    EditBusinessComponent,
+    PoderesComponent,
+    EditPoderesComponent
   ],
   imports: [
     BrowserModule,
