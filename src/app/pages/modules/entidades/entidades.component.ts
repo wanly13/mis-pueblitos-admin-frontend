@@ -21,7 +21,7 @@ export class EntidadesComponent {
 
   // Filter of Search
   searchValueForm: FormGroup = this.fb.group({
-    pais: [{ value: 'PER', disabled: false }],
+    pais: [{ value: null, disabled: false }],
     /* empresa: [{ value: null, disabled: false }],
     poder: [{ value: null, disabled: false }],
     tipoFirmante: [{ value: null, disabled: false }],
@@ -57,12 +57,8 @@ export class EntidadesComponent {
     this.list_representantes = []
     this.entidadesService.search_entidades(form).subscribe(
       (response: DtoEntidades[]) => {
-
+        
         this.list_representantes = response;
-
-
-
-
         this.loadingService.hide();
       },
       err => {
