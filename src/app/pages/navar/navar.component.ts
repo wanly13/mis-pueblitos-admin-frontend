@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TitleService } from './navar.service';
 
 @Component({
   selector: 'app-navar',
@@ -6,9 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./navar.component.scss']
 })
 export class NavarComponent {
-  userLOCAL : any ;
-  ngOnInit(){
-    
-    
-  }
+  
 }

@@ -5,6 +5,7 @@ import { RepresentantesService } from 'src/app/services/representantes.service';
 import { DtoRepresenante } from './estructure/dtoRepresentante';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { TitleService } from '../../navar/navar.service';
 
 @Component({
   selector: 'app-representantes',
@@ -32,13 +33,24 @@ export class RepresentantesComponent {
     private representantesService: RepresentantesService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
+    private titleService: TitleService,
+
   ) {
   }
 
   ngOnInit() {
     this.search_representante(this.searchValueForm.value);
     this.general_loads();
+
+    this.transferedDataToNavar({ title: 'Listado de Firmantes' })
   }
+  // ---------- CHANGE NAVAR ---------- \\  
+  transferedDataToNavar(value: any): void {
+    console.log("CAMBIO");
+
+    this.titleService.setTitle(value);
+  }
+
 
   // ---------- LOADS FILTERS EN LIST ---------- \\
   general_loads() {
@@ -68,12 +80,13 @@ export class RepresentantesComponent {
   // ----------- ACTIONS EDIT AND DELETE ------- \\ 
 
   goToEdit(item: any) {
-    
+
     const data = {
       option: 'EDIT',
       data: item
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
+    this.transferedDataToNavar({ title: 'Editar Firmante' })
     this.router.navigate(['/home/add-rep'])
   }
 
@@ -84,6 +97,7 @@ export class RepresentantesComponent {
       data: {}
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
+    this.transferedDataToNavar({ title: 'Agregar Firmante'})
     this.router.navigate(['/home/add-rep'])
   }
 

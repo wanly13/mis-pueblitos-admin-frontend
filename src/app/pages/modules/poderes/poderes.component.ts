@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
-import { BusinessService } from 'src/app/services/business.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
 import { DtoEmpresa } from '../business/structure/DtoEmpresa';
 import Swal from 'sweetalert2';
+import { PoderesService } from 'src/app/services/poderes.service';
+import { DtoPoderes } from './structure/DtoPoderes';
+import { TitleService } from '../../navar/navar.service';
 
 @Component({
   selector: 'app-poderes',
@@ -32,16 +34,18 @@ export class PoderesComponent {
 
   constructor(
     public router: Router,
-    private businessService: BusinessService,
+    private poderesService: PoderesService,
     private representantesService: RepresentantesService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
+    private titleService: TitleService,
   ) {
   }
 
   ngOnInit() {
     this.search_entidad(this.searchValueForm.value);
     this.general_loads();
+    this.transferedDataToNavar({ title: 'Listado de Poderes' })
   }
 
   // ---------- LOADS FILTERS EN LIST ---------- \\
@@ -49,15 +53,21 @@ export class PoderesComponent {
     //this.load_paises();
 
   }
+  // ---------- CHANGE NAVAR ---------- \\  
+  transferedDataToNavar(value: any): void {
+    console.log("CAMBIO");
+
+    this.titleService.setTitle(value);
+  }
 
 
   // ---------- SEARCH ---------- \\
-  list_representantes: DtoEmpresa[] = []
+  list_representantes: DtoPoderes[] = []
   search_entidad(form: any) {
     this.loadingService.show();
     this.list_representantes = []
-    this.businessService.search_entidades(form).subscribe(
-      (response: DtoEmpresa[]) => {
+    this.poderesService.search_entidades(form).subscribe(
+      (response: DtoPoderes[]) => {
 
         this.list_representantes = response;
         this.loadingService.hide();
@@ -77,7 +87,8 @@ export class PoderesComponent {
       data: item
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
-    this.router.navigate(['/home/add-business'])
+    this.transferedDataToNavar({ title: 'Editar Poder' })
+    this.router.navigate(['/home/add-poderes'])
   }
 
   goToCreate() {
@@ -87,7 +98,8 @@ export class PoderesComponent {
       data: {}
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
-    this.router.navigate(['/home/add-business'])
+    this.transferedDataToNavar({ title: 'Agregar Poder' })
+    this.router.navigate(['/home/add-poderes'])
   }
 
   deleteItem(item: any) {
@@ -110,7 +122,7 @@ export class PoderesComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.loadingService.show()
-        this.businessService.delete_entidad(item.taxId).subscribe(
+        this.poderesService.delete_entidad(item.idPoder).subscribe(
           (response: any) => {
             swalWithBootstrapButtons.fire({
               title: "Borrado!",

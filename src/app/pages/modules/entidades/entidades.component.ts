@@ -6,6 +6,7 @@ import { EntidadesService } from 'src/app/services/entidades.service';
 import { DtoEntidades } from './structure/DtioEntity';
 import Swal from 'sweetalert2';
 import { RepresentantesService } from 'src/app/services/representantes.service';
+import { TitleService } from '../../navar/navar.service';
 
 @Component({
   selector: 'app-entidades',
@@ -35,12 +36,14 @@ export class EntidadesComponent {
     private representantesService: RepresentantesService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
+    private titleService: TitleService,
   ) {
   }
 
   ngOnInit() {
     this.search_entidad(this.searchValueForm.value);
     this.general_loads();
+    this.transferedDataToNavar({ title: 'Listado de Bancos' })
   }
 
   // ---------- LOADS FILTERS EN LIST ---------- \\
@@ -48,7 +51,12 @@ export class EntidadesComponent {
     this.load_paises();
 
   }
+  // ---------- CHANGE NAVAR ---------- \\  
+  transferedDataToNavar(value: any): void {
+    console.log("CAMBIO");
 
+    this.titleService.setTitle(value);
+  }
 
   // ---------- SEARCH ---------- \\
   list_representantes: DtoEntidades[] = []
@@ -57,7 +65,7 @@ export class EntidadesComponent {
     this.list_representantes = []
     this.entidadesService.search_entidades(form).subscribe(
       (response: DtoEntidades[]) => {
-        
+
         this.list_representantes = response;
         this.loadingService.hide();
       },
@@ -70,12 +78,13 @@ export class EntidadesComponent {
   // ----------- ACTIONS EDIT AND DELETE ------- \\ 
 
   goToEdit(item: any) {
-    
+
     const data = {
       option: 'EDIT',
       data: item
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
+    this.transferedDataToNavar({ title: 'Editar Banco' })
     this.router.navigate(['/home/add-entity'])
   }
 
@@ -86,6 +95,7 @@ export class EntidadesComponent {
       data: {}
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
+    this.transferedDataToNavar({ title: 'Agregar Banco' })
     this.router.navigate(['/home/add-entity'])
   }
 

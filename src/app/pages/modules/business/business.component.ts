@@ -6,6 +6,7 @@ import { RepresentantesService } from 'src/app/services/representantes.service';
 import { DtoEmpresa } from './structure/DtoEmpresa';
 import Swal from 'sweetalert2';
 import { BusinessService } from 'src/app/services/business.service';
+import { TitleService } from '../../navar/navar.service';
 
 @Component({
   selector: 'app-business',
@@ -35,18 +36,26 @@ export class BusinessComponent {
     private representantesService: RepresentantesService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
+    private titleService: TitleService,
   ) {
   }
 
   ngOnInit() {
     this.search_entidad(this.searchValueForm.value);
     this.general_loads();
+    this.transferedDataToNavar({ title: 'Listado de Poderes' })
   }
 
   // ---------- LOADS FILTERS EN LIST ---------- \\
   general_loads() {
     this.load_paises();
 
+  }
+  // ---------- CHANGE NAVAR ---------- \\  
+  transferedDataToNavar(value: any): void {
+    console.log("CAMBIO");
+
+    this.titleService.setTitle(value);
   }
 
 
@@ -76,6 +85,7 @@ export class BusinessComponent {
       data: item
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
+    this.transferedDataToNavar({ title: 'Editar Empresa' })
     this.router.navigate(['/home/add-business'])
   }
 
@@ -86,6 +96,7 @@ export class BusinessComponent {
       data: {}
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
+    this.transferedDataToNavar({ title: 'Agregar Empresa' })
     this.router.navigate(['/home/add-business'])
   }
 
