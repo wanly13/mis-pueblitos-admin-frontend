@@ -7,6 +7,15 @@
     <div class="px-3 m-0">
         <a class=" block w-full p-4 m-0 bg-white border border-gray-200 rounded-lg shadow ">
             <form [formGroup]="searchValueForm" class="grid grid-cols-5 gap-4 ">
+                
+                <div class="relative z-0 mb-5 group">
+                    <label [class]="label_class">Pais Empresa </label>
+                    <select [class]="input_class" formControlName="paisEmpresa">
+                        <option *ngIf="unique_countries.length > 0"></option>
+                        <option *ngFor="let country of unique_countries" [value]="getTaxIdByCountry(country)"> {{country}}
+                        </option>
+                    </select>
+                </div>
 
                 <div class="relative z-0 mb-5 group">
                     <label [class]="label_class">Banco </label>

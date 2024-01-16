@@ -43,7 +43,7 @@ export class BusinessComponent {
   ngOnInit() {
     this.search_entidad(this.searchValueForm.value);
     this.general_loads();
-    this.transferedDataToNavar({ title: 'Listado de Poderes' })
+    this.transferedDataToNavar({ title: 'Listado de Empresas' })
   }
 
   // ---------- LOADS FILTERS EN LIST ---------- \\

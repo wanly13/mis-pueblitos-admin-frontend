@@ -20,6 +20,7 @@ export class RepresentantesComponent {
 
   // Filter of Search
   searchValueForm: FormGroup = this.fb.group({
+    paisEmpresa: [{ value: null, disabled: false}],
     banco: [{ value: null, disabled: false }],
     empresa: [{ value: null, disabled: false }],
     poder: [{ value: null, disabled: false }],
@@ -64,6 +65,7 @@ export class RepresentantesComponent {
 
   // ---------- SEARCH ---------- \\
   search_representante(form: any) {
+    console.log(form);
     this.loadingService.show();
     this.list_representantes = []
     this.representantesService.search_listado_representantes(form).subscribe(
@@ -75,6 +77,15 @@ export class RepresentantesComponent {
         this.loadingService.hide()
       }
     )
+  }
+
+  getTaxIdByCountry(country:string) {
+    for (let index = 0; index < this.list_empresas.length; index++) {
+      if(this.list_empresas[index]['paisDesc'] == country){
+        return this.list_empresas[index]['idPais'];
+      }
+      
+    }
   }
 
   // ----------- ACTIONS EDIT AND DELETE ------- \\ 
@@ -184,19 +195,27 @@ export class RepresentantesComponent {
   }
 
   list_empresas: any[] = [];
+  unique_countries: any[] = [];
   load_empresas() {
     this.loadingService.show();
-    this.list_empresas = []
+    this.list_empresas = [];
+    this.unique_countries = [];
     this.representantesService.get_listado_empresas().subscribe(
       (response: any) => {
         this.list_empresas = response;
+        this.unique_countries = Array.from(new Set(this.list_empresas.map(item => item.paisDesc)));
         this.loadingService.hide();
       },
       (err) => {
         this.loadingService.hide();
       }
     );
+    
+
   }
+  
+  
+
   list_entidades: any[] = [];
   load_entidades() {
     this.loadingService.show();
