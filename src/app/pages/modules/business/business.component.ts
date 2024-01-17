@@ -111,7 +111,7 @@ export class BusinessComponent {
     });
     swalWithBootstrapButtons.fire({
       title: "Está seguro?",
-      text: "Se eliminarán todos los datos del representante!",
+      text: "Se eliminarán todos los datos de la empresa!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí, borrar!",
@@ -124,7 +124,7 @@ export class BusinessComponent {
           (response: any) => {
             swalWithBootstrapButtons.fire({
               title: "Borrado!",
-              text: "El representante se elimino correctamente.",
+              text: "Se se elimino la empresa correctamente.",
               icon: "success"
             });
 

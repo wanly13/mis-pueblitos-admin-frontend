@@ -247,15 +247,42 @@ export class EditBusinessComponent {
   tipo_documentos_entidad() {
     this.list_documentos = [
       {
-        name: 'NIT',
+        name: 'Reg. Único de Contribuyentes',
+        value: 'RUC'
+      },
+      {
+        name: 'Num. de Ident. Tributaria',
         value: 'NIT'
       },
       {
-        name: 'RUC',
-        value: 'RUC'
+        name: 'Num. de Ident. Fiscal',
+        value: 'NIF'
       },
-
-    ]
+      {
+        name: 'Reg. Nacional de Proveedores',
+        value: 'RNP'
+      },
+      {
+        name: 'Num. de Ident. de Empresa',
+        value: 'NIE'
+      },
+      {
+        name: 'Num. de Registro Mercantil',
+        value: 'NRM'
+      },
+      {
+        name: 'Reg. Único de Empresas',
+        value: 'RUE'
+      },
+      {
+        name: 'Num. de Ident. Comercial',
+        value: 'NIC'
+      },
+      {
+        name: 'Cod. de Ident. Empresarial',
+        value: 'CIE'
+      },
+    ];
   }
 
   /* list_estado_laboral: any[] = [];

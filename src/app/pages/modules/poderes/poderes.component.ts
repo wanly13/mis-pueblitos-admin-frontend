@@ -113,7 +113,7 @@ export class PoderesComponent {
     });
     swalWithBootstrapButtons.fire({
       title: "Está seguro?",
-      text: "Se eliminarán todos los datos del representante!",
+      text: "Se eliminarán todos los datos del poder!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí, borrar!",
@@ -126,7 +126,7 @@ export class PoderesComponent {
           (response: any) => {
             swalWithBootstrapButtons.fire({
               title: "Borrado!",
-              text: "El representante se elimino correctamente.",
+              text: "Se eliminó correctamente.",
               icon: "success"
             });
 

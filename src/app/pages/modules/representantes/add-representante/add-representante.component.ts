@@ -291,16 +291,40 @@ export class AddRepresentanteComponent {
   tipo_documentos() {
     this.list_documentos = [
       {
-        name: 'DNI',
-        value: 'D'
+        name: 'D. Nacional de Identidad',
+        value: 'DNI'
       },
       {
-        name: 'C. EXTRANGERIA',
-        value: 'D'
+        name: 'C. Extrangería',
+        value: 'CE'
       },
       {
-        name: 'PASAPORTE',
-        value: 'D'
+        name: 'Pasaporte',
+        value: 'PSP'
+      },
+      {
+        name: 'D. Único de Indentidad',
+        value: 'DUI'
+      },
+      {
+        name: 'D. Personal de Identificación',
+        value: 'DPI'
+      },
+      {
+        name: 'Cédula de Indentidad',
+        value: 'CI'
+      },
+      {
+        name: 'Cédula de Ciudadanía',
+        value: 'CC'
+      },
+      {
+        name: 'Registro Geral',
+        value: 'RG'
+      },
+      {
+        name: 'Cadastro de Pessoas Físicas',
+        value: 'CPF'
       },
     ]
   }

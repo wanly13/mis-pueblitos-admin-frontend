@@ -26,14 +26,14 @@ export class EditEntitiesComponent {
     private loadingService: LoadingService,
     private fb: FormBuilder,
     private entidadesService: EntidadesService,
-    private representantesService : RepresentantesService
+    private representantesService: RepresentantesService
   ) {
 
     this.addValueForm = this.fb.group({
       taxId: [{ value: null, disabled: false }],
       idPais: [{ value: null, disabled: false }],
       razonSocial: [{ value: null, disabled: false }],
-      tipoIdentificación: [{ value: null, disabled: false }],      
+      tipoIdentificación: [{ value: null, disabled: false }],
     });
   }
 
@@ -54,7 +54,7 @@ export class EditEntitiesComponent {
 
   bool_search_api: boolean = false
   search_api_reniec() {
-    
+
     this.loadingService.show();
 
     this.entidadesService.get_entidad(this.addValueForm.value.taxId).subscribe(
@@ -71,8 +71,8 @@ export class EditEntitiesComponent {
         this.loadLocalStorageData()
         this.loadingService.hide();
       },
-      (err) => {      
-        this.bool_search_api = true; 
+      (err) => {
+        this.bool_search_api = true;
         this.loadingService.hide();
       }
     );
@@ -198,7 +198,7 @@ export class EditEntitiesComponent {
             text: 'Se actualizó exitosamente',
             icon: 'success'
           });
-  
+
           this.loadLocalStorageData()
           this.loadingService.hide();
         },
@@ -239,22 +239,50 @@ export class EditEntitiesComponent {
       }
     );
   }
- 
+
 
   // ------------- CALL LOADS --------- \\
   list_documentos: any[] = [];
   tipo_documentos_entidad() {
     this.list_documentos = [
       {
-        name: 'NIT',
+        name: 'Reg. Único de Contribuyentes',
+        value: 'RUC'
+      },
+      {
+        name: 'Num. de Ident. Tributaria',
         value: 'NIT'
       },
       {
-        name: 'RUC',
-        value: 'RUC'
+        name: 'Num. de Ident. Fiscal',
+        value: 'NIF'
       },
-      
-    ]
+      {
+        name: 'Reg. Nacional de Proveedores',
+        value: 'RNP'
+      },
+      {
+        name: 'Num. de Ident. de Empresa',
+        value: 'NIE'
+      },
+      {
+        name: 'Num. de Registro Mercantil',
+        value: 'NRM'
+      },
+      {
+        name: 'Reg. Único de Empresas',
+        value: 'RUE'
+      },
+      {
+        name: 'Num. de Ident. Comercial',
+        value: 'NIC'
+      },
+      {
+        name: 'Cod. de Ident. Empresarial',
+        value: 'CIE'
+      },
+    ];
+
   }
 
   /* list_estado_laboral: any[] = [];
@@ -272,7 +300,7 @@ export class EditEntitiesComponent {
     );
   } */
 
-  
+
   /* list_cargos: any[] = [];
   load_cargos() {
     this.loadingService.show();
@@ -303,19 +331,19 @@ export class EditEntitiesComponent {
     );
   }
 
- /*  list_empresas: any[] = [];
-  load_empresas() {
-    this.loadingService.show();
-    this.list_empresas = []
-    this.representantesService.get_listado_empresas().subscribe(
-      (response: any) => {
-        this.list_empresas = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  } */
+  /*  list_empresas: any[] = [];
+   load_empresas() {
+     this.loadingService.show();
+     this.list_empresas = []
+     this.representantesService.get_listado_empresas().subscribe(
+       (response: any) => {
+         this.list_empresas = response;
+         this.loadingService.hide();
+       },
+       (err) => {
+         this.loadingService.hide();
+       }
+     );
+   } */
 
 }

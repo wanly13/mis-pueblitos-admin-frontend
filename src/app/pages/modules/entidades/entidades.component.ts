@@ -123,7 +123,7 @@ export class EntidadesComponent {
           (response: any) => {
             swalWithBootstrapButtons.fire({
               title: "Borrado!",
-              text: "El representante se elimino correctamente.",
+              text: "Se eliminó el Banco correctamente.",
               icon: "success"
             });
 
