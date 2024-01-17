@@ -11,6 +11,7 @@ import { DtoEmpresa } from '../pages/modules/business/structure/DtoEmpresa';
 })
 export class BusinessService {
     private API_SERVER_EMPRESA = API_SERVER + '/empresa'
+    private API_SERVER_OFICINA = API_SERVER + '/oficina'
     
     constructor(
         private http: HttpClient
@@ -52,6 +53,13 @@ export class BusinessService {
             map((response) => { return response })
         );
     }
+    // -------- LISTADO OFICINAS ---------- \\
+    get_oficinas_empresa(taxIdEmpresa : any) {
+        return this.http.get<any>(this.API_SERVER_OFICINA + '/empresa/' + taxIdEmpresa).pipe(
+            map((response) => { return response })
+        );
+    }
+
 
     // -------- RELACION BANCO SECTORISTA ---------- \\
     /* create_relacion_sectorista(data: any): Observable<any> {

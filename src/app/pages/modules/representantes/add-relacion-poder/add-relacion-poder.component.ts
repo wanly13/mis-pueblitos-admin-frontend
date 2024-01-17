@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
+import { BusinessService } from 'src/app/services/business.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
 import Swal from 'sweetalert2';
 
@@ -21,6 +22,7 @@ export class AddRelacionPoderComponent {
     private loadingService: LoadingService,
     private fb: FormBuilder,
     private representantesService: RepresentantesService,
+    private businessService : BusinessService,
   ) {
     this.addValueForm = this.fb.group({
       archivo: [{ value: null, disabled: false }],
@@ -32,6 +34,7 @@ export class AddRelacionPoderComponent {
       nota: [{ value: null, disabled: false }],
       taxIdEmpresa: [{ value: null, disabled: false }],
       taxIdEntidad: [{ value: null, disabled: false }],
+      idOficina: [{ value: null, disabled: false }],
     });
   }
   ngOnInit() {
@@ -107,6 +110,7 @@ export class AddRelacionPoderComponent {
     this.load_poder();
     this.load_estado_poder();
   }
+
   list_empresas: any[] = [];
   load_empresas() {
     this.loadingService.show();
@@ -170,6 +174,20 @@ export class AddRelacionPoderComponent {
     this.representantesService.get_listado_tipo_firmantes().subscribe(
       (response: any) => {
         this.list_tipo_firmantes = response;
+        this.loadingService.hide();
+      },
+      (err) => {
+        this.loadingService.hide();
+      }
+    );
+  }
+  list_oficinas: any[] = [];
+  load_oficinas_empresa(value : any) {
+    this.loadingService.show();
+    this.list_oficinas = []
+    this.businessService.get_oficinas_empresa(value).subscribe(
+      (response: any) => {
+        this.list_oficinas = response;
         this.loadingService.hide();
       },
       (err) => {

@@ -111,7 +111,10 @@ export class RepresentantesComponent {
     this.transferedDataToNavar({ title: 'Agregar Firmante'})
     this.router.navigate(['/home/add-rep'])
   }
-
+  cleanAll(){
+    this.searchValueForm.reset();
+    this.search_representante(this.searchValueForm.value)
+  }
   deleteItem(item: any) {
 
     const swalWithBootstrapButtons = Swal.mixin({

@@ -23,7 +23,7 @@
             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">
                 Empresa
             </label>
-            <select id="countries" formControlName="taxIdEmpresa"
+            <select id="countries" formControlName="taxIdEmpresa" (ngModelChange)="load_oficinas_empresa(addValueForm.value.taxIdEmpresa)"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <option *ngIf="list_empresas.length > 0"></option>
                 <option *ngFor="let item of list_empresas" [value]="item.taxId"> {{item.razonSocial}}
@@ -70,6 +70,16 @@
                 <option *ngIf="list_estado_poder.length > 0"></option>
                 <option *ngFor="let item of list_estado_poder" [value]="item.idEstadoPoder">
                     {{item.estadoPoder}}
+                </option>
+            </select>
+        </div>
+        <div class="mt-1">
+            <label for="title" class="block mb-1 text-sm font-medium text-gray-900 ">Oficina</label>
+            <select id="countries" formControlName="idOficina"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option *ngIf="list_oficinas.length > 0"></option>
+                <option *ngFor="let item of list_oficinas" [value]="item.idOficina">
+                    {{item.oficina}}
                 </option>
 
             </select>

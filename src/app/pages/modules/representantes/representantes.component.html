@@ -7,17 +7,18 @@
     <div class="px-3 m-0">
         <a class=" block w-full p-4 m-0 bg-white border border-gray-200 rounded-lg shadow ">
             <form [formGroup]="searchValueForm" class="grid grid-cols-5 gap-4 ">
-                
+
                 <div class="relative z-0 mb-5 group">
                     <label [class]="label_class">Pais Empresa </label>
                     <select [class]="input_class" formControlName="paisEmpresa">
                         <option *ngIf="unique_countries.length > 0"></option>
-                        <option *ngFor="let country of unique_countries" [value]="getTaxIdByCountry(country)"> {{country}}
+                        <option *ngFor="let country of unique_countries" [value]="getTaxIdByCountry(country)">
+                            {{country}}
                         </option>
                     </select>
                 </div>
 
-                <div class="relative z-0 mb-5 group">
+                <div class="col-span-2 relative z-0 mb-5 group">
                     <label [class]="label_class">Banco </label>
                     <select [class]="input_class" formControlName="banco">
                         <option *ngIf="list_entidades.length > 0"></option>
@@ -26,7 +27,7 @@
 
                     </select>
                 </div>
-                <div class="relative z-0 mb-5 group">
+                <div class="col-span-2 relative z-0 mb-5 group">
                     <label [class]="label_class">Empresa</label>
                     <select [class]="input_class" formControlName="empresa">
                         <option *ngIf="list_empresas.length > 0"></option>
@@ -62,27 +63,49 @@
                     </select>
                 </div>
 
+                <div class="col-span-2 relative z-0 mb-5 group">
+                    <div class="grid grid-cols-3 gap-4 ">
+                        <div class="col-span-1 relative z-0 mb-5 group">
+                            <label [class]="label_class"></label>
+                            <button type="submit" (click)="cleanAll()"
+                                class="mx-2 inline-flex  items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="h-5 w-5 text-white mx-2">
+                                    <path fill-rule="evenodd"
+                                        d="M2.515 10.674a1.875 1.875 0 0 0 0 2.652L8.89 19.7c.352.351.829.549 1.326.549H19.5a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3h-9.284c-.497 0-.974.198-1.326.55l-6.375 6.374ZM12.53 9.22a.75.75 0 1 0-1.06 1.06L13.19 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06l1.72-1.72 1.72 1.72a.75.75 0 1 0 1.06-1.06L15.31 12l1.72-1.72a.75.75 0 1 0-1.06-1.06l-1.72 1.72-1.72-1.72Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                Limpiar
+                            </button>
+                        </div>
+                        <div class="col-span-1 relative z-0 mb-5 group">
+                            <label [class]="label_class"></label>
+                            <button type="submit" (click)="goToCreate()"
+                                class="mx-2 inline-flex  items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg class="h-5 w-5 text-white mx-2" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                        <div class="col-span-1 relative z-0 mb-5 group">
+                            <label [class]="label_class"></label>
+                            <button type="submit" (click)="search_representante(searchValueForm.value)"
+                                class="inline-flex  items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg class="h-5 w-5 text-white mx-2" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                </svg>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </form>
-            <div class="global-center-end">
-                <button type="submit" (click)="goToCreate()"
-                    class="mx-2 inline-flex  items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <svg class="h-5 w-5 text-white mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                    </svg>
-
-                    Agregar
-                </button>
-                <button type="submit" (click)="search_representante(searchValueForm.value)"
-                    class="inline-flex  items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <svg class="h-5 w-5 text-white mx-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                    Buscar
-                </button>
-            </div>
 
         </a>
     </div>
@@ -284,7 +307,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <div class="px-3  ">
         <div class="global-center-end mt-2">
             <!-- Previous Button -->
