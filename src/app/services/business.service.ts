@@ -12,7 +12,7 @@ import { DtoEmpresa } from '../pages/modules/business/structure/DtoEmpresa';
 export class BusinessService {
     private API_SERVER_EMPRESA = API_SERVER + '/empresa'
     private API_SERVER_OFICINA = API_SERVER + '/oficina'
-    
+
     constructor(
         private http: HttpClient
     ) { }
@@ -59,6 +59,23 @@ export class BusinessService {
             map((response) => { return response })
         );
     }
+
+    delete_oficina(id: any): Observable<any> {
+    return this.http.delete<any>(this.API_SERVER_OFICINA + '/' + id).pipe(
+      map((response) => { return response })
+    );
+  }
+  create_oficina(data: any): Observable<any> {
+    return this.http.post<any>(this.API_SERVER_OFICINA, data).pipe(
+      map((response) => { return response })
+    );
+  }
+
+  update_oficina(id: any, data: any): Observable<any> {
+    return this.http.put<any>(this.API_SERVER_OFICINA + '/' + id, data).pipe(
+      map((response) => { return response })
+    );
+  }
 
 
     // -------- RELACION BANCO SECTORISTA ---------- \\

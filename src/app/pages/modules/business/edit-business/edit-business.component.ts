@@ -97,11 +97,14 @@ export class EditBusinessComponent {
       this.Listado_poderes = []
     }
   }
-
+  Listado_oficinas: any[] = [];
   getDateRepresentante(value: any) {
     this.businessService.get_entidad(value.taxId).subscribe(
       (response: any) => {
         this.addValueForm.patchValue(response)
+        this.Listado_oficinas = response.oficinas
+        console.log("empresas: ",this.Listado_oficinas);
+
         this.Listado_poderes = response.relacionPoderRepresentante
         this.loadingService.hide();
       },
@@ -142,6 +145,7 @@ export class EditBusinessComponent {
   boolRelacionPoder: boolean = false;
   sentMOdal: InputModal = new InputModal();
   activateRelacionPoder(value: any) {
+    console.log('obj',value.obj);
     if (value.action == true) {
       this.sentMOdal.type = value.option;
       this.sentMOdal.data = value.obj
@@ -216,8 +220,8 @@ export class EditBusinessComponent {
   }
 
   deleteRelacion(value: any) {
-    /* this.loadingService.show()
-    this.businessService.delete_relacion_sectorista(value.idRelacionPoder).subscribe(
+    this.loadingService.show()
+    this.businessService.delete_oficina(value.idOficina).subscribe(
       (response: any) => {
 
         Swal.fire({
@@ -238,11 +242,12 @@ export class EditBusinessComponent {
 
         this.loadingService.hide();
       }
-    ); */
+    );
   }
 
 
-  // ------------- CALL LOADS --------- \\
+  // ------------- CALL LOADS --------- \
+
   list_documentos: any[] = [];
   tipo_documentos_entidad() {
     this.list_documentos = [

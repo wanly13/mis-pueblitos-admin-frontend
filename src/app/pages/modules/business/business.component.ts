@@ -66,8 +66,8 @@ export class BusinessComponent {
     this.list_representantes = []
     this.businessService.search_entidades(form).subscribe(
       (response: DtoEmpresa[]) => {
-
         this.list_representantes = response;
+        console.log(this.list_representantes);
         this.loadingService.hide();
       },
       err => {

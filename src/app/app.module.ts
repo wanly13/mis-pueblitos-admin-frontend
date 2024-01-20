@@ -19,6 +19,7 @@ import { BusinessComponent } from './pages/modules/business/business.component';
 import { EditBusinessComponent } from './pages/modules/business/edit-business/edit-business.component';
 import { PoderesComponent } from './pages/modules/poderes/poderes.component';
 import { EditPoderesComponent } from './pages/modules/poderes/edit-poderes/edit-poderes.component';
+import { AddOficinasComponent } from './pages/modules/business/add-oficinas/add-oficinas.component';
 
 @NgModule({
   declarations: [
@@ -36,14 +37,15 @@ import { EditPoderesComponent } from './pages/modules/poderes/edit-poderes/edit-
     BusinessComponent,
     EditBusinessComponent,
     PoderesComponent,
-    EditPoderesComponent
+    EditPoderesComponent,
+    AddOficinasComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule, 
+    HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,     
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
