@@ -58,7 +58,7 @@ export class AddRelacionPoderComponent {
     if (this.TypeModal.type == 'CREATE') {
       console.log();
       var data = this.addValueForm.value
-      data.archivo = this.ArchivosCargados
+      //data.archivo = this.ArchivosCargados
       this.representantesService.create_relacion_poder(this.addValueForm.value).subscribe(
         (response: any) => {
           Swal.fire({
