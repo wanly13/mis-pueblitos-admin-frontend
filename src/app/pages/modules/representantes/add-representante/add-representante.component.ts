@@ -76,9 +76,9 @@ export class AddRepresentanteComponent {
       },
       (err) => {
         Swal.fire({
-          
+
           text: 'Complete todos los campos',
-          
+
         });
         this.loadingService.hide();
       }
@@ -291,11 +291,11 @@ export class AddRepresentanteComponent {
   tipo_documentos() {
     this.list_documentos = [
       {
-        name: 'D. Nacional de Identidad',
+        name: 'DNI - Documento Nacional de Identidad',
         value: 'DNI'
       },
       {
-        name: 'C. Extrangería',
+        name: 'Carnet de Extranjería',
         value: 'CE'
       },
       {
@@ -303,15 +303,15 @@ export class AddRepresentanteComponent {
         value: 'PSP'
       },
       {
-        name: 'D. Único de Indentidad',
+        name: 'DUI - Documento Único de Indentidad',
         value: 'DUI'
       },
       {
-        name: 'D. Personal de Identificación',
+        name: 'DPI - Documento Personal de Identidad',
         value: 'DPI'
       },
       {
-        name: 'Cédula de Indentidad',
+        name: 'Cédula de Identidad',
         value: 'CI'
       },
       {
@@ -323,9 +323,13 @@ export class AddRepresentanteComponent {
         value: 'RG'
       },
       {
-        name: 'Cadastro de Pessoas Físicas',
+        name: 'CPF - Cadastro de Pessoas Físicas',
         value: 'CPF'
       },
+      {
+        name: 'DOI - Documento Oficial de Identidad',
+        value: 'DOI'
+      }
     ]
   }
 
