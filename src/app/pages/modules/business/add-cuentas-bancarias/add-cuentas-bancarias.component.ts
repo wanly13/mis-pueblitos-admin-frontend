@@ -55,7 +55,7 @@ export class AddCuentasBancariasComponent {
         (response: any) => {
           Swal.fire({
             title: '¡Agregado!',
-            text: 'Se agrego exitosamente',
+            text: 'Se agregó exitosamente',
             icon: 'success'
           });
           this.CloseModal({ action: false })
@@ -114,7 +114,7 @@ export class AddCuentasBancariasComponent {
         value : 'DÓLAR',
         name : 'USD'
       },
-      
+
     ]
   }
   load_tipo_cuenta() {

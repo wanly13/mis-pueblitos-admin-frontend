@@ -25,7 +25,7 @@ export class AddRelacionPoderComponent {
     private businessService: BusinessService,
   ) {
     this.addValueForm = this.fb.group({
-      
+
       documentoIdentidad: [{ value: null, disabled: false }],
       idEstadoPoder: [{ value: null, disabled: false }],
       idPoder: [{ value: null, disabled: false }],
@@ -63,7 +63,7 @@ export class AddRelacionPoderComponent {
         (response: any) => {
           Swal.fire({
             title: '¡Agregado!',
-            text: 'Se agrego exitosamente',
+            text: 'Se agregó exitosamente',
             icon: 'success'
           });
           this.CloseModal({ action: false })
