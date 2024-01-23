@@ -111,17 +111,92 @@ export class AddCuentasBancariasComponent {
         name : 'COLÓN'
       },
       {
-        value : 'DÓLAR',
-        name : 'USD'
+        value : 'DÓLAR ESTADOUNIDENSE',
+        name : 'DÓLAR ESTADOUNIDENSE'
       },
-
+      {
+        value : 'EURO',
+        name : 'EURO'
+      },
+      {
+        value : 'PESO MEXICANO',
+        name : 'PESO MEXICANO'
+      },
+      {
+        value : 'NUEVO SOL',
+        name : 'NUEVO SOL'
+      },
+      {
+        value : 'LIBRA ESTERLINA',
+        name : 'LIBRA ESTERLINA'
+      },
+      {
+        value : 'BOLÍVAR',
+        name : 'BOLÍVAR'
+      },
+      {
+        value : 'WON',
+        name : 'WON'
+      },
+      {
+        value : 'RUBLO RUSO',
+        name : 'RUBLO RUSO'
+      },
+      {
+        value : 'CORONA SUECA',
+        name : 'CORONA SUECA'
+      },
+      {
+        value : 'FRANCO SUIZO',
+        name : 'FRANCO SUIZO'
+      },
+      {
+        value : 'PESO URUGUAYO',
+        name : 'PESO URUGUAYO'
+      },
+      {
+        value : 'LEK',
+        name : 'LEK'
+      },
+      {
+        value : 'DINAR ARGELINO',
+        name : 'DINAR ARGELINO'
+      },
+      {
+        value : 'KWANZA ANGOLEÑO',
+        name : 'KWANZA ANGOLEÑO'
+      },
+      {
+        value : 'RIYAL SAUDÍ',
+        name : 'RIYAL SAUDÍ'
+      },
+      {
+        value : 'BOLIVIANO',
+        name : 'BOLIVIANO'
+      },
+      {
+        value : 'REAL BRASILEÑO',
+        name : 'REAL BRASILEÑO'
+      },
+      {
+        value : 'PESO ARGENTINO',
+        name : 'PESO ARGENTINO'
+      }
     ]
   }
   load_tipo_cuenta() {
     this.list_tipo_cuenta = [
       {
-        value : 'CORRIENTE',
-        name : 'Corriente'
+        value : 'Cuenta Corriente',
+        name : 'Cuenta Corriente'
+      },
+      {
+        value : 'Cuenta de Ahorro',
+        name : 'Cuenta de Ahorro'
+      },
+      {
+        value : 'Cuenta de Depósito a Plazo',
+        name : 'Cuenta de Depósito a Plazo'
       },
     ]
   }
