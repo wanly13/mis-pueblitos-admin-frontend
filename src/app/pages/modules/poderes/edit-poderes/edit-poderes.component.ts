@@ -165,9 +165,10 @@ export class EditPoderesComponent {
     this.loadingService.show();
     var representante = this.addValueForm.value;
     if (this.dataLocalStorage.option == 'CREATE') {
-
+      const formValueWithoutId = { ...this.addValueForm.value };
+      delete formValueWithoutId.idPoder;
       //representante.relacionPoderRepresentante = []
-      this.businessService.create_entidad(representante).subscribe(
+      this.businessService.create_entidad(formValueWithoutId).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Creado!',
@@ -176,7 +177,7 @@ export class EditPoderesComponent {
           });
           const data = {
             option: 'EDIT',
-            data: representante
+            data: response
           }
           localStorage.setItem('itemSelected', JSON.stringify(data));
           this.loadLocalStorageData()
