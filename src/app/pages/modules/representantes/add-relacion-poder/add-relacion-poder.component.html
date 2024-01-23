@@ -1,4 +1,5 @@
-<div (click)="CloseModal({action : false})" id="overlay" class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50"></div>
+<div (click)="CloseModal({action : false})" id="overlay"
+    class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50"></div>
 
 
 <div id="drawer-right-example"
@@ -15,15 +16,16 @@
         </svg>
         <span class="sr-only">Close menu</span>
     </button>
-    
+
     <form [formGroup]="addValueForm" class="mb-6">
-        
+
         <div class="">
 
             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">
                 Empresa
             </label>
-            <select id="countries" formControlName="taxIdEmpresa" (ngModelChange)="load_oficinas_empresa(addValueForm.value.taxIdEmpresa)"
+            <select id="countries" formControlName="taxIdEmpresa"
+                (ngModelChange)="load_oficinas_empresa(addValueForm.value.taxIdEmpresa)"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <option *ngIf="list_empresas.length > 0"></option>
                 <option *ngFor="let item of list_empresas" [value]="item.taxId"> {{item.razonSocial}}
@@ -81,7 +83,6 @@
                 <option *ngFor="let item of list_oficinas" [value]="item.idOficina">
                     {{item.oficina}}
                 </option>
-
             </select>
         </div>
         <div class="mt-1">
@@ -92,16 +93,37 @@
         </div>
 
         <div class="mb-4">
-
             <label class="block mb-1 text-sm font-medium text-gray-900 " for="file_input">Cargar Archivo</label>
-            <input 
+            <input (change)="onFileSelected($event)"
                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none "
                 aria-describedby="file_input_help" id="file_input" type="file">
-            <!-- <p class="mt-1 text-sm text-gray-500 " id="file_input_help">SVG, PNG, JPG or GIF (MAX.
-                800x400px).</p> -->
-
         </div>
+        <div *ngIf="ArchivosCargados.length != 0">
+            <label class="block mb-1 text-sm font-medium text-gray-900 text-center">Archivos Cargados</label>
 
+            <div *ngFor="let item of ArchivosCargados" class="grid grid-cols-5 gap-4 text-xs px-2">
+
+                <div class="col-span-4 ">
+                    {{ item.nombreArchivo }}
+                </div>
+                <div class="global-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" (click)="deleteImage(item)" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 px-1">
+                        <path fill-rule="evenodd"
+                            d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" (click)="viewImage(item)" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        <path fill-rule="evenodd"
+                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+            
+        </div>
+        <br>
         <button (click)="saveFormulario(addValueForm.value)"
             class="text-white justify-center flex items-center bg-blue-700 hover:bg-blue-800 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg
                 class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -115,3 +137,4 @@
 
     </form>
 </div>
+
