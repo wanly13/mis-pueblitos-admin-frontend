@@ -113,12 +113,12 @@ export class EntidadesComponent {
       buttonsStyling: false
     });
     swalWithBootstrapButtons.fire({
-      title: "Está seguro?",
-      text: "Se eliminarán todos los datos del representante!",
+      title: "¿Estás seguro?",
+      text: "Se borrarán los datos de este elemento.!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Sí, borrar!",
-      cancelButtonText: "No, cancelar!",
+      confirmButtonText: "Sí",
+      cancelButtonText: "Cancelar",
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
