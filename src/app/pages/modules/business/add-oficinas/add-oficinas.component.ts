@@ -196,7 +196,7 @@ export class AddOficinasComponent {
 
 export class InputModal {
   type: string
-  data: Object
+  data: any
 }
 
 

@@ -78,6 +78,7 @@ export class EditBusinessComponent {
       }
     );
   }
+
   ngOnDestroy() {
     localStorage.removeItem('itemSelected')
   }
@@ -88,8 +89,7 @@ export class EditBusinessComponent {
     this.dataLocalStorage = JSON.parse(localStorage.getItem('itemSelected'));
     console.log("this.dataLocalStorage", this.dataLocalStorage);
     if (this.dataLocalStorage.option == 'EDIT') {
-      /* this.addValueForm.patchValue(this.dataLocalStorage.data)
-      this.Listado_poderes = this.dataLocalStorage.data.relacionPoderRepresentante */
+
       this.bool_search_api = true
       this.getDateRepresentante(this.dataLocalStorage.data)
     } else if (this.dataLocalStorage.option == 'CREATE') {
@@ -98,14 +98,16 @@ export class EditBusinessComponent {
     }
   }
   Listado_oficinas: any[] = [];
+  ListadoCuentasBancarias: any[] = [];
   getDateRepresentante(value: any) {
     this.businessService.get_entidad(value.taxId).subscribe(
       (response: any) => {
+        console.log("response: v", response);
+
         this.addValueForm.patchValue(response)
         this.Listado_oficinas = response.oficinas
-        console.log("empresas: ",this.Listado_oficinas);
+        this.ListadoCuentasBancarias = response.cuentasBancarias
 
-        this.Listado_poderes = response.relacionPoderRepresentante
         this.loadingService.hide();
       },
       (err) => {
@@ -141,11 +143,11 @@ export class EditBusinessComponent {
   Listado_poderes: any[] = []
 
 
-  // --------- FUNCIONALIDAD MODAL RELACION - PODER------------- \\
+  // --------- FUNCIONALIDAD MODAL RELACION - OFICINAS------------- \\
   boolRelacionPoder: boolean = false;
   sentMOdal: InputModal = new InputModal();
   activateRelacionPoder(value: any) {
-    console.log('obj',value.obj);
+    console.log('obj', value.obj);
     if (value.action == true) {
       this.sentMOdal.type = value.option;
       this.sentMOdal.data = value.obj
@@ -153,11 +155,6 @@ export class EditBusinessComponent {
     } else {
       this.boolRelacionPoder = false;
       this.loadLocalStorageData()
-      /* if (value.data) {
-        console.log("this.sentMOdal.data", value);
-
-        this.Listado_poderes.push(value.data)
-      } */
     }
 
   }
@@ -244,7 +241,45 @@ export class EditBusinessComponent {
       }
     );
   }
+  // --------- FUNCIONALIDAD MODAL RELACION - CUENTAS BANCARIAS------------- \\
+  boolCuentasBancarias : boolean  = false;
+  activateCuentasBancarias(value: any) {
+    console.log('obj', value.obj);
+    if (value.action == true) {
+      this.sentMOdal.type = value.option;
+      this.sentMOdal.data = value.obj
+      this.boolCuentasBancarias = true;
+    } else {
+      this.boolCuentasBancarias = false;
+      this.loadLocalStorageData()
+    }
 
+  }
+  deleteCuentasBancarias(value: any) {
+    this.loadingService.show()
+    this.businessService.delete_cuentas_empresa(value.numeroCuenta).subscribe(
+      (response: any) => {
+
+        Swal.fire({
+          title: '¡Borrado!',
+          text: 'Se eliminó exitosamente',
+          icon: 'success'
+        });
+
+        this.loadLocalStorageData()
+        this.loadingService.hide();
+      },
+      (err) => {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'Error al eliminar',
+          icon: 'error'
+        });
+
+        this.loadingService.hide();
+      }
+    );
+  }
 
   // ------------- CALL LOADS --------- \
 
@@ -290,36 +325,7 @@ export class EditBusinessComponent {
     ];
   }
 
-  /* list_estado_laboral: any[] = [];
-  load_estados_laborales() {
-    this.loadingService.show();
-    this.list_estado_laboral = []
-    this.ent.get_listado_estados_laborales().subscribe(
-      (response: any) => {
-        this.list_estado_laboral = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  } */
 
-
-  /* list_cargos: any[] = [];
-  load_cargos() {
-    this.loadingService.show();
-    this.list_cargos = []
-    this.representantesService.get_listado_cargos().subscribe(
-      (response: any) => {
-        this.list_cargos = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  } */
 
   list_paises: any[] = [];
   load_paises() {
@@ -336,19 +342,5 @@ export class EditBusinessComponent {
     );
   }
 
-  /*  list_empresas: any[] = [];
-   load_empresas() {
-     this.loadingService.show();
-     this.list_empresas = []
-     this.representantesService.get_listado_empresas().subscribe(
-       (response: any) => {
-         this.list_empresas = response;
-         this.loadingService.hide();
-       },
-       (err) => {
-         this.loadingService.hide();
-       }
-     );
-   } */
 
 }

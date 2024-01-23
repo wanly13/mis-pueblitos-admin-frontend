@@ -12,6 +12,7 @@ import { DtoEmpresa } from '../pages/modules/business/structure/DtoEmpresa';
 export class BusinessService {
     private API_SERVER_EMPRESA = API_SERVER + '/empresa'
     private API_SERVER_OFICINA = API_SERVER + '/oficina'
+    private API_SERVER_CUENTAS_BANCARIAS = API_SERVER + '/cuentasbancarias'
 
     constructor(
         private http: HttpClient
@@ -54,44 +55,46 @@ export class BusinessService {
         );
     }
     // -------- LISTADO OFICINAS ---------- \\
-    get_oficinas_empresa(taxIdEmpresa : any) {
+    get_oficinas_empresa(taxIdEmpresa: any) {
         return this.http.get<any>(this.API_SERVER_OFICINA + '/empresa/' + taxIdEmpresa).pipe(
             map((response) => { return response })
         );
     }
 
     delete_oficina(id: any): Observable<any> {
-    return this.http.delete<any>(this.API_SERVER_OFICINA + '/' + id).pipe(
-      map((response) => { return response })
-    );
-  }
-  create_oficina(data: any): Observable<any> {
-    return this.http.post<any>(this.API_SERVER_OFICINA, data).pipe(
-      map((response) => { return response })
-    );
-  }
-
-  update_oficina(id: any, data: any): Observable<any> {
-    return this.http.put<any>(this.API_SERVER_OFICINA + '/' + id, data).pipe(
-      map((response) => { return response })
-    );
-  }
-
-
-    // -------- RELACION BANCO SECTORISTA ---------- \\
-    /* create_relacion_sectorista(data: any): Observable<any> {
-        return this.http.post<any>(this.API_SERVER_REPRESENTANTE_PODER, data).pipe(
+        return this.http.delete<any>(this.API_SERVER_OFICINA + '/' + id).pipe(
             map((response) => { return response })
         );
     }
-    update_relacion_sectorista(id: any, data: any): Observable<any> {
-        return this.http.put<any>(this.API_SERVER_REPRESENTANTE_PODER + '/' + id, data).pipe(
+    create_oficina(data: any): Observable<any> {
+        return this.http.post<any>(this.API_SERVER_OFICINA, data).pipe(
             map((response) => { return response })
         );
     }
-    delete_relacion_sectorista(id: any): Observable<any> {
-        return this.http.delete<any>(this.API_SERVER_REPRESENTANTE_PODER + '/' + id).pipe(
+
+    update_oficina(id: any, data: any): Observable<any> {
+        return this.http.put<any>(this.API_SERVER_OFICINA + '/' + id, data).pipe(
             map((response) => { return response })
         );
-    } */
+    }
+
+
+    // -------- RELACION BANCO CUENTAS BANCARIAS ---------- \\    
+
+    delete_cuentas_empresa(id: any): Observable<any> {
+        return this.http.delete<any>(this.API_SERVER_CUENTAS_BANCARIAS + '/' + id).pipe(
+            map((response) => { return response })
+        );
+    }
+    create_cuentas_empresa(data: any): Observable<any> {
+        return this.http.post<any>(this.API_SERVER_CUENTAS_BANCARIAS, data).pipe(
+            map((response) => { return response })
+        );
+    }
+
+    update_cuentas_empresa(id: any, data: any): Observable<any> {
+        return this.http.put<any>(this.API_SERVER_CUENTAS_BANCARIAS + '/' + id, data).pipe(
+            map((response) => { return response })
+        );
+    }
 }

@@ -21,6 +21,7 @@ import { PoderesComponent } from './pages/modules/poderes/poderes.component';
 import { EditPoderesComponent } from './pages/modules/poderes/edit-poderes/edit-poderes.component';
 import { AddOficinasComponent } from './pages/modules/business/add-oficinas/add-oficinas.component';
 import { AddSectoristasComponent } from './pages/modules/entidades/add-sectoristas/add-sectoristas.component';
+import { AddCuentasBancariasComponent } from './pages/modules/business/add-cuentas-bancarias/add-cuentas-bancarias.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AddSectoristasComponent } from './pages/modules/entidades/add-sectorist
     EditPoderesComponent,
     AddOficinasComponent,
     AddSectoristasComponent,
+    AddCuentasBancariasComponent,
   ],
   imports: [
     BrowserModule,
