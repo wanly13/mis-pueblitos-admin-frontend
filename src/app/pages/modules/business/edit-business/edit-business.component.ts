@@ -287,39 +287,51 @@ export class EditBusinessComponent {
   tipo_documentos_entidad() {
     this.list_documentos = [
       {
-        name: 'Reg. Único de Contribuyentes',
+        name: 'RUC - Regitro Único del Contribuyente',
         value: 'RUC'
       },
       {
-        name: 'Num. de Ident. Tributaria',
+        name: 'RTN - Registro Tributario Nacional Numérico',
+        value: 'RTN',
+      },
+      {
+        name: 'CIF - Código de Identificación Fiscal',
+        value: 'CIF'
+      },
+      {
+        name: 'NIT - Número de Identificación Tributaria',
         value: 'NIT'
       },
       {
-        name: 'Num. de Ident. Fiscal',
+        name: 'TIN - Tax Identification Number',
+        value: 'TIN'
+      },
+      {
+        name: 'NIF - Número de Identificación Fiscal',
         value: 'NIF'
       },
       {
-        name: 'Reg. Nacional de Proveedores',
+        name: 'RNP - Registro Nacional de Proveedores',
         value: 'RNP'
       },
       {
-        name: 'Num. de Ident. de Empresa',
+        name: 'NIE - Número de Identificación de Empresa',
         value: 'NIE'
       },
       {
-        name: 'Num. de Registro Mercantil',
+        name: 'NRM - Número de Registro Mercantil',
         value: 'NRM'
       },
       {
-        name: 'Reg. Único de Empresas',
+        name: 'RUE - Registro Único de Empresas',
         value: 'RUE'
       },
       {
-        name: 'Num. de Ident. Comercial',
+        name: 'NIC - Número de Identificación Comercial',
         value: 'NIC'
       },
       {
-        name: 'Cod. de Ident. Empresarial',
+        name: 'CIE - Código de Identificación Empresarial',
         value: 'CIE'
       },
     ];
