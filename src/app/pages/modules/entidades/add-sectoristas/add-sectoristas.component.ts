@@ -1,46 +1,44 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { InputModal } from '../../representantes/add-relacion-poder/add-relacion-poder.component';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BusinessService } from 'src/app/services/business.service';
-import { RepresentantesService } from 'src/app/services/representantes.service';
 import Swal from 'sweetalert2';
+import { EntidadesService } from 'src/app/services/entidades.service';
 
 @Component({
-  selector: 'app-add-relacion-poder',
-  templateUrl: './add-relacion-poder.component.html',
-  styleUrls: ['./add-relacion-poder.component.scss']
+  selector: 'app-add-sectoristas',
+  templateUrl: './add-sectoristas.component.html',
+  styleUrls: ['./add-sectoristas.component.scss']
 })
+export class AddSectoristasComponent {
 
-
-export class AddRelacionPoderComponent {
   @Output() messageEvent = new EventEmitter<any>();
   @Input() TypeModal: InputModal = new InputModal();
-
 
   addValueForm: FormGroup
   constructor(
     private loadingService: LoadingService,
     private fb: FormBuilder,
-    private representantesService: RepresentantesService,
-    private businessService : BusinessService,
+    private entidadesServices: EntidadesService
   ) {
     this.addValueForm = this.fb.group({
-      archivo: [{ value: null, disabled: false }],
-      documentoIdentidad: [{ value: null, disabled: false }],
-      idEstadoPoder: [{ value: null, disabled: false }],
-      idPoder: [{ value: null, disabled: false }],
-      idRelacionPoder: [{ value: null, disabled: false }],
-      idTipoRepresentante: [{ value: null, disabled: false }],
-      nota: [{ value: null, disabled: false }],
-      taxIdEmpresa: [{ value: null, disabled: false }],
-      taxIdEntidad: [{ value: null, disabled: false }],
-      idOficina: [{ value: null, disabled: false }],
+      id: [{ value: null, disabled: false }],
+      taxIdBanco: [{ value: null, disabled: false }],
+      nombres: [{ value: null, disabled: false }],
+      apellidoPaterno: [{ value: null, disabled: false }],
+      apellidoMaterno: [{ value: null, disabled: false }],
+      correo: [{ value: null, disabled: false }],
+      contacto: [{ value: null, disabled: false }],
+      notas: [{ value: null, disabled: false }],
     });
   }
+
   ngOnInit() {
     this.general_loads();
     console.log("TypeModal", this.TypeModal);
     this.addValueForm.patchValue(this.TypeModal.data)
+    this.addValueForm.get('taxIdBanco').setValue(this.TypeModal.data.taxId)
   }
 
 
@@ -54,10 +52,11 @@ export class AddRelacionPoderComponent {
 
   saveFormulario(forms: any) {
     this.loadingService.show()
-    if (this.TypeModal.type == 'CREATE') {
-      console.log();
 
-      this.representantesService.create_relacion_poder(this.addValueForm.value).subscribe(
+    if (this.TypeModal.type == 'CREATE') {
+      const formValueWithoutId = { ...this.addValueForm.value };
+      delete formValueWithoutId.id;
+      this.entidadesServices.create_relacion_sectorista(formValueWithoutId).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Agregado!',
@@ -76,10 +75,9 @@ export class AddRelacionPoderComponent {
           this.loadingService.hide();
         }
       );
-
-
-    } else if (this.TypeModal.type == 'EDIT') {
-      this.representantesService.update_relacion_poder(this.addValueForm.value.idRelacionPoder, this.addValueForm.value).subscribe(
+    }
+    else if (this.TypeModal.type == 'EDIT') {
+      this.entidadesServices.update_relacion_sectorista(this.addValueForm.value.id, this.addValueForm.value).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Editado!',
@@ -102,16 +100,16 @@ export class AddRelacionPoderComponent {
   }
 
 
-
   general_loads() {
-    this.load_empresas();
-    this.load_entidades();
-    this.load_tipo_firmantes();
-    this.load_poder();
-    this.load_estado_poder();
+    //this.load_empresas();
+    //this.load_entidades();
+    //this.load_tipo_firmantes();
+    //this.load_poder();
+    //this.load_estado_poder();
   }
 
-  list_empresas: any[] = [];
+  /*list_empresas: any[] = [];
+
   load_empresas() {
     this.loadingService.show();
     this.list_empresas = []
@@ -125,7 +123,9 @@ export class AddRelacionPoderComponent {
       }
     );
   }
+
   list_entidades: any[] = [];
+
   load_entidades() {
     this.loadingService.show();
     this.list_entidades = []
@@ -139,7 +139,9 @@ export class AddRelacionPoderComponent {
       }
     );
   }
+
   list_poder: any[] = [];
+
   load_poder() {
     this.loadingService.show();
     this.list_poder = []
@@ -153,7 +155,9 @@ export class AddRelacionPoderComponent {
       }
     );
   }
+
   list_estado_poder: any[] = [];
+
   load_estado_poder() {
     this.loadingService.show();
     this.list_estado_poder = []
@@ -167,7 +171,9 @@ export class AddRelacionPoderComponent {
       }
     );
   }
+
   list_tipo_firmantes: any[] = [];
+
   load_tipo_firmantes() {
     this.loadingService.show();
     this.list_tipo_firmantes = []
@@ -181,8 +187,9 @@ export class AddRelacionPoderComponent {
       }
     );
   }
+
   list_oficinas: any[] = [];
-  load_oficinas_empresa(value : any) {
+  load_oficinas_empresa(value: any) {
     this.loadingService.show();
     this.list_oficinas = []
     this.businessService.get_oficinas_empresa(value).subscribe(
@@ -194,10 +201,5 @@ export class AddRelacionPoderComponent {
         this.loadingService.hide();
       }
     );
-  }
-}
-
-export class InputModal {
-  type: string
-  data: any
+  } */
 }

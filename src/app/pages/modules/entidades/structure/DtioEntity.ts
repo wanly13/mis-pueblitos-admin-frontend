@@ -1,5 +1,5 @@
 export class DtoEntidades {
-    taxId: string
+    taxIdBanco: string
     idPais: string
     razonSocial: string
     created_at: string

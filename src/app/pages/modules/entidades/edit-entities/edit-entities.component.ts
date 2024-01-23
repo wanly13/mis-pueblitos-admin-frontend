@@ -61,7 +61,7 @@ export class EditEntitiesComponent {
       (response: any) => {
         this.bool_search_api = true;
         this.addValueForm.patchValue(response)
-        this.Listado_poderes = response.relacionPoderRepresentante
+        this.ListadoSectoristas = response.relacionPoderRepresentante
 
         const data = {
           option: 'EDIT',
@@ -87,13 +87,15 @@ export class EditEntitiesComponent {
     this.dataLocalStorage = JSON.parse(localStorage.getItem('itemSelected'));
     console.log("this.dataLocalStorage", this.dataLocalStorage);
     if (this.dataLocalStorage.option == 'EDIT') {
-      /* this.addValueForm.patchValue(this.dataLocalStorage.data)
-      this.Listado_poderes = this.dataLocalStorage.data.relacionPoderRepresentante */
+      this.addValueForm.patchValue(this.dataLocalStorage.data)
+      //this.ListadoSectoristas = this.dataLocalStorage.data.sectoristas
+      console.log("LISTADO SECTORISTRAS>: ", this.ListadoSectoristas);
+      
       this.bool_search_api = true
       this.getDateRepresentante(this.dataLocalStorage.data)
     } else if (this.dataLocalStorage.option == 'CREATE') {
       this.addValueForm.patchValue({})
-      this.Listado_poderes = []
+      this.ListadoSectoristas = []
     }
   }
 
@@ -101,7 +103,7 @@ export class EditEntitiesComponent {
     this.entidadesService.get_entidad(value.taxId).subscribe(
       (response: any) => {
         this.addValueForm.patchValue(response)
-        this.Listado_poderes = response.relacionPoderRepresentante
+        this.ListadoSectoristas = response.sectoristas
         this.loadingService.hide();
       },
       (err) => {
@@ -134,25 +136,24 @@ export class EditEntitiesComponent {
     }
   }
 
-  Listado_poderes: any[] = []
+  ListadoSectoristas: any[] = []
 
 
   // --------- FUNCIONALIDAD MODAL RELACION - PODER------------- \\
-  boolRelacionPoder: boolean = false;
+  boolAddSectoristas: boolean = false;
   sentMOdal: InputModal = new InputModal();
   activateRelacionPoder(value: any) {
+    
     if (value.action == true) {
+      
       this.sentMOdal.type = value.option;
       this.sentMOdal.data = value.obj
-      this.boolRelacionPoder = true;
+      
+      this.boolAddSectoristas = true;
     } else {
-      this.boolRelacionPoder = false;
+      this.boolAddSectoristas = false;
       this.loadLocalStorageData()
-      /* if (value.data) {
-        console.log("this.sentMOdal.data", value);
-
-        this.Listado_poderes.push(value.data)
-      } */
+      
     }
 
   }
@@ -190,7 +191,7 @@ export class EditEntitiesComponent {
         }
       );
     } else if (this.dataLocalStorage.option == 'EDIT') {
-      //representante.relacionPoderRepresentante = this.Listado_poderes
+      representante.relacionPoderRepresentante = this.ListadoSectoristas
       this.entidadesService.update_entidad(representante.taxId, representante).subscribe(
         (response: any) => {
           Swal.fire({
@@ -214,9 +215,9 @@ export class EditEntitiesComponent {
     }
   }
 
-  deleteRelacion(value: any) {
+  deleteSectoristas(value: any) {
     this.loadingService.show()
-    this.entidadesService.delete_relacion_sectorista(value.idRelacionPoder).subscribe(
+    this.entidadesService.delete_relacion_sectorista(value.id).subscribe(
       (response: any) => {
 
         Swal.fire({
@@ -229,9 +230,11 @@ export class EditEntitiesComponent {
         this.loadingService.hide();
       },
       (err) => {
+        console.log(err);
+        
         Swal.fire({
           title: '¡Error!',
-          text: 'Error al eliminar',
+          text: err.error.message,
           icon: 'error'
         });
 

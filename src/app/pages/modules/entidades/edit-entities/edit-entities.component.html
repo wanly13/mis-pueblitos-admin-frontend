@@ -9,7 +9,7 @@
                 </svg>Datos Banco
             </a>
         </li>
-        <!-- <li class="me-2">
+        <li class="me-2">
             <a (click)="change_tabs('Sectoristas')" [class]="showSelectedTab('Sectoristas',tab_selected )[0]">
                 <svg [class]="showSelectedTab('Sectoristas',tab_selected )[1]" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
@@ -17,7 +17,7 @@
                         d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                 </svg>Listado de Sectoristas
             </a>
-        </li> -->
+        </li>
         <!--  <li class="me-2">
             <a (click)="save_representante('sdf')" [class]="showSelectedTab('Save',tab_selected )[0]">
                 <svg [class]="showSelectedTab('Save',tab_selected )[1]" aria-hidden="true"
@@ -48,7 +48,6 @@
 </div>
 
 
-
 <div [ngSwitch]="tab_selected" class="lg:flex lg:items-start lg:justify-between   px-3">
 
     <a *ngSwitchCase="'Profile'" class="block w-full mt-1  p-6  ">
@@ -64,8 +63,8 @@
                     </select>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" [class]="input_class" placeholder=" " formControlName="taxId"
-                        required autocomplete="nope" />
+                    <input type="text" [class]="input_class" placeholder=" " formControlName="taxId" required
+                        autocomplete="nope" />
                     <label for="floating_last_name" [class]="label_class"> Identificación </label>
                 </div>
             </div>
@@ -118,7 +117,7 @@
                     Razón Social
                 </label>
             </div>
-           
+
 
             <div *ngIf="bool_search_api" class="global-center">
 
@@ -138,7 +137,7 @@
                 (click)="activateRelacionPoder({action : true , option: 'CREATE', obj : addValueForm.value})"
                 class="text-white global-center w-15 bg-blue-700 my-2 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
 
-                Agregar Poder
+                Agregar Sectorista
             </button>
         </div>
 
@@ -147,33 +146,33 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Empresa
+                            Apellido Paterno
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Banco
+                                Apellido Materno
 
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Poder
+                                Nombres
 
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Tipo Firmante
+                                Correo
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Estado Poder
+                                Contacto
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Nota
+                                Notas
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -183,29 +182,30 @@
                 </thead>
                 <tbody>
 
-                    <tr class="bg-white " *ngFor="let item of Listado_poderes">
+                    <tr class="bg-white " *ngFor="let item of ListadoSectoristas">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            {{item.empresaDesc}}
+                            {{item.apellidoPaterno}}
                         </th>
                         <td class="px-6 py-4">
-                            {{item.entidadDesc}}
+                            {{item.apellidoMaterno}}
                         </td>
                         <td class="px-6 py-4">
-                            {{item.poderDesc}}
+                            {{item.nombres}}
                         </td>
                         <td class="px-6 py-4">
-                            {{item.tipoRepresentanteDesc}}
+                            {{item.correo}}
                         </td>
                         <td class="px-6 py-4">
-                            {{item.estadoPoderDesc}}
+                            {{item.contacto}}
                         </td>
                         <td class="px-6 py-4">
-                            {{item.nota}}
+                            {{item.notas}}
                         </td>
+                       
                         <td class="px-6 py-4 text-right">
                             <a (click)="activateRelacionPoder({action : true, option: 'EDIT', obj : item})"
                                 class="font-medium text-blue-600  hover:underline">Editar / </a>
-                            <a (click)="deleteRelacion(item)"
+                            <a (click)="deleteSectoristas(item)"
                                 class="font-medium text-blue-600  hover:underline">Eliminar</a>
                         </td>
                     </tr>
@@ -213,7 +213,7 @@
                 </tbody>
 
             </table>
-            <div *ngIf="Listado_poderes.length == 0">
+            <div *ngIf="ListadoSectoristas.length == 0">
                 <div class="w-full global-center py-2 text-sm">
 
                     No se encontraron registros
@@ -236,5 +236,5 @@
     </button>
 </div> -->
 
-<app-add-relacion-poder *ngIf="boolRelacionPoder" [TypeModal]="sentMOdal"
-    (messageEvent)="activateRelacionPoder($event)"></app-add-relacion-poder>
+<app-add-sectoristas *ngIf="boolAddSectoristas" [TypeModal]="sentMOdal"
+    (messageEvent)="activateRelacionPoder($event)"></app-add-sectoristas>

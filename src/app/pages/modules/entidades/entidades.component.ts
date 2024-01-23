@@ -65,7 +65,8 @@ export class EntidadesComponent {
     this.list_representantes = []
     this.entidadesService.search_entidades(form).subscribe(
       (response: DtoEntidades[]) => {
-
+        console.log("LISTA: ", response);
+        
         this.list_representantes = response;
         this.loadingService.hide();
       },
@@ -78,11 +79,14 @@ export class EntidadesComponent {
   // ----------- ACTIONS EDIT AND DELETE ------- \\ 
 
   goToEdit(item: any) {
-
+    console.log("SLECCIONADO:" , item);
+    
     const data = {
       option: 'EDIT',
       data: item
     }
+    console.log("GUARDAR LOCAL: " , data);
+    
     localStorage.setItem('itemSelected', JSON.stringify(data));
     this.transferedDataToNavar({ title: 'Editar Banco' })
     this.router.navigate(['/home/add-entity'])
