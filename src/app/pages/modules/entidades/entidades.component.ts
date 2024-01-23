@@ -114,7 +114,7 @@ export class EntidadesComponent {
     });
     swalWithBootstrapButtons.fire({
       title: "¿Estás seguro?",
-      text: "Se borrarán los datos de este elemento.!",
+      text: "Se borrarán los datos de este elemento.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí",
