@@ -4,6 +4,7 @@ import { LoadingService } from 'src/app/general-functions/loading/loadings/loadi
 import { BusinessService } from 'src/app/services/business.service';
 import Swal from 'sweetalert2';
 import { InputModal } from '../add-oficinas/add-oficinas.component';
+import { RepresentantesService } from 'src/app/services/representantes.service';
 
 @Component({
   selector: 'app-add-cuentas-bancarias',
@@ -20,8 +21,10 @@ export class AddCuentasBancariasComponent {
     private loadingService: LoadingService,
     private fb: FormBuilder,
     private businessService: BusinessService,
+    private representantesService : RepresentantesService
   ) {
     this.addValueForm = this.fb.group({
+      taxIdBanco : [{ value: null, disabled: false }],
       taxIdEmpresa: [{ value: null, disabled: false }],
       moneda: [{ value: null, disabled: false }],
       tipoCuenta: [{ value: null, disabled: false }],
@@ -99,7 +102,7 @@ export class AddCuentasBancariasComponent {
   general_loads() {
     this.load_monedas();
     this.load_tipo_cuenta()
-    //this.load_entidades();
+    this.load_entidades();
     //this.load_tipo_firmantes();
     //this.load_poder();
     //this.load_estado_poder();
@@ -199,5 +202,19 @@ export class AddCuentasBancariasComponent {
         name : 'Cuenta de Depósito a Plazo'
       },
     ]
+  }
+  list_entidades: any[] = [];
+  load_entidades() {
+    this.loadingService.show();
+    this.list_entidades = []
+    this.representantesService.get_listado_entidades().subscribe(
+      (response: any) => {
+        this.list_entidades = response;
+        this.loadingService.hide();
+      },
+      (err) => {
+        this.loadingService.hide();
+      }
+    );
   }
 }
