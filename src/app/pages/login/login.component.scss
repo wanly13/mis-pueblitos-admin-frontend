@@ -1,9 +1,12 @@
 .login {
-  background-image: url("../../../assets/images/fondo2.jpg");
+  //background-image: url("../../../assets/images/fondo2.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  url("../../../assets/images/fondo2.jpg");
   background-size: cover;
   background-position: start;
   background-repeat: no-repeat;
-
+  background-color: black;
   min-height: 100vh;
   min-width: 100vw;
+
 }
