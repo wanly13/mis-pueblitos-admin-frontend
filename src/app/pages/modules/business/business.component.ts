@@ -23,6 +23,8 @@ export class BusinessComponent {
   // Filter of Search
   searchValueForm: FormGroup = this.fb.group({
     pais: [{ value: 'PER', disabled: false }],
+    page: [0],
+    pageSize: [10],
     /* empresa: [{ value: null, disabled: false }],
     poder: [{ value: null, disabled: false }],
     tipoFirmante: [{ value: null, disabled: false }],
@@ -65,8 +67,12 @@ export class BusinessComponent {
     this.loadingService.show();
     this.list_representantes = []
     this.businessService.search_entidades(form).subscribe(
-      (response: DtoEmpresa[]) => {
-        this.list_representantes = response;
+      (response: any) => {
+        this.list_representantes = response.data;
+        if (this.list_representantes.length == 0) {
+          Swal.fire({ text: 'No se encontraron más registros' });
+          this.continuePagination('preview')
+        }
         console.log(this.list_representantes);
         this.loadingService.hide();
       },
@@ -159,99 +165,31 @@ export class BusinessComponent {
 
 
 
-
-
-
-
-
-
-
-  // ----------- CALL LOADS ------ \\
-  /* list_representantes: DtoRepresenante[] = []
-  load_list_representantes() {
-    this.loadingService.show();
-    this.list_representantes = []
-    this.representantesService.get_listado_representantes().subscribe(
-      (response: DtoRepresenante[]) => {
-        this.list_representantes = response;
-        this.loadingService.hide();
-      },
-      err => {
-        this.loadingService.hide()
+  // --------------- PAGINATION IMPLEMENTATION ------------- \\
+  continuePagination(value: any) {
+    if (value == 'preview') {
+      const current = this.searchValueForm.get('page').value;
+      if (current > 0) {
+        this.searchValueForm.get('page').setValue(current - 1)
+        this.search_entidad(this.searchValueForm.value);
       }
-    )
+
+    } else if (value == 'next') {
+      const current = this.searchValueForm.get('page').value;
+
+      this.searchValueForm.get('page').setValue(current + 1)
+      this.search_entidad(this.searchValueForm.value);
+
+    }
   }
 
-  list_empresas: any[] = [];
-  load_empresas() {
-    this.loadingService.show();
-    this.list_empresas = []
-    this.representantesService.get_listado_empresas().subscribe(
-      (response: any) => {
-        this.list_empresas = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  }
-  list_entidades: any[] = [];
-  load_entidades() {
-    this.loadingService.show();
-    this.list_entidades = []
-    this.representantesService.get_listado_entidades().subscribe(
-      (response: any) => {
-        this.list_entidades = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  }
-  list_tipo_firmantes: any[] = [];
-  load_tipo_firmantes() {
-    this.loadingService.show();
-    this.list_tipo_firmantes = []
-    this.representantesService.get_listado_tipo_firmantes().subscribe(
-      (response: any) => {
-        this.list_tipo_firmantes = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  }
-  list_poder: any[] = [];
-  load_poder() {
-    this.loadingService.show();
-    this.list_poder = []
-    this.representantesService.get_listado_poder().subscribe(
-      (response: any) => {
-        this.list_poder = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  }
-  list_estado_poder: any[] = [];
-  load_estado_poder() {
-    this.loadingService.show();
-    this.list_estado_poder = []
-    this.representantesService.get_listado_estado_poder().subscribe(
-      (response: any) => {
-        this.list_estado_poder = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  } */
+
+
+
+
+
+
+
   list_paises: any[] = [];
   load_paises() {
     this.loadingService.show();

@@ -23,8 +23,8 @@ export class PoderesService {
         );
     }
 
-    search_entidades(data: any): Observable<DtoPoderes[]> {
-        return this.http.get<DtoPoderes[]>(this.API_SERVER_PODER).pipe(
+    search_entidades(data: any): Observable<any> {
+        return this.http.get<any>(this.API_SERVER_PODER).pipe(
             map((response) => { return response })
         );
     }

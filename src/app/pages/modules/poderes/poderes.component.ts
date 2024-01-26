@@ -70,6 +70,7 @@ export class PoderesComponent {
       (response: DtoPoderes[]) => {
 
         this.list_representantes = response;
+       
         this.loadingService.hide();
       },
       err => {
@@ -159,6 +160,23 @@ export class PoderesComponent {
 
 
 
+  // --------------- PAGINATION IMPLEMENTATION ------------- \\
+  continuePagination(value: any) {
+    if (value == 'preview') {
+      const current = this.searchValueForm.get('page').value;
+      if (current > 0) {
+        this.searchValueForm.get('page').setValue(current - 1)
+        this.search_entidad(this.searchValueForm.value);
+      }
+
+    } else if (value == 'next') {
+      const current = this.searchValueForm.get('page').value;
+
+      this.searchValueForm.get('page').setValue(current + 1)
+      this.search_entidad(this.searchValueForm.value);
+
+    }
+  }
 
 
 

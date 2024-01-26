@@ -7,5 +7,5 @@ import { TitleService } from './navar.service';
   styleUrls: ['./navar.component.scss']
 })
 export class NavarComponent {
-  
+ 
 }

@@ -25,8 +25,8 @@ export class BusinessService {
         );
     }
 
-    search_entidades(data: any): Observable<DtoEmpresa[]> {
-        return this.http.post<DtoEmpresa[]>(this.API_SERVER_EMPRESA + '/filters', data).pipe(
+    search_entidades(data: any): Observable<any> {
+        return this.http.post<any>(this.API_SERVER_EMPRESA + '/filters', data).pipe(
             map((response) => { return response })
         );
     }

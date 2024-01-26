@@ -20,12 +20,14 @@ export class RepresentantesComponent {
 
   // Filter of Search
   searchValueForm: FormGroup = this.fb.group({
-    paisEmpresa: [{ value: null, disabled: false}],
+    paisEmpresa: [{ value: null, disabled: false }],
     banco: [{ value: null, disabled: false }],
     empresa: [{ value: null, disabled: false }],
     poder: [{ value: null, disabled: false }],
     tipoFirmante: [{ value: null, disabled: false }],
     estadoPoder: [{ value: null, disabled: false }],
+    page: [0],
+    pageSize: [10],
 
   });;
 
@@ -69,8 +71,13 @@ export class RepresentantesComponent {
     this.loadingService.show();
     this.list_representantes = []
     this.representantesService.search_listado_representantes(form).subscribe(
-      (response: DtoRepresenante[]) => {
-        this.list_representantes = response;
+      (response: any) => {
+
+        this.list_representantes = response.data;
+        if(this.list_representantes.length == 0) {
+          Swal.fire({ text: 'No se encontraron más registros' });
+          this.continuePagination('preview')
+        }
         this.loadingService.hide();
       },
       err => {
@@ -79,12 +86,12 @@ export class RepresentantesComponent {
     )
   }
 
-  getTaxIdByCountry(country:string) {
+  getTaxIdByCountry(country: string) {
     for (let index = 0; index < this.list_empresas.length; index++) {
-      if(this.list_empresas[index]['paisDesc'] == country){
+      if (this.list_empresas[index]['paisDesc'] == country) {
         return this.list_empresas[index]['idPais'];
       }
-      
+
     }
   }
 
@@ -108,10 +115,10 @@ export class RepresentantesComponent {
       data: {}
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
-    this.transferedDataToNavar({ title: 'Agregar Firmante'})
+    this.transferedDataToNavar({ title: 'Agregar Firmante' })
     this.router.navigate(['/home/add-rep'])
   }
-  cleanAll(){
+  cleanAll() {
     this.searchValueForm.reset();
     this.search_representante(this.searchValueForm.value)
   }
@@ -170,7 +177,23 @@ export class RepresentantesComponent {
   }
 
 
+  // --------------- PAGINATION IMPLEMENTATION ------------- \\
+  continuePagination(value: any) {
+    if (value == 'preview') {
+      const current = this.searchValueForm.get('page').value;
+      if (current > 0) {
+        this.searchValueForm.get('page').setValue(current - 1)
+        this.search_representante(this.searchValueForm.value);
+      }
 
+    } else if (value == 'next') {
+      const current = this.searchValueForm.get('page').value;
+
+      this.searchValueForm.get('page').setValue(current + 1)
+      this.search_representante(this.searchValueForm.value);
+
+    }
+  }
 
 
 
@@ -213,11 +236,11 @@ export class RepresentantesComponent {
         this.loadingService.hide();
       }
     );
-    
+
 
   }
-  
-  
+
+
 
   list_entidades: any[] = [];
   load_entidades() {

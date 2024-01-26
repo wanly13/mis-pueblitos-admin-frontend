@@ -30,8 +30,8 @@ export class RepresentantesService {
     );
   }
 
-  search_listado_representantes(form: any): Observable<DtoRepresenante[]> {
-    return this.http.post<DtoRepresenante[]>(this.API_SERVER_REPRESENTANTE + '/filters', form).pipe(
+  search_listado_representantes(form: any): Observable<any> {
+    return this.http.post<any>(this.API_SERVER_REPRESENTANTE + '/filters', form).pipe(
       map((response) => { return response })
     );
   }

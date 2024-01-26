@@ -9,7 +9,7 @@ import { API_SERVER } from 'src/environments/environment.prod';
 })
 export class LoginService {
   private SERVER = API_SERVER ;
-  private user = this.SERVER + '/users';
+  private user = this.SERVER + '/user';
  
   constructor(
     private http: HttpClient,
