@@ -35,7 +35,8 @@ export class AddRepresentanteComponent {
       apellidoMaterno: [{ value: null, disabled: false }],
       celular: [{ value: null, disabled: false }],
       correoElectronico: [{ value: null, disabled: false }],
-      idCargo: [{ value: null, disabled: false }],
+      area: [{ value: null, disabled: false }],
+      cargo: [{ value: null, disabled: false }],
       idPais: [{ value: null, disabled: false }],
       idEstadoLaboral: [{ value: null, disabled: false }],
     });
@@ -50,11 +51,11 @@ export class AddRepresentanteComponent {
   general_loads() {
     this.load_estados_laborales()
     this.tipo_documentos()
-    this.load_cargos()
     this.load_paises()
     this.load_empresas()
 
   }
+
 
   bool_search_api: boolean = false
   search_api_reniec() {
@@ -333,20 +334,6 @@ export class AddRepresentanteComponent {
     ]
   }
 
-  list_cargos: any[] = [];
-  load_cargos() {
-    this.loadingService.show();
-    this.list_cargos = []
-    this.representantesService.get_listado_cargos().subscribe(
-      (response: any) => {
-        this.list_cargos = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  }
 
   list_paises: any[] = [];
   load_paises() {

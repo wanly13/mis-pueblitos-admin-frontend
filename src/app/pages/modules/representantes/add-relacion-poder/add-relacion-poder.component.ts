@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { BusinessService } from 'src/app/services/business.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
@@ -35,6 +36,7 @@ export class AddRelacionPoderComponent {
       taxIdEmpresa: [{ value: null, disabled: false }],
       taxIdEntidad: [{ value: null, disabled: false }],
       idOficina: [{ value: null, disabled: false }],
+      archivo: [{ value: null, disabled: false }]
     });
   }
   ngOnInit() {
@@ -53,13 +55,19 @@ export class AddRelacionPoderComponent {
   }
 
 
-  saveFormulario(forms: any) {
-    this.loadingService.show()
+  async saveFormulario(forms: any) {
+    this.loadingService.show();
+
     if (this.TypeModal.type == 'CREATE') {
       console.log();
       var data = this.addValueForm.value
-      //data.archivo = this.ArchivosCargados
-      this.representantesService.create_relacion_poder(this.addValueForm.value).subscribe(
+      data.archivo = this.ArchivosCargados
+      console.log("data create:", data);
+      const formData = new FormData();
+      formData.append('relacionPoderRepresentanteDto', JSON.stringify(this.addValueForm.value));
+      formData.append('archivo',data.archivo[0]);
+
+      this.representantesService.create_relacion_poder(formData).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Agregado!',
@@ -70,6 +78,7 @@ export class AddRelacionPoderComponent {
           this.loadingService.hide();
         },
         (err) => {
+          console.log(err);
           Swal.fire({
             title: '¡Error!',
             text: 'Error al agregar',
@@ -78,10 +87,11 @@ export class AddRelacionPoderComponent {
           this.loadingService.hide();
         }
       );
-
-
     } else if (this.TypeModal.type == 'EDIT') {
-      this.representantesService.update_relacion_poder(this.addValueForm.value.idRelacionPoder, this.addValueForm.value).subscribe(
+      const data = this.addValueForm.value;
+      data.archivo = this.ArchivosCargados
+      console.log("data: ", this.addValueForm.value);
+      this.representantesService.update_relacion_poder(this.addValueForm.value.idRelacionPoder, data).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Editado!',
@@ -109,14 +119,25 @@ export class AddRelacionPoderComponent {
   ArchivosCargados: any[] = [];
 
   onFileSelected(event: any): void {
-    const files: FileList = event.target.files;
+    console.log("event.target.files:",event.target.files);
+    const file = event.target.files[0];
 
-    for (let i = 0; i < files.length; i++) {
-      const file: File = files.item(i);
+    this.ArchivosCargados.push(file);
+    console.log("list:",this.ArchivosCargados);
 
-      // Lee el archivo como base64
-      this.readAndAddFile(file);
-    }
+  }
+
+  uploadFile(file: File): any {
+    this.representantesService.uploadFile(file).subscribe(
+      (response) => {
+        console.log('File uploaded successfully:', response);
+        // Aquí puedes manejar la respuesta del servidor, como mostrar un mensaje de éxito o actualizar la interfaz de usuario
+      },
+      (error) => {
+        console.error('Error uploading file:', error);
+        // Aquí puedes manejar cualquier error que ocurra durante la subida del archivo.
+      }
+    );
   }
 
   readAndAddFile(file: File): void {

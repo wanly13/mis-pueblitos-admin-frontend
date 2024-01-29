@@ -155,14 +155,21 @@
                 </div>
 
             </div>
-            <div *ngIf="bool_search_api" class="relative z-0 w-full mb-5 group">
-                <label [class]="label_class">Cargo</label>
-                <select [class]="input_class" formControlName="idCargo">
-                    <option *ngIf="list_cargos.length > 0"></option>
-                    <option *ngFor="let item of list_cargos" [value]="item.idCargo"> {{item.nombreCargo}}
-                    </option>
-                </select>
-            </div>
+
+            <div *ngIf="bool_search_api" class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-5 group">
+                  <input type="text" [class]="input_class" placeholder=" " required autocomplete="nope"
+                        formControlName="area" />
+                  <label for="floating_first_name" [class]="label_class">Area</label>
+              </div>
+              <div class="relative z-0 w-full mb-5 group">
+                  <input type="text" [class]="input_class" placeholder=" " required autocomplete="nope"
+                        formControlName="cargo" />
+                  <label for="floating_first_name" [class]="label_class">Cargo</label>
+
+              </div>
+          </div>
+
             <div *ngIf="bool_search_api" class="relative z-0 w-full mb-5 group">
                 <label [class]="label_class">Estado Laboral</label>
                 <select [class]="input_class" formControlName="idEstadoLaboral">
@@ -256,13 +263,8 @@
                         <td class="px-6 py-4">
                             {{item.estadoPoderDesc}}
                         </td>
-<<<<<<< HEAD
                         <td class="px-6 py-4">
                             <a>{{item.nota}}</a>
-=======
-                        <td class="px-6 py-4 truncate">
-                            {{item.nota}}
->>>>>>> 357428a (first commit)
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a (click)="activateRelacionPoder({action : true, option: 'EDIT', obj : item})"
@@ -280,9 +282,9 @@
 
                     No se encontraron registros
                 </div>
-                
+
             </div>
-            
+
         </div>
 
 

@@ -19,6 +19,7 @@ export class RepresentantesService {
   private API_SERVER_PODER = API_SERVER + '/poder'
   private API_SERVER_ESTADO_PODER = API_SERVER + '/estadopoder'
   private API_SERVER_CARGOS = API_SERVER + '/cargo'
+  private API_SERVER_FILE = API_SERVER + '/poder-representante/file'
 
   constructor(
     private http: HttpClient
@@ -36,6 +37,15 @@ export class RepresentantesService {
     );
   }
 
+  uploadFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    console.log("formData",formData);
+    return this.http.post<any>(this.API_SERVER_FILE, formData).pipe(
+      map((response) => { return response })
+    );
+
+  }
 
 
   get_listado_estados_laborales(): Observable<any> {
@@ -111,6 +121,7 @@ export class RepresentantesService {
 
 
   create_relacion_poder(data: any): Observable<any> {
+    console.log("data dentro funcion: ", data);
     return this.http.post<any>(this.API_SERVER_REPRESENTANTE_PODER, data).pipe(
       map((response) => { return response })
     );

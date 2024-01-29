@@ -3,5 +3,5 @@ export const environment = {
 };
 
 
-export const API_SERVER = "http://localhost:3000";
-//export const API_SERVER = 'https://erp-ransa-backend.onrender.com'
+//export const API_SERVER = "http://localhost:3000";
+export const API_SERVER = 'https://erp-ransa-backend.onrender.com'
