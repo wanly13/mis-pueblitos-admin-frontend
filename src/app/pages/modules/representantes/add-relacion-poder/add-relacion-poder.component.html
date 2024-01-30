@@ -106,7 +106,8 @@
             <div *ngFor="let item of ArchivosCargados" class="grid grid-cols-5 gap-4 text-xs px-2 ">
 
                 <div class="col-span-4 truncate-text">
-                    * {{ item.nombre.length < 35 ? item.nombre : item.nombre.slice(0, 35) + '...' }} </div>
+                    <a href={{item.fileUrl}} target="_blank" rel="noopener noreferrer" download={{item.nombre}}>* {{ item.nombre.length < 35 ? item.nombre : item.nombre.slice(0, 35) + '...' }} </a>
+                  </div>
                         <div class="global-center">
                             <svg xmlns="http://www.w3.org/2000/svg" (click)="deleteImage(item)" viewBox="0 0 24 24"
                                 fill="currentColor" class="w-6 h-6 px-1 text-red-500">

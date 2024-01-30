@@ -170,8 +170,8 @@
                                 Contacto
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center">
+                        <th scope="col" class="px-6 py-3 truncate">
+                            <div class="flex items-center truncate">
                                 Notas
                             </div>
                         </th>
@@ -199,7 +199,11 @@
                             {{item.contacto}}
                         </td>
                         <td class="px-6 py-4">
-                            {{item.notas}}
+                            {{
+                              item.notas.length < 10
+                                ? item.notas
+                                : item.notas.slice(0, 10) + "..."
+                            }}
                         </td>
 
                         <td class="px-6 py-4 text-right">
