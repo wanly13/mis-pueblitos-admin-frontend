@@ -94,7 +94,7 @@ export class AddRelacionPoderComponent {
     } else if (this.TypeModal.type == 'EDIT') {
       var data = this.addValueForm.value
       data.archivo = this.ArchivosCargados
-      
+
 
       this.representantesService.update_relacion_poder(this.addValueForm.value.idRelacionPoder, data).subscribe(
         (response: any) => {
