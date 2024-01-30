@@ -94,12 +94,9 @@ export class AddRelacionPoderComponent {
     } else if (this.TypeModal.type == 'EDIT') {
       var data = this.addValueForm.value
       data.archivo = this.ArchivosCargados
-      console.log("data create:", data);
-      const formData = new FormData();
-      formData.append('relacionPoderRepresentanteDto', JSON.stringify(this.addValueForm.value));
-      formData.append('archivo',data.archivo[0]);
+      
 
-      this.representantesService.update_relacion_poder(this.addValueForm.value.idRelacionPoder, formData).subscribe(
+      this.representantesService.update_relacion_poder(this.addValueForm.value.idRelacionPoder, data).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Editado!',
