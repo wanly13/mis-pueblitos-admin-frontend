@@ -40,8 +40,15 @@ export class RepresentantesService {
   uploadFile(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    console.log("formData",formData);
     return this.http.post<any>(this.API_SERVER_FILE, formData).pipe(
+      map((response) => { return response })
+    );
+
+  }
+
+  deleteFile(file: any[]): Observable<any> {
+
+    return this.http.put<any>(this.API_SERVER_FILE, file).pipe(
       map((response) => { return response })
     );
 

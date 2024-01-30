@@ -36,25 +36,32 @@ export class AddRelacionPoderComponent {
       taxIdEmpresa: [{ value: null, disabled: false }],
       taxIdEntidad: [{ value: null, disabled: false }],
       idOficina: [{ value: null, disabled: false }],
-      archivo: [{ value: null, disabled: false }]
     });
   }
   ngOnInit() {
     this.general_loads();
     console.log("TypeModal", this.TypeModal);
     this.addValueForm.patchValue(this.TypeModal.data)
+    this.ArchivosCargados = this.TypeModal.data.archivo ? this.TypeModal.data.archivo : []
     this.load_oficinas_empresa(this.addValueForm.value.taxIdEmpresa)
   }
 
 
   CloseModal(value) {
     console.log(value);
+    if (this.TypeModal.type == 'CREATE' && this.saved == false) {
+      if (this.ArchivosCargados.length == 0) {
+        this.messageEvent.emit(value);
+      } else {
+        this.deleteFile(this.ArchivosCargados)
+      }
+    } else {
+      this.messageEvent.emit(value);
+    }
 
-
-    this.messageEvent.emit(value);
   }
 
-
+  saved: boolean = false
   async saveFormulario(forms: any) {
     this.loadingService.show();
 
@@ -62,18 +69,15 @@ export class AddRelacionPoderComponent {
       console.log();
       var data = this.addValueForm.value
       data.archivo = this.ArchivosCargados
-      console.log("data create:", data);
-      const formData = new FormData();
-      formData.append('relacionPoderRepresentanteDto', JSON.stringify(this.addValueForm.value));
-      formData.append('archivo',data.archivo[0]);
 
-      this.representantesService.create_relacion_poder(formData).subscribe(
+      this.representantesService.create_relacion_poder(data).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Agregado!',
             text: 'Se agregó exitosamente',
             icon: 'success'
           });
+          this.saved = true;
           this.CloseModal({ action: false })
           this.loadingService.hide();
         },
@@ -98,6 +102,7 @@ export class AddRelacionPoderComponent {
             text: 'Se editó exitosamente',
             icon: 'success'
           });
+          this.saved = true;
           this.CloseModal({ action: false })
           this.loadingService.hide();
         },
@@ -112,65 +117,75 @@ export class AddRelacionPoderComponent {
       );
     }
     console.log("LISTA IMAGENES: ", this.ArchivosCargados);
-
   }
 
   // ------------------ IMPLEMENTACION DE ARCHIVOS ---------------------- \\
   ArchivosCargados: any[] = [];
 
   onFileSelected(event: any): void {
-    console.log("event.target.files:",event.target.files);
+    console.log("event.target.files:", event.target.files);
     const file = event.target.files[0];
-
-    this.ArchivosCargados.push(file);
-    console.log("list:",this.ArchivosCargados);
-
+    this.uploadFile(file);
   }
 
   uploadFile(file: File): any {
+    this.loadingService.show()
     this.representantesService.uploadFile(file).subscribe(
       (response) => {
-        console.log('File uploaded successfully:', response);
-        // Aquí puedes manejar la respuesta del servidor, como mostrar un mensaje de éxito o actualizar la interfaz de usuario
+        console.log("RESPUESTA: ", response);
+
+        this.ArchivosCargados.push(response);
+        this.loadingService.hide()
       },
       (error) => {
-        console.error('Error uploading file:', error);
-        // Aquí puedes manejar cualquier error que ocurra durante la subida del archivo.
+        this.loadingService.hide()
+        console.error('Error uploading file:', error)
       }
     );
   }
 
-  readAndAddFile(file: File): void {
-    const reader = new FileReader();
+  deleteFile(file: any[]): any {
+    this.loadingService.show()
 
-    reader.onload = (e) => {
-      // Agrega el archivo a la lista
-      this.ArchivosCargados.push({
-        nombreArchivo: this.generateUniqueFileName(),
-        imagen: e.target.result,
-        fechaCarga: new Date(),
-        tipo: file.type,
-      });
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  generateUniqueFileName(): string {
-    const now = new Date();
-    return `ARCHIVE${now.getTime()}`;
+    this.representantesService.deleteFile(file).subscribe(
+      (response) => {
+        console.log("RESPUESTA: ", response);
+        this.saved = true;
+        this.CloseModal({ action: false })
+        this.loadingService.hide()
+      },
+      (error) => {
+        console.error('Error uploading file:', error)
+        this.loadingService.hide()
+      }
+    );
   }
 
   deleteImage(item: any) {
-    const index = this.ArchivosCargados.findIndex((archivo) => archivo.nombreArchivo === item.nombreArchivo);
-
-    // Verifica si se encontró el elemento en la lista
-    if (index !== -1) {
-      // Elimina el elemento de la lista usando splice
-      this.ArchivosCargados.splice(index, 1);
-    } else {
-      console.error(`Elemento con nombre ${item.nombreArchivo} no encontrado en la lista.`);
-    }
+    this.loadingService.show()
+    var listDelete = []
+    listDelete.push(item)
+    this.representantesService.deleteFile(listDelete).subscribe(
+      (response) => {
+        response.response.forEach(element => {
+          this.ArchivosCargados = this.ArchivosCargados.filter(archivo => archivo.nombre !== element.name);
+        });
+        const data = this.addValueForm.value;
+        data.archivo = this.ArchivosCargados
+        this.representantesService.update_relacion_poder(this.addValueForm.value.idRelacionPoder, data).subscribe(
+          (response: any) => {
+            this.loadingService.hide()
+          },
+          (err) => {
+            this.loadingService.hide()
+          }
+        );
+      },
+      (error) => {
+        console.error('Error uploading file:', error)
+        this.loadingService.hide()
+      }
+    );
   }
   imagenSeleccionada: any = null;
   viewImage(item: any) {
