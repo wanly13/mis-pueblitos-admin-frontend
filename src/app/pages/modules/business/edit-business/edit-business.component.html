@@ -228,20 +228,10 @@
             <td class="px-6 py-4">
               {{ item.tipoCuenta }}
             </td>
-            <td class="px-6 py-4 truncate">
-              {{
-                item.uso.length < 10
-                  ? item.uso
-                  : item.uso.slice(0, 10) + "..."
-              }}
-            </td>
-            <td class="px-6 py-4 truncate">
-              {{
-                item.notas.length < 10
-                  ? item.notas
-                  : item.notas.slice(0, 10) + "..."
-              }}
-            </td>
+            <td *ngIf="item.uso" class="px-6 py-4 truncate">
+              {{ item.uso.length < 10 ? item.uso : item.uso.slice(0, 10) + "..." }} </td>
+            <td *ngIf="item.notas" class="px-6 py-4 truncate">
+              {{ item.notas.length < 10 ? item.notas : item.notas.slice(0, 10) + "..." }} </td>
             <td class="px-6 py-4 text-right">
               <a (click)="activateCuentasBancarias({action : true, option: 'EDIT', obj : item})"
                 class="font-medium text-blue-600  hover:underline">Ver / </a>
