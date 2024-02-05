@@ -74,7 +74,7 @@ export class RepresentantesComponent {
       (response: any) => {
 
         this.list_representantes = response.data;
-        if(this.list_representantes.length == 0) {
+        if (this.list_representantes.length == 0) {
           Swal.fire({ text: 'No se encontraron más registros' });
           this.continuePagination('preview')
         }
@@ -119,7 +119,8 @@ export class RepresentantesComponent {
     this.router.navigate(['/home/add-rep'])
   }
   cleanAll() {
-    this.searchValueForm.reset();
+    const { page, pageSize } = this.searchValueForm.value;
+    this.searchValueForm.reset({ paisEmpresa: null, banco: null, empresa: null, poder: null, tipoFirmante: null, estadoPoder: null, page, pageSize });
     this.search_representante(this.searchValueForm.value)
   }
   deleteItem(item: any) {
