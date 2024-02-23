@@ -1,8 +1,9 @@
+import { DepartamentosService } from './../../../../services/departamentos.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
-import { BusinessService } from 'src/app/services/business.service';
+//import { BusinessService } from 'src/app/services/business.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
 import Swal from 'sweetalert2';
 import { InputModal } from '../../representantes/add-relacion-poder/add-relacion-poder.component';
@@ -26,15 +27,16 @@ export class EditBusinessComponent {
     private router: Router,
     private loadingService: LoadingService,
     private fb: FormBuilder,
-    private businessService: BusinessService,
+    private departamentosService:DepartamentosService,
+    //private businessService: BusinessService,
     private representantesService: RepresentantesService
   ) {
 
     this.addValueForm = this.fb.group({
-      taxId: [{ value: null, disabled: false }],
-      idPais: [{ value: null, disabled: false }],
-      razonSocial: [{ value: null, disabled: false }],
-      tipoIdentificación: [{ value: null, disabled: false }],
+      id: [{ value: null, disabled: false }],
+      nombre: [{ value: null, disabled: false }],
+      descripcion: [{ value: null, disabled: false }],
+      foto: [{ value: null, disabled: false }],
     });
   }
 
@@ -58,7 +60,7 @@ export class EditBusinessComponent {
 
     this.loadingService.show();
 
-    this.businessService.get_entidad(this.addValueForm.value.taxId).subscribe(
+    /*this.businessService.get_entidad(this.addValueForm.value.taxId).subscribe(
       (response: any) => {
         this.bool_search_api = true;
         this.addValueForm.patchValue(response)
@@ -76,7 +78,7 @@ export class EditBusinessComponent {
         this.bool_search_api = true;
         this.loadingService.hide();
       }
-    );
+    );*/
   }
 
   ngOnDestroy() {
@@ -100,7 +102,7 @@ export class EditBusinessComponent {
   Listado_oficinas: any[] = [];
   ListadoCuentasBancarias: any[] = [];
   getDateRepresentante(value: any) {
-    this.businessService.get_entidad(value.taxId).subscribe(
+    /*this.businessService.get_entidad(value.taxId).subscribe(
       (response: any) => {
         console.log("response: v", response);
 
@@ -118,7 +120,7 @@ export class EditBusinessComponent {
         });
         this.loadingService.hide();
       }
-    );
+    );*/
   }
 
 
@@ -166,7 +168,7 @@ export class EditBusinessComponent {
     if (this.dataLocalStorage.option == 'CREATE') {
 
       //representante.relacionPoderRepresentante = []
-      this.businessService.create_entidad(representante).subscribe(
+      /*this.businessService.create_entidad(representante).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Creado!',
@@ -190,10 +192,10 @@ export class EditBusinessComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     } else if (this.dataLocalStorage.option == 'EDIT') {
       //representante.relacionPoderRepresentante = this.Listado_poderes
-      this.businessService.update_entidad(representante.taxId, representante).subscribe(
+      /*this.businessService.update_entidad(representante.taxId, representante).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Actualizado!',
@@ -212,13 +214,13 @@ export class EditBusinessComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     }
   }
 
   deleteRelacion(value: any) {
     this.loadingService.show()
-    this.businessService.delete_oficina(value.idOficina).subscribe(
+    /*this.businessService.delete_oficina(value.idOficina).subscribe(
       (response: any) => {
 
         Swal.fire({
@@ -239,7 +241,7 @@ export class EditBusinessComponent {
 
         this.loadingService.hide();
       }
-    );
+    );*/
   }
   // --------- FUNCIONALIDAD MODAL RELACION - CUENTAS BANCARIAS------------- \\
   boolCuentasBancarias : boolean  = false;
@@ -257,7 +259,7 @@ export class EditBusinessComponent {
   }
   deleteCuentasBancarias(value: any) {
     this.loadingService.show()
-    this.businessService.delete_cuentas_empresa(value.numeroCuenta).subscribe(
+    /*this.businessService.delete_cuentas_empresa(value.numeroCuenta).subscribe(
       (response: any) => {
 
         Swal.fire({
@@ -278,7 +280,7 @@ export class EditBusinessComponent {
 
         this.loadingService.hide();
       }
-    );
+    );*/
   }
 
   // ------------- CALL LOADS --------- \

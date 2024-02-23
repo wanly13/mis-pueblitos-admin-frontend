@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InputModal } from '../../representantes/add-relacion-poder/add-relacion-poder.component';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BusinessService } from 'src/app/services/business.service';
+//import { BusinessService } from 'src/app/services/business.service';
 import Swal from 'sweetalert2';
-import { EntidadesService } from 'src/app/services/entidades.service';
+//import { EntidadesService } from 'src/app/services/lugar.service';
 
 @Component({
   selector: 'app-add-sectoristas',
@@ -20,7 +20,7 @@ export class AddSectoristasComponent {
   constructor(
     private loadingService: LoadingService,
     private fb: FormBuilder,
-    private entidadesServices: EntidadesService
+    //private entidadesServices: EntidadesService
   ) {
     this.addValueForm = this.fb.group({
       id: [{ value: null, disabled: false }],
@@ -56,7 +56,7 @@ export class AddSectoristasComponent {
     if (this.TypeModal.type == 'CREATE') {
       const formValueWithoutId = { ...this.addValueForm.value };
       delete formValueWithoutId.id;
-      this.entidadesServices.create_relacion_sectorista(formValueWithoutId).subscribe(
+      /*this.entidadesServices.create_relacion_sectorista(formValueWithoutId).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Agregado!',
@@ -74,10 +74,10 @@ export class AddSectoristasComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     }
     else if (this.TypeModal.type == 'EDIT') {
-      this.entidadesServices.update_relacion_sectorista(this.addValueForm.value.id, this.addValueForm.value).subscribe(
+      /*this.entidadesServices.update_relacion_sectorista(this.addValueForm.value.id, this.addValueForm.value).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Editado!',
@@ -95,7 +95,7 @@ export class AddSectoristasComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     }
   }
 

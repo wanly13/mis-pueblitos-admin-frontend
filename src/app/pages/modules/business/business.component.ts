@@ -1,11 +1,12 @@
+import { DepartamentosService } from './../../../services/departamentos.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
-import { DtoEmpresa } from './structure/DtoEmpresa';
+import { DtoDepartamento } from './structure/DtoEmpresa';
 import Swal from 'sweetalert2';
-import { BusinessService } from 'src/app/services/business.service';
+//import { BusinessService } from 'src/app/services/business.service';
 import { TitleService } from '../../navar/navar.service';
 
 @Component({
@@ -34,7 +35,8 @@ export class BusinessComponent {
 
   constructor(
     public router: Router,
-    private businessService: BusinessService,
+    //private businessService: BusinessService,
+    private departamentosService:DepartamentosService,
     private representantesService: RepresentantesService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
@@ -44,8 +46,8 @@ export class BusinessComponent {
 
   ngOnInit() {
     this.search_entidad(this.searchValueForm.value);
-    this.general_loads();
-    this.transferedDataToNavar({ title: 'Listado de Empresas' })
+    //this.general_loads();
+    this.transferedDataToNavar({ title: 'Listado de Departamentos' })
   }
 
   // ---------- LOADS FILTERS EN LIST ---------- \\
@@ -53,7 +55,7 @@ export class BusinessComponent {
     this.load_paises();
 
   }
-  // ---------- CHANGE NAVAR ---------- \\  
+  // ---------- CHANGE NAVAR ---------- \\
   transferedDataToNavar(value: any): void {
     console.log("CAMBIO");
 
@@ -62,13 +64,13 @@ export class BusinessComponent {
 
 
   // ---------- SEARCH ---------- \\
-  list_representantes: DtoEmpresa[] = []
+  list_representantes: DtoDepartamento[] = []
   search_entidad(form: any) {
     this.loadingService.show();
     this.list_representantes = []
-    this.businessService.search_entidades(form).subscribe(
+    this.departamentosService.get_listado_departamentos().subscribe(
       (response: any) => {
-        this.list_representantes = response.data;
+        this.list_representantes = response;
         if (this.list_representantes.length == 0) {
           Swal.fire({ text: 'No se encontraron más registros' });
           this.continuePagination('preview')
@@ -82,7 +84,7 @@ export class BusinessComponent {
     )
   }
 
-  // ----------- ACTIONS EDIT AND DELETE ------- \\ 
+  // ----------- ACTIONS EDIT AND DELETE ------- \\
 
   goToEdit(item: any) {
 
@@ -103,7 +105,7 @@ export class BusinessComponent {
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
     this.transferedDataToNavar({ title: 'Agregar Empresa' })
-    this.router.navigate(['/home/add-business'])
+    this.router.navigate(['/home/add-departament'])
   }
 
   deleteItem(item: any) {
@@ -126,7 +128,7 @@ export class BusinessComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.loadingService.show()
-        this.businessService.delete_entidad(item.taxId).subscribe(
+        /*this.businessService.delete_entidad(item.taxId).subscribe(
           (response: any) => {
             swalWithBootstrapButtons.fire({
               title: "Borrado!",
@@ -147,7 +149,7 @@ export class BusinessComponent {
 
             this.loadingService.hide();
           }
-        );
+        );*/
 
 
 

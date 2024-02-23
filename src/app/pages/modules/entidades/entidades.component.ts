@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
-import { EntidadesService } from 'src/app/services/entidades.service';
-import { DtoEntidades } from './structure/DtioEntity';
+import { LugarService } from 'src/app/services/lugar.service';
+import { DtoLugar } from './structure/DtioEntity';
 import Swal from 'sweetalert2';
 import { RepresentantesService } from 'src/app/services/representantes.service';
 import { TitleService } from '../../navar/navar.service';
@@ -34,7 +34,7 @@ export class EntidadesComponent {
 
   constructor(
     public router: Router,
-    private entidadesService: EntidadesService,
+    private lugarService: LugarService,
     private representantesService: RepresentantesService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
@@ -45,31 +45,28 @@ export class EntidadesComponent {
   ngOnInit() {
     this.search_entidad(this.searchValueForm.value);
     this.general_loads();
-    this.transferedDataToNavar({ title: 'Listado de Bancos' })
+    this.transferedDataToNavar({ title: 'Listado de Lugares' })
   }
 
   // ---------- LOADS FILTERS EN LIST ---------- \\
   general_loads() {
-    this.load_paises();
-
   }
-  // ---------- CHANGE NAVAR ---------- \\  
+  // ---------- CHANGE NAVAR ---------- \\
   transferedDataToNavar(value: any): void {
     console.log("CAMBIO");
 
     this.titleService.setTitle(value);
   }
-
+  list_paises: any[] = []
   // ---------- SEARCH ---------- \\
-  list_representantes: DtoEntidades[] = []
+  list_representantes: DtoLugar[] = []
   search_entidad(form: any) {
     this.loadingService.show();
-    this.list_representantes = []
-    this.entidadesService.search_entidades(form).subscribe(
+    this.list_representantes = [];
+    this.lugarService.get_listado_lugares().subscribe(
       (response: any) => {
         console.log("LISTA: ", response);
-
-        this.list_representantes = response.data;
+        this.list_representantes = response;
         if (this.list_representantes.length == 0) {
           Swal.fire({ text: 'No se encontraron más registros' });
           this.continuePagination('preview')
@@ -82,7 +79,7 @@ export class EntidadesComponent {
     )
   }
 
-  // ----------- ACTIONS EDIT AND DELETE ------- \\ 
+  // ----------- ACTIONS EDIT AND DELETE ------- \\
 
   goToEdit(item: any) {
     console.log("SLECCIONADO:", item);
@@ -129,7 +126,7 @@ export class EntidadesComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.loadingService.show()
-        this.entidadesService.delete_entidad(item.taxId).subscribe(
+        this.lugarService.delete_lugar(item.taxId).subscribe(
           (response: any) => {
             swalWithBootstrapButtons.fire({
               title: "Borrado!",
@@ -181,31 +178,5 @@ export class EntidadesComponent {
       this.search_entidad(this.searchValueForm.value);
 
     }
-  }
-
-
-
-
-
-
-
-
-
-
-  // ----------- CALL LOADS ------ \\
-
-  list_paises: any[] = [];
-  load_paises() {
-    this.loadingService.show();
-    this.list_paises = []
-    this.representantesService.get_listado_paises().subscribe(
-      (response: any) => {
-        this.list_paises = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
   }
 }

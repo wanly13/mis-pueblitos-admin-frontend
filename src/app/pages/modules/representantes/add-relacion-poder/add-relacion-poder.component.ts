@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
-import { BusinessService } from 'src/app/services/business.service';
+//import { BusinessService } from 'src/app/services/business.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
 import Swal from 'sweetalert2';
 
@@ -23,7 +23,7 @@ export class AddRelacionPoderComponent {
     private loadingService: LoadingService,
     private fb: FormBuilder,
     private representantesService: RepresentantesService,
-    private businessService: BusinessService,
+    //private businessService: BusinessService,
   ) {
     this.addValueForm = this.fb.group({
 
@@ -276,7 +276,10 @@ export class AddRelacionPoderComponent {
     );
   }
   list_oficinas: any[] = [];
-  load_oficinas_empresa(value: any) {
+  load_oficinas_empresa(value: any){
+    return this.list_oficinas;
+  }
+  /*load_oficinas_empresa(value: any) {
     this.loadingService.show();
     this.list_oficinas = []
     this.businessService.get_oficinas_empresa(value).subscribe(
@@ -288,7 +291,7 @@ export class AddRelacionPoderComponent {
         this.loadingService.hide();
       }
     );
-  }
+  }*/
 
 
 }

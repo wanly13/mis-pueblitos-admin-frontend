@@ -1,8 +1,9 @@
+import { EventoService } from './../../../services/evento.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
-import { DtoRepresenante } from './estructure/dtoRepresentante';
+import { DtoRepresenante,DtoEvento, DtoEventos } from './estructure/dtoRepresentante';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TitleService } from '../../navar/navar.service';
@@ -34,6 +35,7 @@ export class RepresentantesComponent {
   constructor(
     public router: Router,
     private representantesService: RepresentantesService,
+    private eventoService:EventoService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
     private titleService: TitleService,
@@ -47,7 +49,7 @@ export class RepresentantesComponent {
 
     this.transferedDataToNavar({ title: 'Listado de Firmantes' })
   }
-  // ---------- CHANGE NAVAR ---------- \\  
+  // ---------- CHANGE NAVAR ---------- \\
   transferedDataToNavar(value: any): void {
     console.log("CAMBIO");
 
@@ -57,11 +59,11 @@ export class RepresentantesComponent {
 
   // ---------- LOADS FILTERS EN LIST ---------- \\
   general_loads() {
-    this.load_empresas();
-    this.load_entidades();
-    this.load_tipo_firmantes();
-    this.load_poder();
-    this.load_estado_poder();
+    //this.load_empresas();
+    //this.load_entidades();
+    //this.load_tipo_firmantes();
+    //this.load_poder();
+    //this.load_estado_poder();
   }
 
 
@@ -70,10 +72,11 @@ export class RepresentantesComponent {
     console.log(form);
     this.loadingService.show();
     this.list_representantes = []
-    this.representantesService.search_listado_representantes(form).subscribe(
+    this.eventoService.get_listado_eventos().subscribe(
       (response: any) => {
 
-        this.list_representantes = response.data;
+        this.list_representantes = response;
+        console.log(this.list_representantes);
         if (this.list_representantes.length == 0) {
           Swal.fire({ text: 'No se encontraron más registros' });
           this.continuePagination('preview')
@@ -95,7 +98,7 @@ export class RepresentantesComponent {
     }
   }
 
-  // ----------- ACTIONS EDIT AND DELETE ------- \\ 
+  // ----------- ACTIONS EDIT AND DELETE ------- \\
 
   goToEdit(item: any) {
 
@@ -206,12 +209,12 @@ export class RepresentantesComponent {
 
 
   // ----------- CALL LOADS ------ \\
-  list_representantes: DtoRepresenante[] = []
+  list_representantes: DtoEventos[] = []
   load_list_representantes() {
     this.loadingService.show();
     this.list_representantes = []
-    this.representantesService.get_listado_representantes().subscribe(
-      (response: DtoRepresenante[]) => {
+    this.eventoService.get_listado_eventos().subscribe(
+      (response: DtoEventos[]) => {
         this.list_representantes = response;
         this.loadingService.hide();
       },

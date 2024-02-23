@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
-import { BusinessService } from 'src/app/services/business.service';
+//import { BusinessService } from 'src/app/services/business.service';
 import Swal from 'sweetalert2';
 import { InputModal } from '../add-oficinas/add-oficinas.component';
 import { RepresentantesService } from 'src/app/services/representantes.service';
@@ -20,7 +20,7 @@ export class AddCuentasBancariasComponent {
   constructor(
     private loadingService: LoadingService,
     private fb: FormBuilder,
-    private businessService: BusinessService,
+    //private businessService: BusinessService,
     private representantesService : RepresentantesService
   ) {
     this.addValueForm = this.fb.group({
@@ -54,7 +54,7 @@ export class AddCuentasBancariasComponent {
     this.loadingService.show()
 
     if (this.TypeModal.type == 'CREATE') {
-      this.businessService.create_cuentas_empresa(this.addValueForm.value).subscribe(
+      /*this.businessService.create_cuentas_empresa(this.addValueForm.value).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Agregado!',
@@ -72,10 +72,10 @@ export class AddCuentasBancariasComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     }
     else if (this.TypeModal.type == 'EDIT') {
-      this.businessService.update_cuentas_empresa(this.addValueForm.value.numeroCuenta, this.addValueForm.value).subscribe(
+      /*this.businessService.update_cuentas_empresa(this.addValueForm.value.numeroCuenta, this.addValueForm.value).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Editado!',
@@ -93,7 +93,7 @@ export class AddCuentasBancariasComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     }
   }
 

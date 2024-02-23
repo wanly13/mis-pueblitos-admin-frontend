@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoadingService} from 'src/app/general-functions/loading/loadings/loading-service.service';
-import {BusinessService} from 'src/app/services/business.service';
+//import {BusinessService} from 'src/app/services/business.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +17,7 @@ export class AddOficinasComponent {
   constructor(
     private loadingService: LoadingService,
     private fb: FormBuilder,
-    private businessService: BusinessService,
+    //private businessService: BusinessService,
   ) {
     this.addValueForm = this.fb.group({
       idOficina: [{value: null, disabled: false}],
@@ -46,7 +46,7 @@ export class AddOficinasComponent {
     this.loadingService.show()
 
     if (this.TypeModal.type == 'CREATE') {
-      this.businessService.create_oficina({"direccion":this.addValueForm.value.direccion,"oficina":this.addValueForm.value.oficina,"taxId":this.addValueForm.value.taxId}).subscribe(
+      /*this.businessService.create_oficina({"direccion":this.addValueForm.value.direccion,"oficina":this.addValueForm.value.oficina,"taxId":this.addValueForm.value.taxId}).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Agregado!',
@@ -64,10 +64,10 @@ export class AddOficinasComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     }
     else if (this.TypeModal.type == 'EDIT') {
-      this.businessService.update_oficina(this.addValueForm.value.idOficina, this.addValueForm.value).subscribe(
+      /*this.businessService.update_oficina(this.addValueForm.value.idOficina, this.addValueForm.value).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Editado!',
@@ -85,7 +85,7 @@ export class AddOficinasComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     }
   }
 

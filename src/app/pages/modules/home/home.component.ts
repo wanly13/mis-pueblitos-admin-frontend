@@ -12,15 +12,15 @@ export class HomeComponent {
 
   ngOnInit(){
     const dataNavar = {
-      title : 'Bienvenido al Portal Ransa'
+      title : 'Bienvenido al admin de mis pueblitos'
     }
     this.transferedDataToNavar(dataNavar)
   }
 
-  
+
   transferedDataToNavar(value : any): void {
     console.log("CAMBIO");
-    
+
     this.titleService.setTitle(value);
   }
 }

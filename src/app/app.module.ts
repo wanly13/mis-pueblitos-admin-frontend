@@ -17,8 +17,6 @@ import { EditEntitiesComponent } from './pages/modules/entidades/edit-entities/e
 import { HomeComponent } from './pages/modules/home/home.component';
 import { BusinessComponent } from './pages/modules/business/business.component';
 import { EditBusinessComponent } from './pages/modules/business/edit-business/edit-business.component';
-import { PoderesComponent } from './pages/modules/poderes/poderes.component';
-import { EditPoderesComponent } from './pages/modules/poderes/edit-poderes/edit-poderes.component';
 import { AddOficinasComponent } from './pages/modules/business/add-oficinas/add-oficinas.component';
 import { AddSectoristasComponent } from './pages/modules/entidades/add-sectoristas/add-sectoristas.component';
 import { AddCuentasBancariasComponent } from './pages/modules/business/add-cuentas-bancarias/add-cuentas-bancarias.component';
@@ -38,8 +36,6 @@ import { AddCuentasBancariasComponent } from './pages/modules/business/add-cuent
     HomeComponent,
     BusinessComponent,
     EditBusinessComponent,
-    PoderesComponent,
-    EditPoderesComponent,
     AddOficinasComponent,
     AddSectoristasComponent,
     AddCuentasBancariasComponent,

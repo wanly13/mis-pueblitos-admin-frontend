@@ -5,7 +5,7 @@ import { LoadingService } from 'src/app/general-functions/loading/loadings/loadi
 import Swal from 'sweetalert2';
 import { InputModal } from '../../representantes/add-relacion-poder/add-relacion-poder.component';
 import { RepresentantesService } from 'src/app/services/representantes.service';
-import { EntidadesService } from 'src/app/services/entidades.service';
+//import { EntidadesService } from 'src/app/services/lugar.service';
 
 @Component({
   selector: 'app-edit-entities',
@@ -25,7 +25,7 @@ export class EditEntitiesComponent {
     private router: Router,
     private loadingService: LoadingService,
     private fb: FormBuilder,
-    private entidadesService: EntidadesService,
+    //private entidadesService: EntidadesService,
     private representantesService: RepresentantesService
   ) {
 
@@ -53,7 +53,7 @@ export class EditEntitiesComponent {
   }
 
   bool_search_api: boolean = false
-  search_api_reniec() {
+  /*search_api_reniec() {
 
     this.loadingService.show();
 
@@ -76,7 +76,7 @@ export class EditEntitiesComponent {
         this.loadingService.hide();
       }
     );
-  }
+  }*/
   ngOnDestroy() {
     localStorage.removeItem('itemSelected')
   }
@@ -90,16 +90,16 @@ export class EditEntitiesComponent {
       this.addValueForm.patchValue(this.dataLocalStorage.data)
       //this.ListadoSectoristas = this.dataLocalStorage.data.sectoristas
       console.log("LISTADO SECTORISTRAS>: ", this.ListadoSectoristas);
-      
+
       this.bool_search_api = true
-      this.getDateRepresentante(this.dataLocalStorage.data)
+      //this.getDateRepresentante(this.dataLocalStorage.data)
     } else if (this.dataLocalStorage.option == 'CREATE') {
       this.addValueForm.patchValue({})
       this.ListadoSectoristas = []
     }
   }
 
-  getDateRepresentante(value: any) {
+  /*getDateRepresentante(value: any) {
     this.entidadesService.get_entidad(value.taxId).subscribe(
       (response: any) => {
         this.addValueForm.patchValue(response)
@@ -115,7 +115,7 @@ export class EditEntitiesComponent {
         this.loadingService.hide();
       }
     );
-  }
+  }*/
 
 
   // --------- FUNCIONALIDAD TABS------------- \\
@@ -143,17 +143,17 @@ export class EditEntitiesComponent {
   boolAddSectoristas: boolean = false;
   sentMOdal: InputModal = new InputModal();
   activateRelacionPoder(value: any) {
-    
+
     if (value.action == true) {
-      
+
       this.sentMOdal.type = value.option;
       this.sentMOdal.data = value.obj
-      
+
       this.boolAddSectoristas = true;
     } else {
       this.boolAddSectoristas = false;
       this.loadLocalStorageData()
-      
+
     }
 
   }
@@ -165,7 +165,7 @@ export class EditEntitiesComponent {
     if (this.dataLocalStorage.option == 'CREATE') {
 
       //representante.relacionPoderRepresentante = []
-      this.entidadesService.create_entidad(representante).subscribe(
+      /*this.entidadesService.create_entidad(representante).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Creado!',
@@ -189,10 +189,10 @@ export class EditEntitiesComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     } else if (this.dataLocalStorage.option == 'EDIT') {
       representante.relacionPoderRepresentante = this.ListadoSectoristas
-      this.entidadesService.update_entidad(representante.taxId, representante).subscribe(
+      /*this.entidadesService.update_entidad(representante.taxId, representante).subscribe(
         (response: any) => {
           Swal.fire({
             title: '¡Actualizado!',
@@ -211,13 +211,13 @@ export class EditEntitiesComponent {
           });
           this.loadingService.hide();
         }
-      );
+      );*/
     }
   }
 
   deleteSectoristas(value: any) {
     this.loadingService.show()
-    this.entidadesService.delete_relacion_sectorista(value.id).subscribe(
+    /*this.entidadesService.delete_relacion_sectorista(value.id).subscribe(
       (response: any) => {
 
         Swal.fire({
@@ -231,7 +231,7 @@ export class EditEntitiesComponent {
       },
       (err) => {
         console.log(err);
-        
+
         Swal.fire({
           title: '¡Error!',
           text: err.error.message,
@@ -240,7 +240,7 @@ export class EditEntitiesComponent {
 
         this.loadingService.hide();
       }
-    );
+    );*/
   }
 
 

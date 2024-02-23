@@ -9,18 +9,16 @@ import { HomeComponent } from './pages/modules/home/home.component';
 import { EditEntitiesComponent } from './pages/modules/entidades/edit-entities/edit-entities.component';
 import { BusinessComponent } from './pages/modules/business/business.component';
 import { EditBusinessComponent } from './pages/modules/business/edit-business/edit-business.component';
-import { PoderesComponent } from './pages/modules/poderes/poderes.component';
-import { EditPoderesComponent } from './pages/modules/poderes/edit-poderes/edit-poderes.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent
+    component: LoginComponent,
   },
-  {
+  /*{
     path: 'login',
     component: LoginComponent
-  },
+  },*/
   {
     path: 'home',
     component: NavarComponent,
@@ -30,43 +28,35 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'all-rep',
-        component: RepresentantesComponent,
-      },
-      {
-        path: 'add-rep',
-        component: AddRepresentanteComponent,
-      },
-      {
-        path: 'all-entity',
-        component: EntidadesComponent,
-      },
-      {
-        path: 'add-entity',
-        component: EditEntitiesComponent,
-      },
-      {
-        path: 'all-business',
+        path: 'all-departament',
         component: BusinessComponent,
       },
       {
-        path: 'add-business',
+        path: 'add-departament',
         component: EditBusinessComponent,
       },
       {
-        path: 'all-poderes',
-        component: PoderesComponent,
+        path: 'all-lugares',
+        component: EntidadesComponent,
       },
       {
-        path: 'add-poderes',
-        component: EditPoderesComponent,
+        path: 'add-lugares',
+        component: EditEntitiesComponent,
       },
-    ]
+      {
+        path: 'all-eventos',
+        component: RepresentantesComponent,
+      },
+      {
+        path: 'add-eventos',
+        component: AddRepresentanteComponent,
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
