@@ -1,3 +1,12 @@
+export class DtoCreateLugar {
+  nombre: string;
+  descripcion: string;
+  foto: string;
+  video: string;
+  masDestacado: boolean;
+  departamentoId: string;
+}
+
 export class DtoLugar {
   id: string;
   nombre: string;

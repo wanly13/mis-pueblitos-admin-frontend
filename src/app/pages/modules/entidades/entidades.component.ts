@@ -91,8 +91,8 @@ export class EntidadesComponent {
     console.log("GUARDAR LOCAL: ", data);
 
     localStorage.setItem('itemSelected', JSON.stringify(data));
-    this.transferedDataToNavar({ title: 'Editar Banco' })
-    this.router.navigate(['/home/add-entity'])
+    this.transferedDataToNavar({ title: 'Editar Lugar' })
+    this.router.navigate(['/home/add-lugares'])
   }
 
   goToCreate() {
@@ -102,8 +102,8 @@ export class EntidadesComponent {
       data: {}
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
-    this.transferedDataToNavar({ title: 'Agregar Banco' })
-    this.router.navigate(['/home/add-entity'])
+    this.transferedDataToNavar({ title: 'Agregar Lugar' })
+    this.router.navigate(['/home/add-lugares'])
   }
 
   deleteItem(item: any) {

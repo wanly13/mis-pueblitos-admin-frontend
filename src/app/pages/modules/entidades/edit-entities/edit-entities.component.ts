@@ -1,3 +1,4 @@
+import { DepartamentosService } from './../../../../services/departamentos.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -5,7 +6,6 @@ import { LoadingService } from 'src/app/general-functions/loading/loadings/loadi
 import Swal from 'sweetalert2';
 import { InputModal } from '../../representantes/add-relacion-poder/add-relacion-poder.component';
 import { RepresentantesService } from 'src/app/services/representantes.service';
-//import { EntidadesService } from 'src/app/services/lugar.service';
 
 @Component({
   selector: 'app-edit-entities',
@@ -24,16 +24,20 @@ export class EditEntitiesComponent {
   constructor(
     private router: Router,
     private loadingService: LoadingService,
+    private departamentosService:DepartamentosService,
     private fb: FormBuilder,
     //private entidadesService: EntidadesService,
     private representantesService: RepresentantesService
   ) {
 
     this.addValueForm = this.fb.group({
-      taxId: [{ value: null, disabled: false }],
-      idPais: [{ value: null, disabled: false }],
-      razonSocial: [{ value: null, disabled: false }],
-      tipoIdentificación: [{ value: null, disabled: false }],
+      id: [{ value: null, disabled: false }],
+      nombre: [{ value: null, disabled: false }],
+      descripcion: [{ value: null, disabled: false }],
+      foto: [{ value: null, disabled: false }],
+      video: [{ value: null, disabled: false }],
+      masDestacado: [{ value: null, disabled: false }],
+      departamentoId: [{ value: null, disabled: false }],
     });
   }
 
@@ -42,41 +46,16 @@ export class EditEntitiesComponent {
     this.general_loads()
   }
 
+  list_masDestacado: boolean[] = [true, false];
+
   // --------------- Loads Values --------------- \\
   general_loads() {
-    //this.load_estados_laborales()
-    this.tipo_documentos_entidad()
-    //this.load_cargos()
-    this.load_paises()
-    //this.load_empresas()
+    this.departamentos()
 
   }
 
   bool_search_api: boolean = false
-  /*search_api_reniec() {
 
-    this.loadingService.show();
-
-    this.entidadesService.get_entidad(this.addValueForm.value.taxId).subscribe(
-      (response: any) => {
-        this.bool_search_api = true;
-        this.addValueForm.patchValue(response)
-        this.ListadoSectoristas = response.relacionPoderRepresentante
-
-        const data = {
-          option: 'EDIT',
-          data: this.addValueForm.value
-        }
-        localStorage.setItem('itemSelected', JSON.stringify(data));
-        this.loadLocalStorageData()
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.bool_search_api = true;
-        this.loadingService.hide();
-      }
-    );
-  }*/
   ngOnDestroy() {
     localStorage.removeItem('itemSelected')
   }
@@ -96,6 +75,7 @@ export class EditEntitiesComponent {
     } else if (this.dataLocalStorage.option == 'CREATE') {
       this.addValueForm.patchValue({})
       this.ListadoSectoristas = []
+      this.bool_search_api = true
     }
   }
 
@@ -119,23 +99,6 @@ export class EditEntitiesComponent {
 
 
   // --------- FUNCIONALIDAD TABS------------- \\
-  tab_selected: any = 'Profile';
-  DesignTabClassSelected: any = 'inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group'
-  DesignIconClassSelected: any = 'w-4 h-4 me-2 text-blue-600 dark:text-blue-500'
-  DesignTabClassNotSelected: any = 'inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group'
-  DesignIconClassNotSelected: any = 'w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'
-  change_tabs(type: any) {
-    this.tab_selected = type;
-  }
-
-  showSelectedTab(value: any, tabSelected: any) {
-    if (tabSelected == value) {
-      return [this.DesignTabClassSelected, this.DesignIconClassSelected]
-    } else {
-      return [this.DesignTabClassNotSelected, this.DesignIconClassNotSelected]
-    }
-  }
-
   ListadoSectoristas: any[] = []
 
 
@@ -163,7 +126,8 @@ export class EditEntitiesComponent {
     this.loadingService.show();
     var representante = this.addValueForm.value;
     if (this.dataLocalStorage.option == 'CREATE') {
-
+      console.log("representante", representante);
+      this.loadingService.hide();
       //representante.relacionPoderRepresentante = []
       /*this.entidadesService.create_entidad(representante).subscribe(
         (response: any) => {
@@ -245,46 +209,20 @@ export class EditEntitiesComponent {
 
 
   // ------------- CALL LOADS --------- \\
-  list_documentos: any[] = [];
-  tipo_documentos_entidad() {
-    this.list_documentos = [
-      {
-        name: 'Reg. Único de Contribuyentes',
-        value: 'RUC'
+  list_departamentos: any[] = [];
+  departamentos() {
+    this.loadingService.show();
+    this.list_departamentos = []
+    this.departamentosService.get_listado_departamentos().subscribe(
+      (response: any) => {
+        this.list_departamentos = response;
+        this.list_departamentos.push({ id: null, nombre: 'Madre de Dios' })
+        this.loadingService.hide();
       },
-      {
-        name: 'Num. de Ident. Tributaria',
-        value: 'NIT'
-      },
-      {
-        name: 'Num. de Ident. Fiscal',
-        value: 'NIF'
-      },
-      {
-        name: 'Reg. Nacional de Proveedores',
-        value: 'RNP'
-      },
-      {
-        name: 'Num. de Ident. de Empresa',
-        value: 'NIE'
-      },
-      {
-        name: 'Num. de Registro Mercantil',
-        value: 'NRM'
-      },
-      {
-        name: 'Reg. Único de Empresas',
-        value: 'RUE'
-      },
-      {
-        name: 'Num. de Ident. Comercial',
-        value: 'NIC'
-      },
-      {
-        name: 'Cod. de Ident. Empresarial',
-        value: 'CIE'
-      },
-    ];
+      (err) => {
+        this.loadingService.hide();
+      }
+    );
 
   }
 

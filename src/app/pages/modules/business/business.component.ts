@@ -12,7 +12,7 @@ import { TitleService } from '../../navar/navar.service';
 @Component({
   selector: 'app-business',
   templateUrl: './business.component.html',
-  styleUrls: ['./business.component.scss']
+  styleUrls: ['./business.component.scss'],
 })
 export class BusinessComponent {
 
@@ -94,7 +94,7 @@ export class BusinessComponent {
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
     this.transferedDataToNavar({ title: 'Editar Empresa' })
-    this.router.navigate(['/home/add-business'])
+    this.router.navigate(['/home/add-departament'])
   }
 
   goToCreate() {
@@ -104,7 +104,7 @@ export class BusinessComponent {
       data: {}
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
-    this.transferedDataToNavar({ title: 'Agregar Empresa' })
+    this.transferedDataToNavar({ title: 'Agregar Departamento' })
     this.router.navigate(['/home/add-departament'])
   }
 
@@ -128,14 +128,13 @@ export class BusinessComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.loadingService.show()
-        /*this.businessService.delete_entidad(item.taxId).subscribe(
+        this.departamentosService.delete_departamento(item.id).subscribe(
           (response: any) => {
             swalWithBootstrapButtons.fire({
               title: "Borrado!",
               text: "Se se elimino la empresa correctamente.",
               icon: "success"
             });
-
 
             this.search_entidad(this.searchValueForm.value)
             this.loadingService.hide();
@@ -149,9 +148,7 @@ export class BusinessComponent {
 
             this.loadingService.hide();
           }
-        );*/
-
-
+        );
 
       } else if (
         /* Read more about handling dismissals below */

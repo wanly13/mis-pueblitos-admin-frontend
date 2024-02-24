@@ -1,244 +1,96 @@
-<div class="border-b border-gray-200 dark:border-gray-700 mx-3">
-    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
-        <li class="me-2">
-            <a (click)="change_tabs('Profile')" [class]="showSelectedTab('Profile',tab_selected )[0] ">
-                <svg [class]="showSelectedTab('Profile',tab_selected )[1]" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                        d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
-                </svg>Datos Banco
-            </a>
-        </li>
-        <li class="me-2">
-            <a (click)="change_tabs('Sectoristas')" [class]="showSelectedTab('Sectoristas',tab_selected )[0]">
-                <svg [class]="showSelectedTab('Sectoristas',tab_selected )[1]" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                    <path
-                        d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-                </svg>Listado de Sectoristas
-            </a>
-        </li>
-        <!--  <li class="me-2">
-            <a (click)="save_representante('sdf')" [class]="showSelectedTab('Save',tab_selected )[0]">
-                <svg [class]="showSelectedTab('Save',tab_selected )[1]" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                    <path
-                        d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-                </svg>Guardar Cambios
-            </a>
-        </li> -->
-        <!-- <li class="me-2">
-            <a class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                <svg class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 11.424V1a1 1 0 1 0-2 0v10.424a3.228 3.228 0 0 0 0 6.152V19a1 1 0 1 0 2 0v-1.424a3.228 3.228 0 0 0 0-6.152ZM19.25 14.5A3.243 3.243 0 0 0 17 11.424V1a1 1 0 0 0-2 0v10.424a3.227 3.227 0 0 0 0 6.152V19a1 1 0 1 0 2 0v-1.424a3.243 3.243 0 0 0 2.25-3.076Zm-6-9A3.243 3.243 0 0 0 11 2.424V1a1 1 0 0 0-2 0v1.424a3.228 3.228 0 0 0 0 6.152V19a1 1 0 1 0 2 0V8.576A3.243 3.243 0 0 0 13.25 5.5Z"/>
-                </svg>Settings
-            </a>
-        </li>
-        <li class="me-2">
-            <a class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                <svg class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
-                </svg>Contacts
-            </a>
-        </li>
-        <li>
-            <a class="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
-        </li> -->
-    </ul>
+<div class="lg:flex lg:items-start lg:justify-between px-3">
+  <a class="block w-full mt-1 p-6">
+    <form [formGroup]="addValueForm" class="max-w-3xl mx-auto">
+      <div class="grid md:grid-cols-4 md:gap-6">
+        <div class="relative z-0 col-span-1 mb-5 group">
+          <label [class]="label_class">Departamento </label>
+          <select [class]="input_class" formControlName="departamentoId">
+            <option *ngIf="list_departamentos.length > 0"></option>
+            <option *ngFor="let item of list_departamentos" [value]="item.id">
+              {{ item.nombre }}
+            </option>
+          </select>
+        </div>
+        <div class="relative z-0 col-span-1 mb-5 group">
+          <label [class]="label_class">Más Destacado </label>
+          <select [class]="input_class" formControlName="masDestacado">
+            <option *ngIf="list_masDestacado.length > 0"></option>
+            <option *ngFor="let item of list_masDestacado" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+        </div>
+        <div class="relative z-0 col-span-2 mb-5 group">
+          <input
+            type="text"
+            [class]="input_class"
+            placeholder=" "
+            formControlName="nombre"
+            required
+            autocomplete="nope"
+          />
+          <label for="floating_last_name" [class]="label_class">
+            nombre
+          </label>
+        </div>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <textarea
+          id="message"
+          rows="4"
+          formControlName="descripcion"
+          required
+          autocomplete="nope"
+          [class]="input_class"
+          placeholder=" "
+        ></textarea>
+        <label for="descripcion" [class]="label_class"> Descripción </label>
+      </div>
+      <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="relative z-0 w-full mb-5 group">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-500"
+            for="file_input"
+            >Upload Foto</label
+          >
+          <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-transparent focus:outline-none"
+            id="file_input"
+            type="file"
+            required
+            formControlName="foto"
+          />
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-500"
+            for="file_input"
+            >Upload Video</label
+          >
+          <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-transparent focus:outline-none"
+            id="file_input"
+            type="file"
+            required
+            formControlName="video"
+          />
+        </div>
+      </div>
+      <div *ngIf="bool_search_api" class="relative z-0 w-full mb-5 group">
+        <button
+          type="button"
+          (click)="nextPage()"
+          class="text-white bg-gray-800 w-full hover:bg-gray-700 focus:outline-none font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+  </a>
 </div>
 
-
-<div [ngSwitch]="tab_selected" class="lg:flex lg:items-start lg:justify-between   px-3">
-
-    <a *ngSwitchCase="'Profile'" class="block w-full mt-1  p-6  ">
-        <form [formGroup]="addValueForm" class="max-w-lg mx-auto">
-            <div class="grid md:grid-cols-2 md:gap-6">
-                <div class="relative z-0 w-full mb-5 group">
-                    <label [class]="label_class">Tipo Identificación </label>
-                    <select [class]="input_class" formControlName="tipoIdentificación">
-                        <option *ngIf="list_documentos.length > 0"></option>
-                        <option *ngFor="let item of list_documentos" [value]="item.value"> {{item.name}}
-                        </option>
-
-                    </select>
-                </div>
-                <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" [class]="input_class" placeholder=" " formControlName="taxId" required
-                        autocomplete="nope" />
-                    <label for="floating_last_name" [class]="label_class"> Identificación </label>
-                </div>
-            </div>
-            <div *ngIf="!bool_search_api" class="grid md:grid-cols-2 md:gap-6">
-                <div class="relative z-0 w-full mb-5 group">
-                    <label [class]="label_class">País</label>
-                    <select [class]="input_class" formControlName="idPais">
-                        <option *ngIf="list_paises.length > 0"></option>
-                        <option *ngFor="let item of list_paises" [value]="item.idPais"> {{item.nombrePais}}
-                        </option>
-
-                    </select>
-                </div>
-
-                <div class="relative z-0 w-full mb-5 group">
-                    <button *ngIf="bool_search_api" disabled type="button"
-                        class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
-                        <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
-                            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                fill="#E5E7EB" />
-                            <path
-                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                fill="currentColor" />
-                        </svg>
-                        Buscando ...
-                    </button>
-                    <button *ngIf="!bool_search_api" type="button"
-                        class="text-white global-center w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
-
-                        BUSCAR
-                    </button>
-                    <label for="floating_last_name" [class]="label_class"> </label>
-                </div>
-            </div>
-            <div *ngIf="bool_search_api" class="relative z-0 w-full mb-5 group">
-                <label [class]="label_class">País</label>
-                <select [class]="input_class" formControlName="idPais">
-                    <option *ngIf="list_paises.length > 0"></option>
-                    <option *ngFor="let item of list_paises" [value]="item.idPais"> {{item.nombrePais}}
-                    </option>
-
-                </select>
-            </div>
-            <div *ngIf="bool_search_api" class="relative z-0 w-full mb-5 group">
-                <input type="text" [class]="input_class" placeholder=" " formControlName="razonSocial" required
-                    autocomplete="nope" />
-                <label [class]="label_class">
-                    Razón Social
-                </label>
-            </div>
-
-
-            <div *ngIf="bool_search_api" class="global-center">
-
-                <button type="button" (click)="nextPage()"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Guardar
-                </button>
-            </div>
-
-        </form>
-
-    </a>
-    <div *ngSwitchCase="'Sectoristas'" class="block w-full mt-1  ">
-
-        <div class="global-center-end">
-            <button type="button"
-                (click)="activateRelacionPoder({action : true , option: 'CREATE', obj : addValueForm.value})"
-                class="text-white global-center w-15 bg-blue-700 my-2 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
-
-                Agregar Sectorista
-            </button>
-        </div>
-
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Apellido Paterno
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center">
-                                Apellido Materno
-
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center">
-                                Nombres
-
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center">
-                                Correo
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center">
-                                Contacto
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3 truncate">
-                            <div class="flex items-center truncate">
-                                Notas
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Edit</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr class="bg-white " *ngFor="let item of ListadoSectoristas">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            {{item.apellidoPaterno}}
-                        </th>
-                        <td class="px-6 py-4">
-                            {{item.apellidoMaterno}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{item.nombres}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{item.correo}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{item.contacto}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{
-                              item.notas.length < 10
-                                ? item.notas
-                                : item.notas.slice(0, 10) + "..."
-                            }}
-                        </td>
-
-                        <td class="px-6 py-4 text-right">
-                            <a (click)="activateRelacionPoder({action : true, option: 'EDIT', obj : item})"
-                                class="font-medium text-blue-600  hover:underline">Ver / </a>
-                            <a (click)="deleteSectoristas(item)"
-                                class="font-medium text-blue-600  hover:underline">Eliminar</a>
-                        </td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-            <div *ngIf="ListadoSectoristas.length == 0">
-                <div class="w-full global-center py-2 text-sm">
-
-                    No se encontraron registros
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-</div>
-
-
-<!-- drawer init and toggle -->
-<!-- <div class="text-center">
-    <button
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        type="button" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example"
-        data-drawer-placement="right" aria-controls="drawer-right-example">
-        Show right drawer
-    </button>
-</div> -->
-
-<app-add-sectoristas *ngIf="boolAddSectoristas" [TypeModal]="sentMOdal"
-    (messageEvent)="activateRelacionPoder($event)"></app-add-sectoristas>
+<app-add-sectoristas
+  *ngIf="boolAddSectoristas"
+  [TypeModal]="sentMOdal"
+  (messageEvent)="activateRelacionPoder($event)"
+></app-add-sectoristas>
