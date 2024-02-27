@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InputModal } from '../../representantes/add-relacion-poder/add-relacion-poder.component';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-//import { BusinessService } from 'src/app/services/business.service';
+//import { BusinessService } from 'src/app/services/departamento.service';
 import Swal from 'sweetalert2';
 //import { EntidadesService } from 'src/app/services/lugar.service';
 

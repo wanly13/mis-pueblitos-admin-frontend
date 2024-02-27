@@ -1,6 +1,4 @@
-<div
-  class="lg:flex lg:items-start lg:justify-between px-3"
->
+<div class="lg:flex lg:items-start lg:justify-between px-3">
   <div class="block w-full mt-1 p-6">
     <form [formGroup]="addValueForm" class="max-w-lg mx-auto">
       <div class="relative z-0 w-full mb-5 group">
@@ -37,9 +35,18 @@
           id="file_input"
           type="file"
           required
-          formControlName="foto_input"
+          (change)="onFileSelected($event)"
         />
       </div>
+      <div class="flex justify-center">
+        <img
+          *ngIf="dataLocalStorage.data.foto != null"
+          class="relative z-0 h-60 mb-5 group"
+          src="{{ dataLocalStorage.data.foto }}"
+          alt="{{ dataLocalStorage.data.nombre }}"
+        />
+      </div>
+
 
       <div *ngIf="bool_search_api" class="relative z-0 w-full mb-5 group">
         <button
@@ -52,5 +59,4 @@
       </div>
     </form>
   </div>
-
 </div>

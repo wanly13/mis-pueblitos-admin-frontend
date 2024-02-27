@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { API_SERVER } from 'src/environments/environment.prod';
 import { DtoRepresenante } from '../pages/modules/representantes/estructure/dtoRepresentante';
-import { DtoDepartamento } from '../pages/modules/business/structure/DtoEmpresa';
+import { DtoDepartamento } from '../pages/modules/departamento/structure/DtoDepartamento';
 
 
 @Injectable({

@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
-//import { BusinessService } from 'src/app/services/business.service';
+//import { BusinessService } from 'src/app/services/departamento.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
 import Swal from 'sweetalert2';
 

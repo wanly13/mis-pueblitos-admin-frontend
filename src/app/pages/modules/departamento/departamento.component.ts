@@ -1,20 +1,20 @@
-import { DepartamentosService } from './../../../services/departamentos.service';
+import { DepartamentosService } from '../../../services/departamentos.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
-import { DtoDepartamento } from './structure/DtoEmpresa';
+import { DtoDepartamento } from './structure/DtoDepartamento';
 import Swal from 'sweetalert2';
-//import { BusinessService } from 'src/app/services/business.service';
+//import { BusinessService } from 'src/app/services/departamento.service';
 import { TitleService } from '../../navar/navar.service';
 
 @Component({
-  selector: 'app-business',
-  templateUrl: './business.component.html',
-  styleUrls: ['./business.component.scss'],
+  selector: 'app-departamento',
+  templateUrl: './departamento.component.html',
+  styleUrls: ['./departamento.component.scss'],
 })
-export class BusinessComponent {
+export class DepartamentoComponent {
 
   // --------------- Diseño Formulario --------------- \\
   input_class: any = 'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none border-gray-600  focus:outline-none focus:ring-0 focus:border-blue-600 peer'
@@ -31,7 +31,7 @@ export class BusinessComponent {
     tipoFirmante: [{ value: null, disabled: false }],
     estadoPoder: [{ value: null, disabled: false }], */
 
-  });;
+  });
 
   constructor(
     public router: Router,

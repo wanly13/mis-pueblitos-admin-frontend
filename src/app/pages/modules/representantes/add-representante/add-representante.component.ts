@@ -1,3 +1,4 @@
+import { LugarService } from 'src/app/services/lugar.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./add-representante.component.scss']
 })
 export class AddRepresentanteComponent {
+  selectedFile: File;
   // --------------- Diseño Formulario --------------- \\
   input_class: any = 'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none border-gray-600  focus:outline-none focus:ring-0 focus:border-blue-600 peer'
   label_class: any = 'peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
@@ -24,21 +26,18 @@ export class AddRepresentanteComponent {
     private loadingService: LoadingService,
     private fb: FormBuilder,
     private representantesService: RepresentantesService,
+    private lugarService: LugarService,
   ) {
 
     this.addValueForm = this.fb.group({
-      tipoDocumento: [{ value: null, disabled: false }],
-      documentoIdentidad: [{ value: null, disabled: false }],
-      fechaNacimiento: [{ value: null, disabled: false }],
-      nombres: [{ value: null, disabled: false }],
-      apellidoPaterno: [{ value: null, disabled: false }],
-      apellidoMaterno: [{ value: null, disabled: false }],
-      celular: [{ value: null, disabled: false }],
-      correoElectronico: [{ value: null, disabled: false }],
-      area: [{ value: null, disabled: false }],
-      cargo: [{ value: null, disabled: false }],
-      idPais: [{ value: null, disabled: false }],
-      idEstadoLaboral: [{ value: null, disabled: false }],
+      id: [{ value: null, disabled: false }],
+      nombre: [{ value: null, disabled: false }],
+      descripcion: [{ value: null, disabled: false }],
+      foto: [{ value: null, disabled: false }],
+      ubicacionExacta: [{ value: null, disabled: false }],
+      fechaInicio: [{ value: null, disabled: false }],
+      fechaFin: [{ value: null, disabled: false }],
+      lugarId: [{ value: null, disabled: false }],
     });
   }
 
@@ -47,12 +46,13 @@ export class AddRepresentanteComponent {
     this.general_loads()
   }
 
+  onFileSelected(event): void {
+    this.selectedFile = event.target.files[0];
+  }
+
   // --------------- Loads Values --------------- \\
   general_loads() {
-    this.load_estados_laborales()
-    this.tipo_documentos()
-    this.load_paises()
-    this.load_empresas()
+    this.load_lugares()
 
   }
 
@@ -273,90 +273,14 @@ export class AddRepresentanteComponent {
 
 
   // ------------- CALL LOADS --------- \\
-  list_estado_laboral: any[] = [];
-  load_estados_laborales() {
+
+  list_lugares: any[] = [];
+  load_lugares() {
     this.loadingService.show();
-    this.list_estado_laboral = []
-    this.representantesService.get_listado_estados_laborales().subscribe(
+    this.list_lugares = []
+    this.lugarService.get_listado_lugares().subscribe(
       (response: any) => {
-        this.list_estado_laboral = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  }
-
-  list_documentos: any[] = [];
-  tipo_documentos() {
-    this.list_documentos = [
-      {
-        name: 'DNI - Documento Nacional de Identidad',
-        value: 'DNI'
-      },
-      {
-        name: 'Carnet de Extranjería',
-        value: 'CE'
-      },
-      {
-        name: 'Pasaporte',
-        value: 'PSP'
-      },
-      {
-        name: 'DUI - Documento Único de Indentidad',
-        value: 'DUI'
-      },
-      {
-        name: 'DPI - Documento Personal de Identidad',
-        value: 'DPI'
-      },
-      {
-        name: 'Cédula de Identidad',
-        value: 'CI'
-      },
-      {
-        name: 'Cédula de Ciudadanía',
-        value: 'CC'
-      },
-      {
-        name: 'Registro Geral',
-        value: 'RG'
-      },
-      {
-        name: 'CPF - Cadastro de Pessoas Físicas',
-        value: 'CPF'
-      },
-      {
-        name: 'DOI - Documento Oficial de Identidad',
-        value: 'DOI'
-      }
-    ]
-  }
-
-
-  list_paises: any[] = [];
-  load_paises() {
-    this.loadingService.show();
-    this.list_paises = []
-    this.representantesService.get_listado_paises().subscribe(
-      (response: any) => {
-        this.list_paises = response;
-        this.loadingService.hide();
-      },
-      (err) => {
-        this.loadingService.hide();
-      }
-    );
-  }
-
-  list_empresas: any[] = [];
-  load_empresas() {
-    this.loadingService.show();
-    this.list_empresas = []
-    this.representantesService.get_listado_empresas().subscribe(
-      (response: any) => {
-        this.list_empresas = response;
+        this.list_lugares = response;
         this.loadingService.hide();
       },
       (err) => {

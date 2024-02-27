@@ -108,7 +108,7 @@ export class RepresentantesComponent {
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
     this.transferedDataToNavar({ title: 'Editar Firmante' })
-    this.router.navigate(['/home/add-rep'])
+    this.router.navigate(['/home/add-eventos'])
   }
 
   goToCreate() {
@@ -119,7 +119,7 @@ export class RepresentantesComponent {
     }
     localStorage.setItem('itemSelected', JSON.stringify(data));
     this.transferedDataToNavar({ title: 'Agregar Firmante' })
-    this.router.navigate(['/home/add-rep'])
+    this.router.navigate(['/home/add-eventos'])
   }
   cleanAll() {
     const { page, pageSize } = this.searchValueForm.value;

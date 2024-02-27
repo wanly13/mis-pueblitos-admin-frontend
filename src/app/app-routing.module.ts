@@ -7,8 +7,8 @@ import { AddRepresentanteComponent } from './pages/modules/representantes/add-re
 import { EntidadesComponent } from './pages/modules/entidades/entidades.component';
 import { HomeComponent } from './pages/modules/home/home.component';
 import { EditEntitiesComponent } from './pages/modules/entidades/edit-entities/edit-entities.component';
-import { BusinessComponent } from './pages/modules/business/business.component';
-import { EditBusinessComponent } from './pages/modules/business/edit-business/edit-business.component';
+import { DepartamentoComponent } from './pages/modules/departamento/departamento.component';
+import { EditDepartamentoComponent } from './pages/modules/departamento/edit-departamento/edit-departamento.component';
 
 const routes: Routes = [
   {
@@ -29,11 +29,11 @@ const routes: Routes = [
       },
       {
         path: 'all-departament',
-        component: BusinessComponent,
+        component: DepartamentoComponent,
       },
       {
         path: 'add-departament',
-        component: EditBusinessComponent,
+        component: EditDepartamentoComponent,
       },
       {
         path: 'all-lugares',
