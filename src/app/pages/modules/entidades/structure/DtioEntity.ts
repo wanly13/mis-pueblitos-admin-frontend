@@ -7,6 +7,30 @@ export class DtoCreateLugar {
   departamentoId: string;
 }
 
+export class DtoCreateMotivosVisita {
+  nombre: string;
+  descripcion: string;
+  foto: string;
+  lugarId: string;
+}
+
+export class DtoMotivosVisita {
+  id: string;
+  nombre: string;
+  descripcion: string;
+  foto: string;
+  lugarId: string;
+  lugar: {
+    id: string;
+    nombre: string;
+    descripcion: string;
+    foto: string;
+    video: string;
+    masDestacado: boolean;
+    departamentoId: string;
+  };
+}
+
 export class DtoLugar {
   id: string;
   nombre: string;
