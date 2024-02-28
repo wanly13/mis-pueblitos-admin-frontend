@@ -5,7 +5,6 @@ import { LoadingService } from 'src/app/general-functions/loading/loadings/loadi
 import { LugarService } from 'src/app/services/lugar.service';
 import { DtoLugar } from './structure/DtioEntity';
 import Swal from 'sweetalert2';
-import { RepresentantesService } from 'src/app/services/representantes.service';
 import { TitleService } from '../../navar/navar.service';
 
 @Component({
@@ -35,7 +34,6 @@ export class EntidadesComponent {
   constructor(
     public router: Router,
     private lugarService: LugarService,
-    private representantesService: RepresentantesService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
     private titleService: TitleService,

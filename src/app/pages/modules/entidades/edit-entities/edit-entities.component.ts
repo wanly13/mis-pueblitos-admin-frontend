@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/general-functions/loading/loadings/loading-service.service';
 import Swal from 'sweetalert2';
 import { InputModal } from '../../representantes/add-relacion-poder/add-relacion-poder.component';
-import { RepresentantesService } from 'src/app/services/representantes.service';
 import { S3Service } from 'src/app/services/S3.service';
 import { DtoCreateLugar } from '../structure/DtioEntity';
 import { LugarService } from 'src/app/services/lugar.service';

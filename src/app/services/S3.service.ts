@@ -13,7 +13,7 @@ export class S3Service {
     region: REGION,
     bucketName: BUCKET,
     s3Url: `https://${BUCKET}.s3.amazonaws.com/`,
-    dirName: ''
+    dirName:'',
   }
   private readonly s3: AWSS3UploadAshClient;
 
@@ -25,12 +25,31 @@ export class S3Service {
     this.config.dirName = dirName;
   }
 
+  quitarEspacios(texto: string): string {
+    return texto.replace(/\s/g, '-');
+  }
+
   async uploadImage(file: File): Promise<string> {
     return await this.s3
-      .uploadFile(file, file.type, undefined, file.name, 'public-read')
+      .uploadFile(file, file.type, undefined, this.quitarEspacios(file.name), 'public-read')
       .then((data: UploadResponse) => data.location)
       .catch(
         (err: any) => {throw new Error(err)}
       );
   }
+
+  async deleteImage(url: string): Promise<void> {
+    //const key = decodeURIComponent(url.split('/').pop()!);
+    console.log('key', url.split('/').pop());
+    await this.s3
+    .deleteFile(url)
+    .then(response => console.log(response))
+    .catch(err => {throw new Error(err)})
+  }
+
 }
+
+/*
+
+
+*/
