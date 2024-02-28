@@ -90,13 +90,6 @@ export class EditDepartamentoComponent {
       this.loadingService.hide();
     }
 
-    this.s3Service
-      .uploadImage(this.selectedFile)
-      .then((res) => (departamento.foto = res))
-      .catch((err) => {
-        throw new Error(err);
-      });
-
     if (this.dataLocalStorage.option == 'CREATE') {
       delete departamento.id;
       this.departamentosService.create_departamento(departamento).subscribe(
